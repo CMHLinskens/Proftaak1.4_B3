@@ -4,4 +4,7 @@
     <string name="story">story</string>
     <string name="achievements">achievements</string>
     <string name="settings">settings</string>
+    <string name="Story">Story</string>
+    <string name="Achievements">Achievements</string>
+    <string name="Settings">Settings</string>
 </resources>

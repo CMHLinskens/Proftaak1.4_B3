@@ -7,15 +7,15 @@
     <item
         android:id="@+id/nav_story"
         android:icon="@drawable/ic_story"
-        android:title="@string/story" />
+        android:title="@string/Story" />
     <item
         android:id="@+id/nav_achievements"
         android:icon="@drawable/ic_achievements"
-        android:title="@string/achievements" />
+        android:title="@string/Achievements" />
     <item
         android:id="@+id/nav_settings"
         android:icon="@drawable/ic_settings"
-        android:title="@string/settings" />
+        android:title="@string/Settings" />
 
 
 
