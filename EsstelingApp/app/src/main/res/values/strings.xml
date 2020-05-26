@@ -4,6 +4,8 @@
     // Home page strings
     <string name="home_stories_text">Verhalen afgerond</string>
     <string name="home_achievement_text">Prestaties behaald</string>
+
+    // Navigation bar strings
     <string name="home">Home</string>
     <string name="story">story</string>
     <string name="achievements">achievements</string>
@@ -11,4 +13,9 @@
     <string name="Story">Story</string>
     <string name="Achievements">Achievements</string>
     <string name="Settings">Settings</string>
+
+    // Unlock screen popup strings
+    <string name="password">Wachtwoord</string>
+    <string name="testButton">testButton</string>
+
 </resources>

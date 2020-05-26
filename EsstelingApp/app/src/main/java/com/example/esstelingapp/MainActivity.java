@@ -12,9 +12,10 @@ import com.example.esstelingapp.ui.AchievementPage;
 import com.example.esstelingapp.ui.HomePage;
 import com.example.esstelingapp.ui.SettingsPage;
 import com.example.esstelingapp.ui.StoryPage;
+import com.example.esstelingapp.ui.StoryUnlockPopup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.ExampleDialogListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
 
-            switch(item.getItemId()) {
+            switch (item.getItemId()) {
                 case R.id.nav_home:
                     selectedFragment = new HomePage();
                     break;
@@ -48,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 
             return true;
-        };
+        }
+
+        ;
     };
+
+    @Override
+    public void applyCode(String code) {
+        if (code.equals("epic"))
+            System.out.println("WOW!");
+        else
+            System.out.println("fuck off");
+    }
 }
