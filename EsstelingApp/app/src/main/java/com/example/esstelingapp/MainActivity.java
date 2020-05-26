@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment;
 
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MenuItem;
 
+import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.ui.AchievementPage;
 import com.example.esstelingapp.ui.HomePage;
 import com.example.esstelingapp.ui.SettingsPage;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
+
+        DataSingleton dataSingleton = DataSingleton.getInstance();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

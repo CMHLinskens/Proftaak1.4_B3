@@ -9,10 +9,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
+import com.example.esstelingapp.data.DataSingleton;
 
 import java.util.LinkedList;
 
@@ -56,7 +59,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             Story element = mStoryList.get(mPosition);
             if (element!=null){
                 if(!element.getStoryStatus()) {
-                    // TODO open pop-up
+                    openUnlockPopUp();
                 }
 //                intent =  new Intent(context, Detail.class);
 //                intent.putExtra("Project_Name_Key", element.getProjectName());
@@ -69,6 +72,11 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
 //                intent =  new Intent(context, Detail.class);
             }
 //            context.startActivity(intent);
+        }
+
+        private void openUnlockPopUp(){
+            StoryUnlockPopup storyUnlockPopup = new StoryUnlockPopup();
+            storyUnlockPopup.show(DataSingleton.getInstance().getStoryFragmentManager(), "Unlock Code");
         }
     }
 

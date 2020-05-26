@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
+import com.example.esstelingapp.data.DataSingleton;
 
 import java.util.LinkedList;
 
@@ -25,6 +26,7 @@ public class StoryPage extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        DataSingleton.getInstance().setStoryFragmentManager(getFragmentManager());
         return inflater.inflate(R.layout.activity_story_menu, container, false);
     }
 
