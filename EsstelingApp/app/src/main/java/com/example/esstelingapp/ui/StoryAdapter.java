@@ -1,8 +1,7 @@
-package com.example.esstelingapp;
+package com.example.esstelingapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.File;
+import com.example.esstelingapp.R;
+import com.example.esstelingapp.Story;
+
 import java.util.LinkedList;
 
 public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHolder> {
@@ -54,6 +55,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             int mPosition = getLayoutPosition();
             Story element = mStoryList.get(mPosition);
             if (element!=null){
+                if(!element.getStoryStatus()) {
+                    // TODO open pop-up
+                }
 //                intent =  new Intent(context, Detail.class);
 //                intent.putExtra("Project_Name_Key", element.getProjectName());
 //                intent.putExtra("Project_Year_Key", element.getProjectYear());
