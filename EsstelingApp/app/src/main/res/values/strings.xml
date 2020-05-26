@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">EsstelingApp</string>
+
+    // Home page strings
+    <string name="home_stories_text">Verhalen afgerond</string>
+    <string name="home_achievement_text">Prestaties behaald</string>
 </resources>
