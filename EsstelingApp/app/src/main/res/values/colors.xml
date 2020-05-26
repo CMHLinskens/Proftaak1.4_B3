@@ -3,4 +3,8 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name = "EsstelingRed">#be2223</color>
+    <color name = "EsstelingBlue">#95c8f0</color>
+    <color name = "EsstelingGreen">#2a4325</color>
+    <color name = "EsstelingOrange">#eb881c </color>
 </resources>
