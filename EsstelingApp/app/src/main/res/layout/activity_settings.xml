@@ -13,10 +13,9 @@
         android:id="@+id/settings_colour_blind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginStart="28dp"
         android:layout_marginTop="32dp"
-        android:text="Colour-blind mode"
+        android:text="@string/colourBlindMode"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="44dp"
-        android:text="Language"
+        android:text="@string/language"
         android:textIsSelectable="false"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"

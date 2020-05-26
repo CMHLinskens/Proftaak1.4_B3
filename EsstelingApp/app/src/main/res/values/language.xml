@@ -2,4 +2,6 @@
 <resources>
     <string name="dutch">Dutch</string>
     <string name="english">English</string>
+    <string name="language">Language</string>
+    <string name="colourBlindMode">Colour-blind mode</string>
 </resources>

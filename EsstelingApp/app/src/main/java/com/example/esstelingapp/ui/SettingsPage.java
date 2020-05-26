@@ -1,6 +1,10 @@
 package com.example.esstelingapp.ui;
 
+import android.annotation.SuppressLint;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
@@ -17,6 +21,7 @@ import com.example.esstelingapp.R;
 
 public class SettingsPage extends AppCompatActivity {
 
+    private ConstraintLayout layout;
     private RadioGroup group;
     private RadioButton radioButton;
     private TextView txtView1;
@@ -29,17 +34,26 @@ public class SettingsPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        this.layout = findViewById(R.id.settings_layout);
         this.button = findViewById(R.id.settings_colour_blind_button);
+        this.txtView1 = findViewById(R.id.settings_colour_blind);
+        this.txtView2 = findViewById(R.id.settings_language);
         this.group = findViewById(R.id.settings_radio_buttons);
-
     }
 
     public void onClick(View view) {
+        int radioId = group.getCheckedRadioButtonId();
+
+        radioButton = findViewById(radioId);
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(button.isChecked()){
-                    Log.d("CLICKABLE BUTTON", "");
+                    Log.d("CLICKABLE BUTTON", "Button has turned on!");
+
+//                    getTheme().applyStyle(R.style.ColourBlindTheme, true);
+                    getApplication().setTheme(R.style.ColourBlindTheme);
                 } else {
                     Log.d("CLICKABLE BUTTON", "Button has turned off!");
                 }
@@ -54,5 +68,6 @@ public class SettingsPage extends AppCompatActivity {
 
         Toast.makeText(this, "Language has changed to: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
     }
+
 }
 
