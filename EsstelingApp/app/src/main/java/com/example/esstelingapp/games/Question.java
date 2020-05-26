@@ -1,5 +1,8 @@
 package com.example.esstelingapp.games;
 
+import android.util.JsonReader;
+import org.json.JSONObject;
+
 public class Question {
     private String question;
     private String[] answers;
@@ -17,4 +20,5 @@ public class Question {
     public String[] getAnswers() {
         return answers;
     }
+
 }
