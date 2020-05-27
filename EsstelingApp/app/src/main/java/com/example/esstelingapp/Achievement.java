@@ -10,9 +10,9 @@ public class Achievement {
     private int AchievementImageURL;
     private boolean AchievementStatus;
 
-    public Achievement(String achievementName, int achievementImageURL, boolean achievementStatus, int achievementProgress) {
+    public Achievement(String achievementName, boolean achievementStatus, int achievementProgress) {
         AchievementName = achievementName;
-        AchievementImageURL = achievementImageURL;
+//        AchievementImageURL = achievementImageURL;
         AchievementStatus = achievementStatus;
         AchievementProgress = achievementProgress;
     }

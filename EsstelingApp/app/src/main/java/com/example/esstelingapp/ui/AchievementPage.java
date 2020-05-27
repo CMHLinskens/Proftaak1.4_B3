@@ -32,12 +32,12 @@ public class AchievementPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAchievementList.add(new Achievement("Piglet home builder",0,false,0));
-        mAchievementList.add(new Achievement("Red riding hood",0,false,0));
-        mAchievementList.add(new Achievement("follow the breadcrumbs",0,false,0));
-        mAchievementList.add(new Achievement("sneaky dragon treasure thief",0,false,0));
-        mAchievementList.add(new Achievement("junior story seeker",0,false,0));
-        mAchievementList.add(new Achievement("master story seeker",0,false,0));
+        mAchievementList.add(new Achievement("Piglet home builder",true,0));
+        mAchievementList.add(new Achievement("Red riding hood",false,0));
+        mAchievementList.add(new Achievement("follow the breadcrumbs",false,0));
+        mAchievementList.add(new Achievement("sneaky dragon treasure thief",false,0));
+        mAchievementList.add(new Achievement("junior story seeker",false,0));
+        mAchievementList.add(new Achievement("master story seeker",false,0));
 
 
         // Create recycler view.

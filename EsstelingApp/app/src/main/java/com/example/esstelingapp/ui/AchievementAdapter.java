@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.R;
-import com.example.esstelingapp.Story;
 
 import java.util.LinkedList;
 
@@ -27,7 +26,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         public final TextView achievementNameItemView;
         public final ImageView achievementStatusItemView;
         public final ProgressBar achievementProgressItemView;
-        public final ImageView achievementImageItemView;
+//        public final ImageView achievementImageItemView;
         private final Context context;
         final AchievementAdapter mAdapter;
 
@@ -42,10 +41,10 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         public AchievementViewHolder(View itemView, AchievementAdapter adapter) {
             super(itemView);
             context= itemView.getContext();
-            achievementNameItemView = itemView.findViewById(R.id.StoryTitelView);
-            achievementStatusItemView = itemView.findViewById(R.id.StoryStatusImage);
-            achievementProgressItemView = itemView.findViewById(R.id.storyProgressBar);
-            achievementImageItemView = itemView.findViewById(R.id.StoryImageView);
+            achievementNameItemView = itemView.findViewById(R.id.AchievementNameView);
+            achievementStatusItemView = itemView.findViewById(R.id.achievmentStatusView);
+            achievementProgressItemView = itemView.findViewById(R.id.AchievementProgressBar);
+//            achievementImageItemView = itemView.findViewById(R.id.StoryImageView);
             this.mAdapter = adapter;
             itemView.setOnClickListener(this);
         }
@@ -103,7 +102,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
                                                            int viewType) {
         // Inflate an item view.
         View mItemView = mInflater.inflate(
-                R.layout.story_item, parent, false);
+                R.layout.achievement_item, parent, false);
         return new AchievementViewHolder(mItemView, this);
     }
 
@@ -124,16 +123,16 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         holder.achievementNameItemView.setText(mCurrent);
         int pCurrent = current.getAchievementProgress();
         holder.achievementProgressItemView.setProgress(pCurrent);
-        Boolean bCurrent = current.getAchievementStatus();
+        boolean bCurrent = current.getAchievementStatus();
         if (bCurrent){
-            holder.achievementStatusItemView.setImageResource(R.drawable.arrow);
+            holder.achievementStatusItemView.setImageResource(R.drawable.star);
         }
         else {
             holder.achievementStatusItemView.setImageResource(R.drawable.lock);
         }
-        int iCurrent = current.getAchievementImageURL();
-
-        holder.achievementImageItemView.setImageResource(iCurrent);
+//        int iCurrent = current.getAchievementImageURL();
+//
+//        holder.achievementImageItemView.setImageResource(iCurrent);
 
 //
 

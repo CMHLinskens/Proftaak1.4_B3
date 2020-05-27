@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/AchievementName"
+            android:id="@+id/AchievementNameView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -32,15 +32,15 @@
 
         <ImageView
             android:id="@+id/AchievementImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_width="103dp"
+            android:layout_height="0dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_achievements" />
+            app:srcCompat="@drawable/ic_achievement" />
 
         <ProgressBar
             android:id="@+id/AchievementProgressBar"
@@ -53,7 +53,20 @@
             android:max="100"
             android:progress="30"
             app:layout_constraintStart_toEndOf="@+id/AchievementImageView"
-            app:layout_constraintTop_toBottomOf="@+id/AchievementName" />
+            app:layout_constraintTop_toBottomOf="@+id/AchievementNameView" />
+
+        <ImageView
+            android:id="@+id/achievmentStatusView"
+            android:layout_width="76dp"
+            android:layout_height="62dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/star" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
