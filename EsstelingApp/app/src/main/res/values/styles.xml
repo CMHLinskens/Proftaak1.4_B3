@@ -6,4 +6,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ColourBlindTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorBlindPrimary</item>
+        <item name="colorPrimaryDark">@color/colorBlindText</item>
+        <item name="colorAccent">@color/colorBackground</item>
+    </style>
+
+
 </resources>
