@@ -4,19 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.MenuItem;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ToggleButton;
 
-    private static final String PREFS_NAME = "prefs";
-    private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
 import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.ui.AchievementPage;
 import com.example.esstelingapp.ui.HomePage;
@@ -24,9 +15,10 @@ import com.example.esstelingapp.ui.SettingsPage;
 import com.example.esstelingapp.ui.StoryPage;
 import com.example.esstelingapp.ui.StoryUnlockPopup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.example.esstelingapp.ui.SettingsPage;
 
 public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.ExampleDialogListener {
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

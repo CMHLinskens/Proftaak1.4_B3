@@ -4,4 +4,20 @@
     <string name="english" translatable="true">Engels</string>
     <string name="language" translatable="true">Taal</string>
     <string name="colourBlindMode" translatable="true">Kleuren-blind modus</string>
+
+    // Home page strings
+    <string name="home_stories_text">Verhalen afgerond</string>
+    <string name="home_achievement_text">Prestaties behaald</string>
+
+    // Navigation bar strings
+    <string name="home">Home</string>
+    <string name="story">fabels</string>
+    <string name="achievements">Prestaties</string>
+    <string name="settings">Opties</string>
+    <string name="Achievements">Prestaties</string>
+    <string name="Story">Fabels</string>
+    <string name="Settings">Opties</string>
+
+    // Unlock screen popup strings
+    <string name="password">Wachtwoord</string>
 </resources>

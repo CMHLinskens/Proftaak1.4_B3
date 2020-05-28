@@ -38,7 +38,15 @@ public class SettingsPage extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        this.toggleButton = getActivity().findViewById(R.id.settings_colour_blind_button);
+        return inflater.inflate(R.layout.activity_settings, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        this.toggleButton = getView().findViewById(R.id.settings_colour_blind_button);
+
         this.toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -52,7 +60,6 @@ public class SettingsPage extends Fragment {
                 }
             }
         });
-        return inflater.inflate(R.layout.activity_settings, container, false);
     }
 
     private void toggleColourBlindMode(boolean colourBlindTheme) {
