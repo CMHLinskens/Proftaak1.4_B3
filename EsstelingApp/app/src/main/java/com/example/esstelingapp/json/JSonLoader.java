@@ -1,8 +1,5 @@
 package com.example.esstelingapp.json;
 
-import android.renderscript.ScriptGroup;
-import android.util.JsonReader;
-
 import com.example.esstelingapp.data.DataSingleton;
 
 import org.json.JSONArray;
@@ -11,28 +8,28 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class JSonLoader {
     public static void readAllJsonFiles(){
         readQuizFile();
+        readFactFile();
     }
 
     private static void readQuizFile(){
-        String jsonString;
+        String jsonString = "";
         try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("riddle_questions.json")){
-            // Opening the file
-            int size = in.available();
-            byte[] buffer = new byte[size];
-            in.read();
+            // Opening the file and put everything into a String
+            Scanner reader = new Scanner(in);
+            while(reader.hasNext()){
+                jsonString += reader.nextLine();
+            }
 
             // Getting the array of the file
-//            jsonString = new String(buffer, StandardCharsets.UTF_8);
-//            JSONArray jsonFile = new JSONArray(jsonString);
-            JSONArray jsonFile = new JSONArray();
+            JSONArray jsonFile = new JSONArray(jsonString);
+            reader.close();
 
             HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> quizQuestions = new HashMap<>();
 
@@ -51,13 +48,9 @@ public class JSonLoader {
                     HashMap<String, ArrayList<String>> questionAnswer = new HashMap<>();
                     questionAnswer.put(questionName, answers);
                     questionsMap.put(j, questionAnswer);
-                    if(j == 5) {
-                        System.out.println("top");
-                    }
                 }
                 quizQuestions.put(categoryName, questionsMap);
             }
-            System.out.println("Beetje redundant");
             DataSingleton.getInstance().setQuizQuestions(quizQuestions);
         } catch(IOException e){
             e.printStackTrace();
@@ -66,5 +59,29 @@ public class JSonLoader {
         }
     }
 
+    private static void readFactFile(){
+        String jsonString = "";
+        try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("random_facts.json")) {
+            // Opening the file and put everything into a String
+            Scanner reader = new Scanner(in);
+            while (reader.hasNext()) {
+                jsonString += reader.nextLine();
+            }
 
+            // Getting the array of the file
+            JSONArray facts = new JSONArray(jsonString);
+            reader.close();
+
+            ArrayList<String> randomFacts = new ArrayList<>();
+
+            for(int i = 0; i < facts.length(); i++){
+                randomFacts.add(facts.getString(i));
+            }
+            DataSingleton.getInstance().setRandomFacts(randomFacts);
+        } catch(IOException e){
+            e.printStackTrace();
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
 }

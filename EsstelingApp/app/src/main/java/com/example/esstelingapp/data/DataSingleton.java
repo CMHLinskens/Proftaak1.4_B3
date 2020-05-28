@@ -11,6 +11,7 @@ public final class DataSingleton {
     private String info = "Initial info class";
     private Context mainContext;
     private HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> quizQuestions;
+    private ArrayList<String> randomFacts;
 
     private DataSingleton() { }
 
@@ -27,4 +28,6 @@ public final class DataSingleton {
     public void setMainContext(Context mainContext) { this.mainContext = mainContext; }
     public HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> getQuizQuestions() { return this.quizQuestions; }
     public void setQuizQuestions(HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> quizQuestions) { this.quizQuestions = quizQuestions; }
+    public ArrayList<String> getRandomFacts() { return randomFacts; }
+    public void setRandomFacts(ArrayList<String> randomFacts) { this.randomFacts = randomFacts; }
 }
