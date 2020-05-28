@@ -7,6 +7,12 @@
 
     // Navigation bar strings
     <string name="home">Home</string>
+    <string name="story">fabels</string>
+    <string name="achievements">Prestaties</string>
+    <string name="settings">Opties</string>
+    <string name="Achievements">Prestaties</string>
+    <string name="Story">Fabels</string>
+    <string name="Settings">Opties</string>
     <string name="story">story</string>
     <string name="achievements">achievements</string>
     <string name="settings">settings</string>
