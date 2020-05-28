@@ -5,10 +5,10 @@
     <string name="home_stories_text">Verhalen afgerond</string>
     <string name="home_achievement_text">Prestaties behaald</string>
     <string name="home">Home</string>
-    <string name="story">story</string>
-    <string name="achievements">achievements</string>
-    <string name="settings">settings</string>
-    <string name="Story">Story</string>
-    <string name="Achievements">Achievements</string>
-    <string name="Settings">Settings</string>
+    <string name="story">fabels</string>
+    <string name="achievements">Prestaties</string>
+    <string name="settings">Opties</string>
+    <string name="Achievements">Prestaties</string>
+    <string name="Story">Fabels</string>
+    <string name="Settings">Opties</string>
 </resources>
