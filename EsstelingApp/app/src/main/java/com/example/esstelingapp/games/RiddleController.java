@@ -1,27 +1,31 @@
 package com.example.esstelingapp.games;
 
-import android.content.Context;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RiddleController {
+    private StoryTypes storyType;
+    private List<Question> questions;
 
-    public static void main(String[] args) throws JSONException {
-        JSONObject obj = new JSONObject("riddle_questions.json");
 
+    public RiddleController(StoryTypes storyType) {
+        this.storyType = storyType;
+        getData();
 
-        JSONObject biggetje = obj.getJSONObject("biggetjes");
-        int amount = biggetje.getInt("amount");
-
-        System.out.println(amount);
     }
 
-//    public RiddleController() throws JSONException {
-//
-//    }
+    private void getData() {
+        questions = new ArrayList<>();
+
+        //Put all the questions of that story in the List
+    }
+
+    public Question getNewQuestion() {
+        int random = (int)(Math.random() * questions.size());
+        Question question = questions.get(random);
+        questions.remove(random);
+        return question;
+    }
 }
+
+
