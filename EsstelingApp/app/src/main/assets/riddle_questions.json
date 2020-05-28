@@ -1,7 +1,7 @@
-{
-	"biggetjes": {
-		"amount" : "6",
-		"q1": {
+[
+	{
+		"name" : "Biggetjes",
+		"q0": {
 			"question": "Van welke materialen waren de eerste 2 huisjes gemaakt",
 			"answers": [
 				"Stro – hout", 
@@ -10,7 +10,7 @@
 				"Speculaas – klei"
 			]
 		},
-		"q2": {
+		"q1": {
 			"question": "Wat deed de wolf met de huisjes",
 			"answers": [
 				"Weg hoesten", 
@@ -19,7 +19,7 @@
 				"Inbreken"
 			]
 		},
-		"q3": {
+		"q2": {
 			"question": "Hoeveel varkens bevinden zich in het verhaal ",
 			"answers": [
 				"4", 
@@ -28,7 +28,7 @@
 				"Geen, alleen een wolf"
 			]
 		},
-		"q4": {
+		"q3": {
 			"question": "Waarom liet de houthakker 1 boom staan",
 			"answers": [
 				"Het was een holle boom", 
@@ -37,7 +37,7 @@
 				"Hij was te moe"
 			]
 		},
-		"q5": {
+		"q4": {
 			"question": "Waar woont moeder big",
 			"answers": [
 				"In het bos", 
@@ -46,7 +46,7 @@
 				"In het weiland"
 			]
 		},
-		"q6": {
+		"q5": {
 			"question": "Wie kwamen de eerste 2 biggetjes tegen",
 			"answers": [
 				"Houthakker – Boer", 
@@ -55,5 +55,17 @@
 				"Draak – Heks"
 			]
 		}
+	},
+	{
+		"name" : "HansEnGrietje",
+		"q0": {
+			"question": "Hoe erg stinkt Bart",
+			"answers": [
+				"heel erg",
+				"heel erg",
+				"heel erg",
+				"heel erg"
+			]
+		}
 	}
-}
+]
