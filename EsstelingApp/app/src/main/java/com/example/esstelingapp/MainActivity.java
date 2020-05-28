@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.SharedPreferences;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -15,6 +17,15 @@ import com.example.esstelingapp.ui.SettingsPage;
 import com.example.esstelingapp.ui.StoryPage;
 import com.example.esstelingapp.ui.StoryUnlockPopup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.esstelingapp.data.DataSingleton;
+import com.example.esstelingapp.json.JSonLoader;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import com.example.esstelingapp.games.RiddlePage;
+
+public class MainActivity extends AppCompatActivity {
 
 public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.ExampleDialogListener {
     private static final String PREFS_NAME = "prefs";
@@ -35,6 +46,13 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
 
         DataSingleton dataSingleton = DataSingleton.getInstance();
+        DataSingleton.getInstance().setMainContext(this);
+        JSonLoader.readAllJsonFiles();
+    }
+
+    private void runRiddle() {
+        Intent gameIntent = new Intent(this, RiddlePage.class);
+        startActivity(gameIntent);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
