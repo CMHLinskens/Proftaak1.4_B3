@@ -6,6 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.esstelingapp.data.DataSingleton;
+import com.example.esstelingapp.json.JSonLoader;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+
 import com.example.esstelingapp.games.RiddlePage;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DataSingleton.getInstance().setMainContext(this);
+        JSonLoader.readAllJsonFiles();
 //        runRiddle();
     }
 
