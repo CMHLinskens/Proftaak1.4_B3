@@ -1,0 +1,26 @@
+[
+  {
+    "storyName": "De drie biggetjes",
+    "storyProgress": 0,
+    "imageUrl": "threepigs",
+    "storyStatus": false
+  },
+  {
+    "storyName": "Hans en grietje",
+    "storyProgress": 30,
+    "imageUrl": "hansgretel",
+    "storyStatus": true
+  },
+  {
+    "storyName": "Roodkapje",
+    "storyProgress": 70,
+    "imageUrl": "redriding",
+    "storyStatus": true
+  },
+  {
+    "storyName": "Draak blaaskaak",
+    "storyProgress": 0,
+    "imageUrl": "blaaskaak",
+    "storyStatus": true
+  }
+]

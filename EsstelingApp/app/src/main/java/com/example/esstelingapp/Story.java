@@ -1,20 +1,17 @@
 package com.example.esstelingapp;
 
-import android.graphics.drawable.Drawable;
-
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
-    public class Story {
+public class Story {
         private String StoryName;
         private int StoryProgress;
         private ArrayList<String> pieces;
-        private int StoryImageURL;
+        private int storyImageResource;
         private boolean StoryStatus;
 
         public Story(String storyName, int storyImageURL, boolean storyStatus, int storyProgress) {
             StoryName = storyName;
-            StoryImageURL = storyImageURL;
+            storyImageResource = storyImageURL;
             StoryStatus = storyStatus;
             StoryProgress = storyProgress;
         }
@@ -27,12 +24,12 @@ import java.util.ResourceBundle;
             StoryName = storyName;
         }
 
-        public int getStoryImageURL() {
-            return StoryImageURL;
+        public int getStoryImageResource() {
+            return storyImageResource;
         }
 
-        public void setStoryImageURL(int storyImageURL) {
-            StoryImageURL = storyImageURL;
+        public void setStoryImageResource(int storyImageResource) {
+            this.storyImageResource = storyImageResource;
         }
 
         public int getStoryProgress() {

@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.example.esstelingapp.Story;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,9 +17,10 @@ public final class DataSingleton {
     private Context mainContext;
     private HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> quizQuestions;
     private ArrayList<String> randomFacts;
+    private ArrayList<Story> stories;
 
 
-    private DataSingleton() { }
+    private DataSingleton() { this.stories = new ArrayList<>(); }
 
     public static DataSingleton getInstance() {
         if(INSTANCE == null) {
@@ -36,4 +39,11 @@ public final class DataSingleton {
     public FragmentManager getStoryFragmentManager() { return this.storyFragmentManager; }
     public void setStoryFragmentManager(FragmentManager storyFragmentManager) {this.storyFragmentManager = storyFragmentManager; }
 
+    public ArrayList<Story> getStories() {
+        return stories;
+    }
+
+    public void addStory (Story story) {
+        this.stories.add(story);
+    }
 }
