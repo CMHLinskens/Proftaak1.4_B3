@@ -12,6 +12,7 @@ import java.util.HashMap;
 public final class DataSingleton {
 
     private static DataSingleton INSTANCE;
+    private boolean mainLoaded;
     private String info = "Initial info class";
     private FragmentManager storyFragmentManager;
     private Context mainContext;
@@ -20,7 +21,9 @@ public final class DataSingleton {
     private ArrayList<Story> stories;
 
 
-    private DataSingleton() { this.stories = new ArrayList<>(); }
+    private DataSingleton() {
+        this.mainLoaded = false;
+        this.stories = new ArrayList<>(); }
 
     public static DataSingleton getInstance() {
         if(INSTANCE == null) {
@@ -45,5 +48,13 @@ public final class DataSingleton {
 
     public void addStory (Story story) {
         this.stories.add(story);
+    }
+
+    public boolean isMainLoaded() {
+        return mainLoaded;
+    }
+
+    public void setMainLoaded(boolean mainLoaded) {
+        this.mainLoaded = mainLoaded;
     }
 }

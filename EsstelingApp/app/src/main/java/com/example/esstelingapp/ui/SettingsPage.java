@@ -24,7 +24,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.esstelingapp.MainActivity;
 import com.example.esstelingapp.R;
+import com.example.esstelingapp.data.DataSingleton;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -63,13 +65,12 @@ public class SettingsPage extends Fragment {
     }
 
     private void toggleColourBlindMode(boolean colourBlindTheme) {
-        SharedPreferences.Editor editor = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putBoolean(PREF_COLOUR_BLIND_THEME, colourBlindTheme);
         editor.apply();
 
         getActivity().finish();
         Intent intent = getActivity().getIntent();
-        intent.putExtra("colourBlind_theme", colourBlindTheme);
         startActivity(intent);
     }
 }
