@@ -13,8 +13,8 @@
         android:id="@+id/settings_colour_blind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         android:text="@string/colourBlindMode"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         android:id="@+id/settings_language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="44dp"
         android:text="@string/language"
         android:textIsSelectable="false"
@@ -51,6 +51,8 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="108dp"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/settings_language"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -59,7 +61,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:onClick="checkButton"
             android:text="@string/dutch"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/settings_language"
@@ -70,7 +71,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
-            android:onClick="checkButton"
             android:text="@string/english"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,6 +78,16 @@
             app:layout_constraintStart_toEndOf="@+id/settings_language_dutch"
             app:layout_constraintTop_toTopOf="parent" />
     </RadioGroup>
+
+    <Button
+        android:id="@+id/settings_apply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="36dp"
+        android:text="Apply"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

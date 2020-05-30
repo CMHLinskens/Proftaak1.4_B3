@@ -1,32 +1,32 @@
 package com.example.esstelingapp.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.JsonReader;
-import android.util.Log;
+import android.util.DisplayMetrics;
+import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Switch;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.example.esstelingapp.MainActivity;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.data.DataSingleton;
+
+import java.util.Locale;
+import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -35,43 +35,88 @@ public class SettingsPage extends Fragment {
     private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
 
     private ToggleButton toggleButton;
+    private RadioGroup group;
+    private RadioButton buttonDutch;
+    private RadioButton buttonEnglish;
+    private Button apply;
 
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_settings, container, false);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         this.toggleButton = getView().findViewById(R.id.settings_colour_blind_button);
+        this.group = getView().findViewById(R.id.settings_radio_buttons);
+        this.apply = getView().findViewById(R.id.settings_apply);
+        this.buttonDutch = getView().findViewById(R.id.settings_language_dutch);
+        this.buttonEnglish = getView().findViewById(R.id.settings_language_english);
 
-        this.toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        this.buttonDutch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    Log.d("CLICKABLE BUTTON", "Button has turned on!");
-                    toggleColourBlindMode(true);
+            public void onClick(View v) {
+                setAppLocale("nl");
+            }
+        });
+        this.buttonEnglish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setAppLocale("en");
+            }
+        });
 
+        this.apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Objects.requireNonNull(getActivity()).finish();
+                Intent intent = getActivity().getIntent();
+                startActivity(intent);
+            }
+        });
+
+        this.toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(toggleButton.isChecked()){
+                    SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+                    editor.putBoolean("switchKey", true);
+                    editor.apply();
+                    toggleColourBlindMode(true);
                 } else {
-                    Log.d("CLICKABLE BUTTON", "Button has turned off!");
+                    SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+                    editor.putBoolean("switchKey", false);
+                    editor.apply();
                     toggleColourBlindMode(false);
                 }
             }
         });
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean isChecked = preferences.getBoolean("switchKey", false);
+        this.toggleButton.setChecked(isChecked);
+    }
+
+    private void setAppLocale(String localeCode) {
+        Resources resources = getResources();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        Configuration config = resources.getConfiguration();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+            config.setLocale(new Locale(localeCode.toLowerCase()));
+        } else {
+            config.locale = new Locale(localeCode.toLowerCase());
+        }
+        resources.updateConfiguration(config, displayMetrics);
+
     }
 
     private void toggleColourBlindMode(boolean colourBlindTheme) {
         SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putBoolean(PREF_COLOUR_BLIND_THEME, colourBlindTheme);
         editor.apply();
-
-        getActivity().finish();
-        Intent intent = getActivity().getIntent();
-        startActivity(intent);
     }
 }
 
