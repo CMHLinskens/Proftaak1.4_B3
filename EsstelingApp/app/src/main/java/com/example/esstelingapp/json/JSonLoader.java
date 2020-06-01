@@ -3,7 +3,6 @@ package com.example.esstelingapp.json;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.StoryPiecesInterface;
@@ -129,7 +128,7 @@ public class JSonLoader {
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
 
         String jsonParse = "";
-        try(InputStream inputStream = DataSingleton.getInstance().getMainContext().getAssets().open("stories.json")){
+        try(InputStream inputStream = DataSingleton.getInstance().getMainContext().getAssets().open("storiesNL.json")){
             Scanner reader = new Scanner(inputStream);
             while(reader.hasNext()){
                 jsonParse += reader.nextLine();
