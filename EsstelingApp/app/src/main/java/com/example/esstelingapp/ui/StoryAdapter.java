@@ -71,12 +71,6 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
                     readstoryFragment.setArguments(bundle);
                     ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
                 }
-//                intent =  new Intent(context, Detail.class);
-//                intent.putExtra("Project_Name_Key", element.getProjectName());
-//                intent.putExtra("Project_Year_Key", element.getProjectYear());
-//                intent.putExtra("Project_Desc_Key", element.getProjectFullDescription());
-//                intent.putExtra("Project_Addition_Key", element.getAdditionToProject());
-//                intent.putExtra("Project_Image_Key", element.getProjectImageURL());
             }
             else{
 //                intent =  new Intent(context, Detail.class);
