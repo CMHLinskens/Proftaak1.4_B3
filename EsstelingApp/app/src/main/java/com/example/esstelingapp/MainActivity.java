@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.json.JSonSaver;
 import com.example.esstelingapp.ui.AchievementPage;
 import com.example.esstelingapp.ui.HomePage;
 import com.example.esstelingapp.ui.SettingsPage;
@@ -41,10 +40,6 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
 
         DataSingleton.getInstance().setMainContext(this);
         JSonLoader.readAllJsonFiles();
-
-        DataSingleton.getInstance().getAchievements().get(2).setAchievementStatus(true);
-
-        JSonSaver.saveUserData();
     }
 
     // Use this to start the riddle
