@@ -1,12 +1,14 @@
 package com.example.esstelingapp.games;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.esstelingapp.R;
 
@@ -14,7 +16,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RiddlePage extends AppCompatActivity {
+public class RiddlePage extends Fragment {
+    private int timesTried;
     private RiddleController controller;
     private RadioButton correctAnswer;
     private RadioButton answerA;
@@ -23,28 +26,36 @@ public class RiddlePage extends AppCompatActivity {
     private RadioButton answerD;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_riddle);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.activity_riddle, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         //initializing all components
 //        controller = new RiddleController(StoryTypes.BIGGETJES);
 
-        TextView title = findViewById(R.id.storyTitle);
-        TextView question = findViewById(R.id.question);
-        Button skipButton = findViewById(R.id.skipButton);
+        TextView title = getView().findViewById(R.id.storyTitle);
+        TextView partOfStory = getView().findViewById(R.id.partOfStory);
+        TextView question = getView().findViewById(R.id.question);
+        Button skipButton = getView().findViewById(R.id.skipButton);
 
-        answerA = findViewById(R.id.answerA);
-        answerB = findViewById(R.id.answerB);
-        answerC = findViewById(R.id.answerC);
-        answerD = findViewById(R.id.answerD);
+        answerA = getView().findViewById(R.id.answerA);
+        answerB = getView().findViewById(R.id.answerB);
+        answerC = getView().findViewById(R.id.answerC);
+        answerD = getView().findViewById(R.id.answerD);
 
-        Button submitButton = findViewById(R.id.submitButton);
+        Button submitButton = getView().findViewById(R.id.submitButton);
 
 //        showNewQuestion();
     }
 
     public void showNewQuestion() {
+        timesTried++;
+
         Question question = controller.getNewQuestion();
         List<Integer> randomOrder = new ArrayList<>();
         randomOrder.add(0);
@@ -75,26 +86,28 @@ public class RiddlePage extends AppCompatActivity {
     }
 
     public void  submitAnswer(View v) {
+        RiddleSubmitPopup popup = new RiddleSubmitPopup();
         if (answerA.isChecked() && answerA == correctAnswer) {
             System.out.println("Correct");
-            //win
+            popup.popupType(true, timesTried);
         }
         else if (answerB.isChecked() && answerB == correctAnswer) {
             System.out.println("Correct");
-            //win
+            popup.popupType(true, timesTried);
         }
         else if (answerC.isChecked() && answerC == correctAnswer) {
             System.out.println("Correct");
-            //win
+            popup.popupType(true, timesTried);
         }
-        else if (answerD.isChecked() && answerC == correctAnswer) {
+        else if (answerD.isChecked() && answerD == correctAnswer) {
             System.out.println("Correct");
-            //win
+            popup.popupType(true, timesTried);
         }
         else {
             System.out.println("Incorrect");
-            //lose
+            popup.popupType(false, timesTried);
         }
+        popup.show(getFragmentManager(), "Submitted");
     }
 
     public void skipQuestion(View v) {
