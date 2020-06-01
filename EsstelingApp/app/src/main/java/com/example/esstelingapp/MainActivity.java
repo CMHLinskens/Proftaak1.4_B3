@@ -37,9 +37,15 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
+        loadData();
+    }
 
-        DataSingleton.getInstance().setMainContext(this);
-        JSonLoader.readAllJsonFiles();
+    private void loadData(){
+        if(!DataSingleton.getInstance().isMainLoaded()){
+            DataSingleton.getInstance().setMainContext(this);
+            JSonLoader.readAllJsonFiles();
+            DataSingleton.getInstance().setMainLoaded(true);
+        }
     }
 
     // Use this to start the riddle

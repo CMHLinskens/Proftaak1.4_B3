@@ -1,5 +1,7 @@
 package com.example.esstelingapp.json;
 
+import com.example.esstelingapp.R;
+import com.example.esstelingapp.Story;
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.data.DataSingleton;
 
@@ -18,6 +20,7 @@ public class JSonLoader {
         readQuizFile();
         readFactFile();
         readAchievementsFile();
+        readStoryFile();
     }
 
     private static void readQuizFile(){
@@ -112,6 +115,37 @@ public class JSonLoader {
         } catch(IOException e){
             e.printStackTrace();
         } catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    private static void readStoryFile(){
+        String jsonParse = "";
+        try(InputStream inputStream = DataSingleton.getInstance().getMainContext().getResources().openRawResource(R.raw.stories)){
+            Scanner scanner = new Scanner(inputStream);
+            while(scanner.hasNext()){
+                jsonParse += scanner.nextLine();
+            }
+
+            scanner.close();
+            JSONArray stories = new JSONArray(jsonParse);
+
+            for(int i = 0; i < stories.length(); i++){
+                JSONObject story = stories.getJSONObject(i);
+                String storyName = story.getString("storyName");
+                int storyProgress = story.getInt("storyProgress");
+                String imageResource = story.getString("imageUrl");
+                final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
+                boolean storyStatus = story.getBoolean("storyStatus");
+                DataSingleton.getInstance().addStory(new Story(storyName, resId, storyStatus, storyProgress));
+            }
+
+            for(Story story : DataSingleton.getInstance().getStories()){
+                System.out.println(story.toString());
+            }
+
+
+        } catch (Error | IOException | JSONException e){
             e.printStackTrace();
         }
     }

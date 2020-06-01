@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.R;
@@ -137,7 +135,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
         else {
  holder.storyStatusItemView.setImageResource(R.drawable.lock);
         }
-        int iCurrent = mStoryList.get(position).getStoryImageURL();
+        int iCurrent = mStoryList.get(position).getStoryImageResource();
 
             holder.storyImageItemView.setImageResource(iCurrent);
 
