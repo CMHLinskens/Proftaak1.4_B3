@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
+import com.example.esstelingapp.StoryPiecesInterface;
 import com.example.esstelingapp.data.DataSingleton;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 
@@ -35,12 +37,11 @@ public class StoryPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        mStoryList.add(new Story("3 Biggetjes", R.drawable.threepigs,false, 0));
-//        mStoryList.add(new Story("Hans en grietje", R.drawable.hansgretel,true,30));
-//        mStoryList.add(new Story("Roodkapje",R.drawable.redriding,true,70));
-//        mStoryList.add(new Story("Draak blaaskaak", R.drawable.blaaskaak,true,0));
-//        mStoryList.add(new Story("Tutorial",R.drawable.tutorial,true,100));
-        mStoryList.addAll(DataSingleton.getInstance().getStories());
+        mStoryList.add(new Story("3 Biggetjes", R.drawable.threepigs,false, new ArrayList<StoryPiecesInterface>(), 0,0,0,0));
+        mStoryList.add(new Story("Hans en grietje", R.drawable.hansgretel,true,new ArrayList<StoryPiecesInterface>(),30,0,0,0));
+        mStoryList.add(new Story("Roodkapje",R.drawable.redriding,true,new ArrayList<StoryPiecesInterface>(), 70, 0,0,0));
+        mStoryList.add(new Story("Draak blaaskaak", R.drawable.blaaskaak,true,new ArrayList<StoryPiecesInterface>(),0, 0,0 ,0 ));
+        mStoryList.add(new Story("Tutorial",R.drawable.tutorial,true,new ArrayList<StoryPiecesInterface>(), 100,0,0,0));
 
 
 

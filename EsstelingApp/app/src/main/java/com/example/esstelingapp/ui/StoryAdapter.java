@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.R;
@@ -58,6 +61,10 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             if (element!=null){
                 if(!element.getStoryStatus()) {
                     openUnlockPopUp();
+                }
+                else{
+                    Fragment readstoryFragment = new activity_read_story();
+                    ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
                 }
 //                intent =  new Intent(context, Detail.class);
 //                intent.putExtra("Project_Name_Key", element.getProjectName());
