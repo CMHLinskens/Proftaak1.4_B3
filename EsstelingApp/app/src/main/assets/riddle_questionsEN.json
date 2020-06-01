@@ -1,70 +1,68 @@
 [
 	{
-		"name" : "Biggetjes",
+		"name" : "Piglets",
 		"q0": {
-			"question": "Van welke materialen waren de eerste 2 huisjes gemaakt",
+			"question": "Of which materials were the first two house made?",
 			"answers": [
-				"Stro – hout", 
-				"Modder – hout", 
-				"Bamboe – stro", 
-				"Speculaas – klei"
+				"Straw – wood",
+				"Mud – wood",
+				"Bamboe – straw",
+				"Gingerbread – clay"
 			]
 		},
 		"q1": {
-			"question": "Wat deed de wolf met de huisjes",
+			"question": "What did the wolf do to the piglets houses?",
 			"answers": [
-				"Weg hoesten", 
-				"Kapot slaan", 
-				"Verbranden", 
-				"Inbreken"
+				"blew them away",
+				"smashed it",
+				"burned it",
+				"broke in"
 			]
 		},
 		"q2": {
-			"question": "Hoeveel varkens bevinden zich in het verhaal ",
+			"question": "Hoe many pigs were in the story?",
 			"answers": [
-				"4", 
-				"3", 
-				"5", 
-				"Geen, alleen een wolf"
+				"4",
+				"3",
+				"5",
+				"None, only a wolf"
 			]
 		},
 		"q3": {
-			"question": "Waarom liet de houthakker 1 boom staan",
+			"question": "Why did the woodcutter leave one tree standing?",
 			"answers": [
-				"Het was een holle boom", 
-				"Het was een hele mooie boom", 
-				"Zijn bijl was kapot", 
-				"Hij was te moe"
+				"The tree was hollow",
+				"It was a very pretty tree",
+				"His axe broke",
+				"He was too tired"
 			]
 		},
 		"q4": {
-			"question": "Waar woont moeder big",
+			"question": "Where does mother pig live?",
 			"answers": [
-				"In het bos", 
-				"In de stad", 
-				"In de modder", 
-				"In het weiland"
+				"In the forest",
+				"In the city",
+				"In the mud",
+				"In the fields"
 			]
 		},
 		"q5": {
-			"question": "Wie kwamen de eerste 2 biggetjes tegen",
+			"question": "Who did the first two piglets come across?",
 			"answers": [
-				"Houthakker – Boer", 
-				"Pottenbakker – Leraar", 
-				"Ridder – Prinses", 
-				"Draak – Heks"
+				"Woodcutter – Farmer",
+				"Potter – Teacher",
+				"knight – Princces",
+				"Dragon – Witch"
 			]
 		}
 	},
 	{
-		"name" : "HansEnGrietje",
+		"name" : "Hansel and Gretel",
 		"q0": {
-			"question": "Hoe erg stinkt Bart",
+			"question": "How smelly is Bart?",
 			"answers": [
-				"heel erg",
-				"heel erg",
-				"heel erg",
-				"heel erg"
+				"very very smelly",
+				"very very smelly","very very smelly","very very smelly"
 			]
 		}
 	}
