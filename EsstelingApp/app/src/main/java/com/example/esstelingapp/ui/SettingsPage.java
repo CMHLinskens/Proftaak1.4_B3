@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.data.DataSingleton;
+import com.example.esstelingapp.json.JSonLoader;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -61,12 +62,20 @@ public class SettingsPage extends Fragment {
             @Override
             public void onClick(View v) {
                 setAppLocale("nl");
+                SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putBoolean("isDutch", true);
+                editor.apply();
+                JSonLoader.readAllJsonFiles();
             }
         });
         this.buttonEnglish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setAppLocale("en");
+                SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putBoolean("isDutch", false);
+                editor.apply();
+                JSonLoader.readAllJsonFiles();
             }
         });
 
@@ -110,7 +119,6 @@ public class SettingsPage extends Fragment {
             config.locale = new Locale(localeCode.toLowerCase());
         }
         resources.updateConfiguration(config, displayMetrics);
-
     }
 
     private void toggleColourBlindMode(boolean colourBlindTheme) {

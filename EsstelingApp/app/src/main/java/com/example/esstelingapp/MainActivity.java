@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         if (useColourBlindTheme) {
             setTheme(R.style.ColourBlindTheme);
         }
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
