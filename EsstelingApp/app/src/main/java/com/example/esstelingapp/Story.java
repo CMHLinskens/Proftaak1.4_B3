@@ -14,7 +14,7 @@ public class Story {
 
         public Story(String storyName, int storyImageURL, boolean storyStatus, ArrayList<StoryPiecesInterface> pieces, int storyProgress, int pointsOfStory, int storyMaxPoints, int storyCompletionReward) {
             StoryName = storyName;
-            storyImageResource = storyImageURL;
+            StoryImageURL = storyImageURL;
             StoryStatus = storyStatus;
             StoryProgress = storyProgress;
             StoryPieces = pieces;
@@ -32,11 +32,11 @@ public class Story {
         }
 
         public int getStoryImageResource() {
-            return storyImageResource;
+            return StoryImageURL;
         }
 
-        public void setStoryImageResource(int storyImageResource) {
-            this.storyImageResource = storyImageResource;
+        public void setStoryImageResource(int StoryImageURL) {
+            this.StoryImageURL = StoryImageURL;
         }
 
         public int getStoryProgress() {

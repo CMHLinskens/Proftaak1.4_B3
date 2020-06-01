@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.Achievement;
+import com.example.esstelingapp.StoryPiecesInterface;
 import com.example.esstelingapp.data.DataSingleton;
 
 import org.json.JSONArray;
@@ -144,7 +145,7 @@ public class JSonLoader {
                 String imageResource = story.getString("imageUrl");
                 final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
                 boolean storyStatus = preferences.getBoolean("s"+i, true);
-                DataSingleton.getInstance().addStory(new Story(storyName, resId, storyStatus, storyProgress));
+                DataSingleton.getInstance().addStory(new Story(storyName, resId, storyStatus, new ArrayList<StoryPiecesInterface>(), 0,0,0,0));
             }
             for(Story story : DataSingleton.getInstance().getStories()){
                 System.out.println(story.toString());
