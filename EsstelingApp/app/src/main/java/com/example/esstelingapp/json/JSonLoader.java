@@ -143,8 +143,6 @@ public class JSonLoader {
             for(Story story : DataSingleton.getInstance().getStories()){
                 System.out.println(story.toString());
             }
-
-
         } catch (Error | IOException | JSONException e){
             e.printStackTrace();
         }

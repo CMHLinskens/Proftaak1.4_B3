@@ -22,7 +22,6 @@ public final class DataSingleton {
     private ArrayList<Achievement> achievements;
     private ArrayList<Story> stories;
 
-
     private DataSingleton() {
         this.mainLoaded = false;
         this.stories = new ArrayList<>(); }
@@ -46,22 +45,16 @@ public final class DataSingleton {
     public ArrayList<Achievement> getAchievements() {
         return achievements;
     }
-    public void setAchievements(ArrayList<Achievement> achievements) {
-        this.achievements = achievements;
-    }
-
+    public void setAchievements(ArrayList<Achievement> achievements) { this.achievements = achievements; }
     public ArrayList<Story> getStories() {
         return stories;
     }
-
     public void addStory (Story story) {
         this.stories.add(story);
     }
-
     public boolean isMainLoaded() {
         return mainLoaded;
     }
-
     public void setMainLoaded(boolean mainLoaded) {
         this.mainLoaded = mainLoaded;
     }
