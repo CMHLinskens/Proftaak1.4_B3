@@ -1,20 +1,20 @@
 [
-    {
-      "name" : "Piglet home builder"
-    },
-    {
-      "name" : "Red riding hood"
-    },
-    {
-      "name" : "follow the breadcrumbs"
-    },
-    {
-      "name" : "sneaky dragon treasure thief"
-    },
-    {
-      "name" : "junior story seeker"
-    },
-    {
-      "name" : "master story seeker"
-    }
+  {
+    "name" : "Biggetjes huis bouwer"
+  },
+  {
+    "name" : "Roodkapje"
+  },
+  {
+    "name" : "Volg the broodkruimels"
+  },
+  {
+    "name" : "Stille drakenschat dief"
+  },
+  {
+    "name" : "Junior fabel zoeker"
+  },
+  {
+    "name" : "Meester fabel zoeker"
+  }
 ]
