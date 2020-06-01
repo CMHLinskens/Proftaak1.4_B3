@@ -17,9 +17,6 @@
       "storyPartFour": -1,
       "storyPartFive": ""
     },
-      {
-
-      },
     {
       "storyPartOne": "The third piglet came by a potter, who was throwing bricks at his oven. “Why Does my oven only bake bricks?!” he yelled at it. The piglet looked at the pile of bricks. “What are you going to do with the bricks?” the piglet asked. “throw them away, I guess” the potter said. “Can I have them to build my house?” The piglet asked kindly. “Sure, take them” and so the piglet went to work with the potter watching him. “You will need to put clay between the bricks to keep them together. That way they won't blow away.” The potter said before he helped the piglet build. Together they had fun building the piglets home. When the home was nearly finished the house only needed a door. The potter ran back to his house and came back excited with a small wooden door. “This used to be the door of my old oven, I want you to have it.” The piglet thanked him and together they put it in. ",
       "storyPartTwo": 0,
@@ -30,34 +27,34 @@
   ]
   },
   {
-    "storyName": "Hans en grietje",
+    "storyName": "Hansel and Gretel",
     "imageUrl": "hansgretel",
     "storyPieces": [
       {
-        "storyPartOne": "",
+        "storyPartOne": "At the edge of the Story woods there lays the village Kaatswoud. In that village lived a poor woodcutter with his wife and two kids, Hansel and Gretel. Hansel and Gretel were often alone with their stepmother while their dad was working. Their stepmother didn’t like the children, but she only became cruel to them once the food started running low. One night hansel overheard his stepmother and father talk about the shortage. “Winter arrives soon, and we have barely any food left. We must leave the kids in the forest, that’s the only way we will have enough.” She said softly to her husband. His father didn’t want to hear any of it and told her it wouldn’t happen. Hansel wasn’t so convinced knowing what his stepmother was capable of. The next morning Hansel gathered some stones from the garden and put them in his pockets. Just in time for their stepmother to come and get them. “we are going to the forest children. We are going to gather mushrooms while your father is working.”",
         "storyPartTwo": -1,
-        "storyPartThree": "",
-        "storyPartFour": -1,
-        "storyPartFive": ""
+        "storyPartThree": "The stepmother led the children deep into the forest. Once they were very deep, she turned to them and told them. “Wait here for me, I'll be back in a moment.” Hansel knew this to be false but waited for the woman to be out of sight. After an hour of waiting Gretel started getting scared. “It's fine Gretel, I know the way back home thanks to the trail of stones I dropped.” Hansel comforted her. Hansel and Gretel walked hand in hand through the woods back home thanks to the trail of stones. Their stepmother was surprised and furious to see the two back home and grabbed two pieces of bread and dragged them back into the woods. ",
+        "storyPartFour": 0,
+        "storyPartFive": "This time Hansel had not gotten the chance to gather stones, but he wasn’t worried he used the stale bread and made a breadcrumbs trail along the way. Their stepmother took them deep into the forest again and went even further. Once far enough she told them she would only come to get them once they finished their bread and then she left. Well behaved Gretel started eating the bread but once their stepmother was out of sight Hansel grabbed his sister and started following the breadcrumbs back. To his surprise, the birds had eaten the trail. “Stupid birds, now we can’t find our way home.” He yelled at them. They walked on hoping to find the trail again, but they only got more lost. After a few hours, they found a small house in the forest."
       },
       {
-        "storyPartOne": "",
-        "storyPartTwo": -1,
-        "storyPartThree": "",
+        "storyPartOne": "To their surprise, the house was made of gingerbread, cookies and candy. The children had gotten hungry and ran towards it. They tore off pieces of the gingerbread fence and ate it. Not much longer a voice called out. \"Nibble, nibble, like a mouse, who is nibbling at my house?” surprised by the voice the children looked at where the voice had come from. An old lady stood at the door waving at them. “come inside and eat at the table, children.” The woman said as she gestured the children to come inside. Hansel and Gretel ran in and started devouring the food. The table had been filled with meats, candy and all kinds of desserts. After the two had eaten the table empty the woman said, “You must be tired from filling your bellies, why don’t you go and sleep in beds upstairs.” The children followed the woman and slept sweetly through the night.",
+        "storyPartTwo": 0,
+        "storyPartThree": "The following morning Gretel awoke and found her brother missing. When she went downstairs, she found him in a cage. Gretel ran towards the cage but was held back by the lady. “No, no girl, he stays there until he is nice and fat so I may eat him.” That was the moment they knew that the old kind lady was actually a terrible witch. Gretel was forced to do chores, while the witch fed Hansel to get him fatter. The children found out the witch had bad eyesight. Every day the Witch asked Hansel to stick out his finger instead Hansel gave the witch a chicken bone. ",
         "storyPartFour": -1,
-        "storyPartFive": ""
+        "storyPartFive": "After many days of frustration, the witch was done waiting. “girl prepare the oven; I have waited too long. I am hungry” Gretel opened the oven and looked it its large belly. It was very large, large enough for even the witch to fit in. “I don’t think Hansel will fit in the oven” she lied. “What are you babbling on about, of course he'll fit.” The witch said as she came to take a look in the oven. Gretel waited for the witch to stick her head into the oven and then pushed her in."
       },
       {
-        "storyPartOne": "",
+        "storyPartOne": "Now that the witch was in the oven she screamed. Gretel ran to the table where she had seen the key and released her brother. “Good job” Hansel praised. The children took bags filled with food with them and ran away from the candy house. When they were far enough, they still needed to find a way back home. The children remembered that north had the most chance of leading them home from their father and ran that way.",
         "storyPartTwo": -1,
-        "storyPartThree": "",
-        "storyPartFour": -1,
-        "storyPartFive": ""
+        "storyPartThree": "They ran and ran until they found the place where they had left the stale bread. A bird sat next to the bread and was eating from it. As Hansel and Gretel came closer the bird flew up and started flying in circles between them and a place ahead. “It seems to want to lead us somewhere” Gretel said. Hansel doubted it but decided it couldn’t hurt to give it a chance. The children followed the bird and eventually found their way out of the forest and back at home.",
+        "storyPartFour": 0,
+        "storyPartFive": "Inside they found their father alone in the kitchen. Hansel and Gretel called out for their father who in surprise and relief embraced them in his arms. The children gave their father the bags with food and he told them they didn’t have to worry about that terrible stepmother anymore. Apparently, she died spontaneously a few hours ago. And so the three of them lived a long life with filled bellies."
       }
     ]
   },
   {
-    "storyName": "Roodkapje",
+    "storyName": "Little red riding hood",
     "imageUrl": "redriding",
     "storyPieces": [
       {
@@ -84,7 +81,7 @@
     ]
   },
   {
-    "storyName": "Draak blaaskaak",
+    "storyName": "Dragon argonat",
     "imageUrl": "blaaskaak",
     "storyPieces": [
       {

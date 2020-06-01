@@ -2,6 +2,7 @@ package com.example.esstelingapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
 
     private final LinkedList<Story> mStoryList;
     private final LayoutInflater mInflater;
+    private Fragment storyMenuFragment;
 
 
     class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -64,6 +66,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
                 }
                 else{
                     Fragment readstoryFragment = new activity_read_story();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("storyInfo", element);  // Key, value
+                    readstoryFragment.setArguments(bundle);
                     ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
                 }
 //                intent =  new Intent(context, Detail.class);
@@ -85,7 +90,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
         }
     }
 
-    public StoryAdapter(Context context, LinkedList<Story> projectList) {
+    public StoryAdapter(Context context, LinkedList<Story> projectList, Fragment storymenuFragment) {
+        this.storyMenuFragment = storymenuFragment;
         mInflater = LayoutInflater.from(context);
         this.mStoryList = projectList;
     }

@@ -37,11 +37,12 @@ public class StoryPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mStoryList.add(new Story("3 Biggetjes", R.drawable.threepigs,false, new ArrayList<StoryPiecesInterface>(), 0,0,0,0));
-        mStoryList.add(new Story("Hans en grietje", R.drawable.hansgretel,true,new ArrayList<StoryPiecesInterface>(),30,0,0,0));
-        mStoryList.add(new Story("Roodkapje",R.drawable.redriding,true,new ArrayList<StoryPiecesInterface>(), 70, 0,0,0));
-        mStoryList.add(new Story("Draak blaaskaak", R.drawable.blaaskaak,true,new ArrayList<StoryPiecesInterface>(),0, 0,0 ,0 ));
-        mStoryList.add(new Story("Tutorial",R.drawable.tutorial,true,new ArrayList<StoryPiecesInterface>(), 100,0,0,0));
+        mStoryList.addAll(DataSingleton.getInstance().getStories());
+//        mStoryList.add(new Story("3 Biggetjes", R.drawable.threepigs,false, new ArrayList<StoryPiecesInterface>(), 0,0,0,0));
+//        mStoryList.add(new Story("Hans en grietje", R.drawable.hansgretel,true,new ArrayList<StoryPiecesInterface>(),30,0,0,0));
+//        mStoryList.add(new Story("Roodkapje",R.drawable.redriding,true,new ArrayList<StoryPiecesInterface>(), 70, 0,0,0));
+//        mStoryList.add(new Story("Draak blaaskaak", R.drawable.blaaskaak,true,new ArrayList<StoryPiecesInterface>(),0, 0,0 ,0 ));
+//        mStoryList.add(new Story("Tutorial",R.drawable.tutorial,true,new ArrayList<StoryPiecesInterface>(), 100,0,0,0));
 
 
 
@@ -49,7 +50,7 @@ public class StoryPage extends Fragment {
         // Create recycler view.
         mRecyclerView = getView().findViewById(R.id.StoryRecycler);
         // Create an adapter and supply the data to be displayed.
-        mAdapter = new StoryAdapter(getContext(), mStoryList);
+        mAdapter = new StoryAdapter(getContext(), mStoryList, this);
         // Connect the adapter with the recycler view.
         mRecyclerView.setAdapter(mAdapter);
         // Give the recycler view a default layout manager.

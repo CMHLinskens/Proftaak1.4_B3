@@ -50,31 +50,31 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/TekstPart1"
+                android:id="@+id/StoryPartOneView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
 
             <ImageView
-                android:id="@+id/imageStory1"
+                android:id="@+id/StoryPartTwoView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_launcher_foreground" />
 
             <TextView
-                android:id="@+id/tekstPart2"
+                android:id="@+id/StoryPartThreeView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
 
             <ImageView
-                android:id="@+id/imageStory2"
+                android:id="@+id/StoryPartFourView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_launcher_foreground" />
 
             <TextView
-                android:id="@+id/tekstPart3"
+                android:id="@+id/StoryPartFiveView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />

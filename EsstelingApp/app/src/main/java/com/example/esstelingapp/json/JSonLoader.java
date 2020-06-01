@@ -3,6 +3,7 @@ package com.example.esstelingapp.json;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.esstelingapp.ReadingItem;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.StoryPiecesInterface;
@@ -148,7 +149,29 @@ public class JSonLoader {
                 String imageResource = story.getString("imageUrl");
                 final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
                 boolean storyStatus = preferences.getBoolean("s"+i, true);
-                DataSingleton.getInstance().addStory(new Story(storyName, resId, storyStatus, new ArrayList<StoryPiecesInterface>(), 0,0,0,0));
+
+                ArrayList<StoryPiecesInterface> pieceslist = new ArrayList<>();
+                JSONArray storyPieces = story.getJSONArray("storyPieces");
+
+                for (int j = 0; j < storyPieces.length(); j++) {
+                    JSONObject storyPiece = storyPieces.getJSONObject(j);
+//                    if (storyPiece instanceof ReadingItem){
+
+                        String storyPartOne = storyPiece.getString("storyPartOne");
+                        int storyPartTwo = storyPiece.getInt("storyPartTwo");
+                        String storyPartThree = storyPiece.getString("storyPartThree");
+                        int storyPartFour = storyPiece.getInt("storyPartFour");
+                        String storyPartFive = storyPiece.getString("storyPartFive");
+                        ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
+                        pieceslist.add(piece);
+//                    }else{
+//                        System.out.println("something here with the game and action");
+//                    }
+
+                }
+
+
+                DataSingleton.getInstance().addStory(new Story(storyName, resId, storyStatus, pieceslist, 0,0,0,0));
             }
             for(Story story : DataSingleton.getInstance().getStories()){
                 System.out.println(story.toString());
