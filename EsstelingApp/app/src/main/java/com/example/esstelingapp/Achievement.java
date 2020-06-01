@@ -40,6 +40,8 @@ public class Achievement {
     public boolean getAchievementStatus(){
         return AchievementStatus;
     }
+
+    public void setAchievementStatus(boolean status) { this.AchievementStatus = status; }
 }
 
 

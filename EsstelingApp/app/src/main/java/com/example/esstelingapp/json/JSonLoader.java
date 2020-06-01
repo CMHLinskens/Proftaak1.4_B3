@@ -1,5 +1,6 @@
 package com.example.esstelingapp.json;
 
+import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.data.DataSingleton;
 
 import org.json.JSONArray;
@@ -16,6 +17,7 @@ public class JSonLoader {
     public static void readAllJsonFiles(){
         readQuizFile();
         readFactFile();
+        readAchievementsFile();
     }
 
     private static void readQuizFile(){
@@ -78,6 +80,35 @@ public class JSonLoader {
                 randomFacts.add(facts.getString(i));
             }
             DataSingleton.getInstance().setRandomFacts(randomFacts);
+        } catch(IOException e){
+            e.printStackTrace();
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    private static void readAchievementsFile(){
+        String jsonString = "";
+        try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("achievements.json")) {
+            // Opening the file and put everything into a String
+            Scanner reader = new Scanner(in);
+            while (reader.hasNext()) {
+                jsonString += reader.nextLine();
+            }
+
+            // Getting the array of the file
+            JSONArray achievementsFile = new JSONArray(jsonString);
+            reader.close();
+
+            ArrayList<Achievement> achievements = new ArrayList<>();
+
+            for(int i = 0; i < achievementsFile.length(); i++){
+                JSONObject achievementInFile = achievementsFile.getJSONObject(i);
+                achievements.add(new Achievement(achievementInFile.getString("name"),
+                                achievementInFile.getBoolean("status"),
+                                achievementInFile.getInt("progress")));
+            }
+            DataSingleton.getInstance().setAchievements(achievements);
         } catch(IOException e){
             e.printStackTrace();
         } catch(JSONException e){

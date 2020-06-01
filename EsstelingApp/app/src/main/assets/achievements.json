@@ -1,0 +1,32 @@
+[
+    {
+      "name" : "Piglet home builder",
+      "status" : false,
+      "progress" : 0
+    },
+    {
+      "name" : "Red riding hood",
+      "status" : false,
+      "progress" : 0
+    },
+    {
+      "name" : "follow the breadcrumbs",
+      "status" : false,
+      "progress" : 0
+    },
+    {
+      "name" : "sneaky dragon treasure thief",
+      "status" : false,
+      "progress" : 0
+    },
+    {
+      "name" : "junior story seeker",
+      "status" : false,
+      "progress" : 0
+    },
+    {
+      "name" : "master story seeker",
+      "status" : false,
+      "progress" : 0
+    }
+]
