@@ -3,7 +3,6 @@ package com.example.esstelingapp.json;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.StoryPiecesInterface;
@@ -29,7 +28,7 @@ public class JSonLoader {
 
     private static void readQuizFile(){
         String jsonString = "";
-        try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("riddle_questions.json")){
+        try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("riddle_questionsNL.json")){
             // Opening the file and put everything into a String
             Scanner reader = new Scanner(in);
             while(reader.hasNext()){
@@ -70,7 +69,7 @@ public class JSonLoader {
 
     private static void readFactFile(){
         String jsonString = "";
-        try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("random_facts.json")) {
+        try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("random_factsNL.json")) {
             // Opening the file and put everything into a String
             Scanner reader = new Scanner(in);
             while (reader.hasNext()) {
@@ -98,7 +97,7 @@ public class JSonLoader {
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
 
         String jsonString = "";
-        try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("achievements.json")) {
+        try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("achievementsNL.json")) {
             // Opening the file and put everything into a String
             Scanner reader = new Scanner(in);
             while (reader.hasNext()) {
@@ -129,7 +128,7 @@ public class JSonLoader {
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
 
         String jsonParse = "";
-        try(InputStream inputStream = DataSingleton.getInstance().getMainContext().getAssets().open("stories.json")){
+        try(InputStream inputStream = DataSingleton.getInstance().getMainContext().getAssets().open("storiesNL.json")){
             Scanner reader = new Scanner(inputStream);
             while(reader.hasNext()){
                 jsonParse += reader.nextLine();
