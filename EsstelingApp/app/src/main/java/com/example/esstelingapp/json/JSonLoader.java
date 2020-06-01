@@ -1,5 +1,8 @@
 package com.example.esstelingapp.json;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.Achievement;
@@ -91,6 +94,8 @@ public class JSonLoader {
     }
 
     private static void readAchievementsFile(){
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
+
         String jsonString = "";
         try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("achievements.json")) {
             // Opening the file and put everything into a String
@@ -108,8 +113,8 @@ public class JSonLoader {
             for(int i = 0; i < achievementsFile.length(); i++){
                 JSONObject achievementInFile = achievementsFile.getJSONObject(i);
                 achievements.add(new Achievement(achievementInFile.getString("name"),
-                                achievementInFile.getBoolean("status"),
-                                achievementInFile.getInt("progress")));
+                                preferences.getBoolean("a"+i, false),
+                                preferences.getInt("a"+i, 0)));
             }
             DataSingleton.getInstance().setAchievements(achievements);
         } catch(IOException e){
@@ -120,26 +125,27 @@ public class JSonLoader {
     }
 
     private static void readStoryFile(){
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
+
         String jsonParse = "";
-        try(InputStream inputStream = DataSingleton.getInstance().getMainContext().getResources().openRawResource(R.raw.stories)){
-            Scanner scanner = new Scanner(inputStream);
-            while(scanner.hasNext()){
-                jsonParse += scanner.nextLine();
+        try(InputStream inputStream = DataSingleton.getInstance().getMainContext().getAssets().open("stories.json")){
+            Scanner reader = new Scanner(inputStream);
+            while(reader.hasNext()){
+                jsonParse += reader.nextLine();
             }
 
-            scanner.close();
+            reader.close();
             JSONArray stories = new JSONArray(jsonParse);
 
             for(int i = 0; i < stories.length(); i++){
                 JSONObject story = stories.getJSONObject(i);
                 String storyName = story.getString("storyName");
-                int storyProgress = story.getInt("storyProgress");
+                int storyProgress = preferences.getInt("s"+i, 0);
                 String imageResource = story.getString("imageUrl");
                 final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
-                boolean storyStatus = story.getBoolean("storyStatus");
+                boolean storyStatus = preferences.getBoolean("s"+i, true);
                 DataSingleton.getInstance().addStory(new Story(storyName, resId, storyStatus, storyProgress));
             }
-
             for(Story story : DataSingleton.getInstance().getStories()){
                 System.out.println(story.toString());
             }
