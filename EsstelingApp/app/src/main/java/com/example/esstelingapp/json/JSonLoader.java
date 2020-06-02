@@ -8,6 +8,8 @@ import com.example.esstelingapp.Story;
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.StoryPiecesInterface;
 import com.example.esstelingapp.data.DataSingleton;
+import com.example.esstelingapp.games.Question;
+import com.example.esstelingapp.games.StoryTypes;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,23 +46,21 @@ public class JSonLoader {
             JSONArray jsonFile = new JSONArray(jsonString);
             reader.close();
 
-            HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> quizQuestions = new HashMap<>();
+            HashMap<String, HashMap<Integer, Question>> quizQuestions = new HashMap<>();
 
             for(int i = 0; i < jsonFile.length(); i++){
                 JSONObject category = jsonFile.getJSONObject(i);
                 String categoryName = category.getString("name");
-                HashMap<Integer, HashMap<String, ArrayList<String>>> questionsMap = new HashMap<>();
+                HashMap<Integer, Question> questionsMap = new HashMap<>();
                 for(int j = 0; j < category.length() - 1; j++){
                     JSONObject question = category.getJSONObject("q" + j);
                     String questionName = question.getString("question");
                     JSONArray answerJArray = question.getJSONArray("answers");
-                    ArrayList<String> answers = new ArrayList<>();
+                    String[] answers = new String[4];
                     for(int x = 0; x < answerJArray.length(); x++){
-                        answers.add((String)answerJArray.get(x));
+                        answers[x] = answerJArray.getString(x);
                     }
-                    HashMap<String, ArrayList<String>> questionAnswer = new HashMap<>();
-                    questionAnswer.put(questionName, answers);
-                    questionsMap.put(j, questionAnswer);
+                    questionsMap.put(j, new Question(StoryTypes.valueOf(categoryName), questionName, answers));
                 }
                 quizQuestions.put(categoryName, questionsMap);
             }

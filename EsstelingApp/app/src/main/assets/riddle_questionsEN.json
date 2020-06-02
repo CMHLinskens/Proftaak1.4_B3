@@ -1,6 +1,6 @@
 [
 	{
-		"name" : "Piglets",
+		"name" : "BIGGETJES",
 		"q0": {
 			"question": "Of which materials were the first two house made?",
 			"answers": [
@@ -57,7 +57,7 @@
 		}
 	},
 	{
-		"name" : "Hansel and Gretel",
+		"name" : "HANS_EN_GRIETJE",
 		"q0": {
 			"question": "How smelly is Bart?",
 			"answers": [
