@@ -3,6 +3,7 @@ package com.example.esstelingapp.ui;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MotionEventCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -12,11 +13,13 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.ReadingItem;
@@ -136,13 +139,20 @@ public class activity_read_story extends Fragment {
         nextStoryPiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("i clicked why wont it open?");
+                marker++;
+                if (marker<subjectStory.getPieces().size()){
                 Fragment readstoryFragment = new activity_read_story();
                 Bundle bundle = new Bundle();
-                bundle.putInt("storyMarker", (marker++));
+
+                bundle.putInt("storyMarker", marker);
                 bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                 readstoryFragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();}
+                else {
+                    Fragment storylistFragment = new StoryPage();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
+                }
             }
         });
 

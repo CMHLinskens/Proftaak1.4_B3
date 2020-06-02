@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">EsstelingApp</string>
+    <string name="app_name">Essteling\'s fabel speurders</string>
 
     // Home page strings
     <string name="home_stories_text">Verhalen afgerond</string>
