@@ -1,6 +1,6 @@
 [
 	{
-		"name" : "Biggetjes",
+		"name" : "BIGGETJES",
 		"q0": {
 			"question": "Van welke materialen waren de eerste 2 huisjes gemaakt",
 			"answers": [
@@ -57,7 +57,7 @@
 		}
 	},
 	{
-		"name" : "HansEnGrietje",
+		"name" : "HANS_EN_GRIETJE",
 		"q0": {
 			"question": "Hoe erg stinkt Bart",
 			"answers": [

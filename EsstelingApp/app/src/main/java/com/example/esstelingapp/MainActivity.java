@@ -1,26 +1,18 @@
 package com.example.esstelingapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.json.JSonLoader;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.example.esstelingapp.games.RiddlePage;
-
-public class MainActivity extends AppCompatActivity {
-import com.example.esstelingapp.data.DataSingleton;
+import com.example.esstelingapp.json.JSonLoader;
 import com.example.esstelingapp.ui.AchievementPage;
 import com.example.esstelingapp.ui.HomePage;
-import com.example.esstelingapp.ui.SettingsPage;
 import com.example.esstelingapp.ui.StoryPage;
 import com.example.esstelingapp.ui.StoryUnlockPopup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -44,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
 
         DataSingleton dataSingleton = DataSingleton.getInstance();
+        dataSingleton.setMainContext(this);
+        JSonLoader.readAllJsonFiles();
+
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,7 +58,8 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
                     selectedFragment = new AchievementPage();
                     break;
                 case R.id.nav_settings:
-                    selectedFragment = new SettingsPage();
+//                    selectedFragment = new SettingsPage();
+                    selectedFragment = new RiddlePage();
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
@@ -83,7 +80,5 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
 
     private void runRiddle() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RiddlePage()).commit();
-//        Intent gameIntent = new Intent(this, RiddlePage.class);
-//        startActivity(gameIntent);
     }
 }

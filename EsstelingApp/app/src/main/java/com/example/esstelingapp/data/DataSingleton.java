@@ -2,6 +2,8 @@ package com.example.esstelingapp.data;
 
 import android.content.Context;
 
+import androidx.fragment.app.FragmentManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,6 +14,7 @@ public final class DataSingleton {
     private Context mainContext;
     private HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> quizQuestions;
     private ArrayList<String> randomFacts;
+    private FragmentManager storyFragmentManager;
 
     private DataSingleton() { }
 
@@ -30,4 +33,6 @@ public final class DataSingleton {
     public void setQuizQuestions(HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> quizQuestions) { this.quizQuestions = quizQuestions; }
     public ArrayList<String> getRandomFacts() { return randomFacts; }
     public void setRandomFacts(ArrayList<String> randomFacts) { this.randomFacts = randomFacts; }
+    public FragmentManager getStoryFragmentManager() { return this.storyFragmentManager; }
+    public void setStoryFragmentManager(FragmentManager storyFragmentManager) {this.storyFragmentManager = storyFragmentManager; }
 }

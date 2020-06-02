@@ -36,7 +36,7 @@ public class RiddlePage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //initializing all components
-//        controller = new RiddleController(StoryTypes.BIGGETJES);
+        controller = new RiddleController(StoryTypes.BIGGETJES);
 
         TextView title = getView().findViewById(R.id.storyTitle);
         TextView partOfStory = getView().findViewById(R.id.partOfStory);
@@ -50,7 +50,7 @@ public class RiddlePage extends Fragment {
 
         Button submitButton = getView().findViewById(R.id.submitButton);
 
-//        showNewQuestion();
+        showNewQuestion();
     }
 
     public void showNewQuestion() {
@@ -86,21 +86,27 @@ public class RiddlePage extends Fragment {
     }
 
     public void  submitAnswer(View v) {
+        boolean correct = false;
+
         RiddleSubmitPopup popup = new RiddleSubmitPopup();
         if (answerA.isChecked() && answerA == correctAnswer) {
             System.out.println("Correct");
+            correct = true;
             popup.popupType(true, timesTried);
         }
         else if (answerB.isChecked() && answerB == correctAnswer) {
             System.out.println("Correct");
+            correct = true;
             popup.popupType(true, timesTried);
         }
         else if (answerC.isChecked() && answerC == correctAnswer) {
             System.out.println("Correct");
+            correct = true;
             popup.popupType(true, timesTried);
         }
         else if (answerD.isChecked() && answerD == correctAnswer) {
             System.out.println("Correct");
+            correct = true;
             popup.popupType(true, timesTried);
         }
         else {
@@ -108,9 +114,16 @@ public class RiddlePage extends Fragment {
             popup.popupType(false, timesTried);
         }
         popup.show(getFragmentManager(), "Submitted");
+        if (correct || timesTried > 2) {
+            // go back to story with points
+        }
+        else {
+            showNewQuestion();
+        }
     }
 
     public void skipQuestion(View v) {
         //skip
+        // go back to story without points
     }
 }

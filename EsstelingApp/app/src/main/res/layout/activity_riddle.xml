@@ -11,7 +11,7 @@
         android:layout_height="48dp"
         android:layout_margin="16dp"
         android:gravity="center_vertical"
-        android:text="Hand en Grietje"
+        android:text="Title"
         android:textSize="32sp"
         app:layout_constraintEnd_toStartOf="@id/partOfStory"
         app:layout_constraintStart_toStartOf="parent"
