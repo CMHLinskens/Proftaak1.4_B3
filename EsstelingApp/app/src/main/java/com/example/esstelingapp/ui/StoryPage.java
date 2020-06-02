@@ -36,7 +36,6 @@ public class StoryPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mStoryList.addAll(DataSingleton.getInstance().getStories());
 //        mStoryList.add(new Story("3 Biggetjes", R.drawable.threepigs,false, new ArrayList<StoryPiecesInterface>(), 0,0,0,0));
 //        mStoryList.add(new Story("Hans en grietje", R.drawable.hansgretel,true,new ArrayList<StoryPiecesInterface>(),30,0,0,0));
