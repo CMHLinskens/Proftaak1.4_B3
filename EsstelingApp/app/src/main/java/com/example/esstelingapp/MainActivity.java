@@ -1,21 +1,23 @@
 package com.example.esstelingapp;
 
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.SharedPreferences;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.games.RiddlePage;
-import com.example.esstelingapp.json.JSonLoader;
 import com.example.esstelingapp.ui.AchievementPage;
 import com.example.esstelingapp.ui.HomePage;
 import com.example.esstelingapp.ui.StoryPage;
 import com.example.esstelingapp.ui.StoryUnlockPopup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.esstelingapp.json.JSonLoader;
+
+import com.example.esstelingapp.games.RiddlePage;
 
 public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.ExampleDialogListener {
     private static final String PREFS_NAME = "prefs";
@@ -28,18 +30,28 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         if (useColourBlindTheme) {
             setTheme(R.style.ColourBlindTheme);
         }
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
+        loadData();
+    }
 
-        DataSingleton dataSingleton = DataSingleton.getInstance();
-        dataSingleton.setMainContext(this);
-        JSonLoader.readAllJsonFiles();
+    private void loadData(){
+        if(!DataSingleton.getInstance().isMainLoaded()){
+            DataSingleton.getInstance().setMainContext(this);
+            JSonLoader.readAllJsonFiles();
+            DataSingleton.getInstance().setMainLoaded(true);
+        }
+    }
 
-
+    // Use this to start the riddle
+    private void runRiddle() {
+        Intent gameIntent = new Intent(this, RiddlePage.class);
+        startActivity(gameIntent);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -73,9 +85,9 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
     @Override
     public void applyCode(String code) {
         if (code.equals("epic"))
-            System.out.println("WOW!");
+            System.out.println("Correct");
         else
-            System.out.println("fuck off");
+            System.out.println("Incorrect");
     }
 
     private void runRiddle() {

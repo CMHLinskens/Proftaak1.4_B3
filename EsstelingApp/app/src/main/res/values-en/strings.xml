@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">EsstelingApp</string>
-    <string name="home_stories_text">story background</string>
+    <string name="home_stories_text">Story Progress</string>
     <string name="home_achievement_text">Achievements aquired</string>
     <string name="home">Home</string>
     <string name="story">Stories</string>

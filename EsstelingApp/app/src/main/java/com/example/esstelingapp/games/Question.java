@@ -9,10 +9,10 @@ public class Question {
     private String[] answers;
 
     //A is always the correct answer
-    public Question(StoryTypes storyType, String question, String A, String B, String C, String D) {
+    public Question(StoryTypes storyType, String question, String[] answers) {
         this.storyType = storyType;
         this.question = question;
-        answers = new String[]{A, B, C, D};
+        this.answers = answers;
     }
 
     public StoryTypes getStoryType() {

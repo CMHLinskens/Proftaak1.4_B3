@@ -1,6 +1,7 @@
 package com.example.esstelingapp.ui;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.R;
+import com.example.esstelingapp.data.DataSingleton;
 
 import java.util.LinkedList;
 
@@ -32,12 +34,16 @@ public class AchievementPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAchievementList.add(new Achievement("Piglet home builder",true,0));
-        mAchievementList.add(new Achievement("Red riding hood",false,0));
-        mAchievementList.add(new Achievement("follow the breadcrumbs",false,0));
-        mAchievementList.add(new Achievement("sneaky dragon treasure thief",false,0));
-        mAchievementList.add(new Achievement("junior story seeker",false,0));
-        mAchievementList.add(new Achievement("master story seeker",false,0));
+//        mAchievementList.add(new Achievement("Piglet home builder",true,0));
+//        mAchievementList.add(new Achievement("Red riding hood",false,0));
+//        mAchievementList.add(new Achievement("follow the breadcrumbs",false,0));
+//        mAchievementList.add(new Achievement("sneaky dragon treasure thief",false,0));
+//        mAchievementList.add(new Achievement("junior story seeker",false,0));
+//        mAchievementList.add(new Achievement("master story seeker",false,0));
+
+        for(Achievement a : DataSingleton.getInstance().getAchievements()){
+            mAchievementList.add(a);
+        }
 
 
         // Create recycler view.
