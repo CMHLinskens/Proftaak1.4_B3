@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/EsstelingOrange">
+        android:background="@color/EsstelingRed">
 
         <ImageView
             android:id="@+id/StoryImageView"
@@ -50,9 +50,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
-            android:background="@color/EsstelingRed"
+            android:background="@color/EsstelingOrange"
             android:text="StoryTitel"
             android:textSize="18sp"
+            android:textColor="@color/colorBlindPrimary"
             app:layout_constraintStart_toEndOf="@+id/StoryImageView"
             app:layout_constraintTop_toTopOf="parent" />
 
