@@ -164,19 +164,23 @@ public class activity_read_story extends Fragment {
 
             @Override
             public void onSwipeRight() {
-                marker--;
-                if (marker<subjectStory.getPieces().size()){
-                    Fragment readstoryFragment = new activity_read_story();
-                    Bundle bundle = new Bundle();
+                if (marker == 0){
 
-                    bundle.putInt("storyMarker", marker);
-                    bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                    readstoryFragment.setArguments(bundle);
+                }else {
+                    marker--;
+                    if (marker < subjectStory.getPieces().size()) {
+                        Fragment readstoryFragment = new activity_read_story();
+                        Bundle bundle = new Bundle();
 
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();}
-                else {
-                    Fragment storylistFragment = new StoryPage();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
+                        bundle.putInt("storyMarker", marker);
+                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                        readstoryFragment.setArguments(bundle);
+
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+                    } else {
+                        Fragment storylistFragment = new StoryPage();
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
+                    }
                 }
             }
 
