@@ -3,10 +3,13 @@ package com.example.esstelingapp.json;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.esstelingapp.ReadingItem;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.StoryPiecesInterface;
 import com.example.esstelingapp.data.DataSingleton;
+import com.example.esstelingapp.games.Question;
+import com.example.esstelingapp.games.StoryTypes;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,23 +46,21 @@ public class JSonLoader {
             JSONArray jsonFile = new JSONArray(jsonString);
             reader.close();
 
-            HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> quizQuestions = new HashMap<>();
+            HashMap<String, HashMap<Integer, Question>> quizQuestions = new HashMap<>();
 
             for(int i = 0; i < jsonFile.length(); i++){
                 JSONObject category = jsonFile.getJSONObject(i);
                 String categoryName = category.getString("name");
-                HashMap<Integer, HashMap<String, ArrayList<String>>> questionsMap = new HashMap<>();
+                HashMap<Integer, Question> questionsMap = new HashMap<>();
                 for(int j = 0; j < category.length() - 1; j++){
                     JSONObject question = category.getJSONObject("q" + j);
                     String questionName = question.getString("question");
                     JSONArray answerJArray = question.getJSONArray("answers");
-                    ArrayList<String> answers = new ArrayList<>();
+                    String[] answers = new String[4];
                     for(int x = 0; x < answerJArray.length(); x++){
-                        answers.add((String)answerJArray.get(x));
+                        answers[x] = answerJArray.getString(x);
                     }
-                    HashMap<String, ArrayList<String>> questionAnswer = new HashMap<>();
-                    questionAnswer.put(questionName, answers);
-                    questionsMap.put(j, questionAnswer);
+                    questionsMap.put(j, new Question(StoryTypes.valueOf(categoryName), questionName, answers));
                 }
                 quizQuestions.put(categoryName, questionsMap);
             }
@@ -148,7 +149,29 @@ public class JSonLoader {
                 String imageResource = story.getString("imageUrl");
                 final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
                 boolean storyStatus = preferences.getBoolean("s"+i, true);
-                DataSingleton.getInstance().addStory(new Story(storyName, resId, storyStatus, new ArrayList<StoryPiecesInterface>(), 0,0,0,0));
+
+                ArrayList<StoryPiecesInterface> pieceslist = new ArrayList<>();
+                JSONArray storyPieces = story.getJSONArray("storyPieces");
+
+                for (int j = 0; j < storyPieces.length(); j++) {
+                    JSONObject storyPiece = storyPieces.getJSONObject(j);
+//                    if (storyPiece instanceof ReadingItem){
+
+                        String storyPartOne = storyPiece.getString("storyPartOne");
+                        int storyPartTwo = storyPiece.getInt("storyPartTwo");
+                        String storyPartThree = storyPiece.getString("storyPartThree");
+                        int storyPartFour = storyPiece.getInt("storyPartFour");
+                        String storyPartFive = storyPiece.getString("storyPartFive");
+                        ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
+                        pieceslist.add(piece);
+//                    }else{
+//                        System.out.println("something here with the game and action");
+//                    }
+
+                }
+
+
+                DataSingleton.getInstance().addStory(new Story(storyName, resId, storyStatus, pieceslist, 0,0,0,0));
             }
             for(Story story : DataSingleton.getInstance().getStories()){
                 System.out.println(story.toString());

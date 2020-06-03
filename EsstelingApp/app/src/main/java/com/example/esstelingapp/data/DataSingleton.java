@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.Story;
+import com.example.esstelingapp.games.Question;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public final class DataSingleton {
     private String info = "Initial info class";
     private FragmentManager storyFragmentManager;
     private Context mainContext;
-    private HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> quizQuestions;
+    private HashMap<String, HashMap<Integer, Question>> quizQuestions;
     private ArrayList<String> randomFacts;
     private ArrayList<Achievement> achievements;
     private ArrayList<Story> stories;
@@ -36,8 +37,8 @@ public final class DataSingleton {
     // getters and setters
     public Context getMainContext() { return mainContext; }
     public void setMainContext(Context mainContext) { this.mainContext = mainContext; }
-    public HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> getQuizQuestions() { return this.quizQuestions; }
-    public void setQuizQuestions(HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> quizQuestions) { this.quizQuestions = quizQuestions; }
+    public HashMap<String, HashMap<Integer, Question>> getQuizQuestions() { return this.quizQuestions; }
+    public void setQuizQuestions(HashMap<String, HashMap<Integer, Question>> quizQuestions) { this.quizQuestions = quizQuestions; }
     public ArrayList<String> getRandomFacts() { return randomFacts; }
     public void setRandomFacts(ArrayList<String> randomFacts) { this.randomFacts = randomFacts; }
     public FragmentManager getStoryFragmentManager() { return this.storyFragmentManager; }

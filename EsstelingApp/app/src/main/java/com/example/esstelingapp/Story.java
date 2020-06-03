@@ -1,8 +1,11 @@
 package com.example.esstelingapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Story {
+public class Story implements Parcelable {
         private String StoryName;
         private int StoryProgress;
         private ArrayList<StoryPiecesInterface> StoryPieces;
@@ -68,6 +71,15 @@ public class Story {
             }
         }
 
+    @Override
+    public int describeContents() {
+        return 0;
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
+}
 
 
