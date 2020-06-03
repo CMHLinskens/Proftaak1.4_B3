@@ -46,8 +46,13 @@ public class RiddlePage extends Fragment {
         TextView title = getView().findViewById(R.id.storyTitle);
         TextView partOfStory = getView().findViewById(R.id.partOfStory);
         question = getView().findViewById(R.id.question);
-        Button skipButton = getView().findViewById(R.id.skipButton);
-
+        final Button skipButton = getView().findViewById(R.id.skipButton);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                skipQuestion(v);
+            }
+        });
         answerA = getView().findViewById(R.id.answerA);
         answerB = getView().findViewById(R.id.answerB);
         answerC = getView().findViewById(R.id.answerC);
@@ -60,6 +65,7 @@ public class RiddlePage extends Fragment {
                 submitAnswer(v);
             }
         });
+
 
         showNewQuestion();
     }
