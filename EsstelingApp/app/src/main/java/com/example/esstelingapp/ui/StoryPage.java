@@ -1,5 +1,6 @@
 package com.example.esstelingapp.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
-import com.example.esstelingapp.StoryPiecesInterface;
 import com.example.esstelingapp.data.DataSingleton;
+import com.example.esstelingapp.data.ThemeState;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 
@@ -33,6 +33,7 @@ public class StoryPage extends Fragment {
         return inflater.inflate(R.layout.activity_story_menu, container, false);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -48,6 +49,12 @@ public class StoryPage extends Fragment {
 
         // Create recycler view.
         mRecyclerView = getView().findViewById(R.id.StoryRecycler);
+        if(DataSingleton.getInstance().getState().equals(ThemeState.NORMALISE)){
+            mRecyclerView.setBackgroundColor(R.color.EsstelingRed);
+        }
+        if(DataSingleton.getInstance().getState().equals(ThemeState.COLOURBLIND)) {
+
+        }
         // Create an adapter and supply the data to be displayed.
         mAdapter = new StoryAdapter(getContext(), mStoryList, this);
         // Connect the adapter with the recycler view.

@@ -1,15 +1,37 @@
 <resources>
 
     <style name="EsstelingTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/EsstelingGreen</item>
+        <item name="android:colorBackground">@color/EsstelingGreen</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="colorAccent">@color/EsstelingBlue</item>
+        <item name="android:textColor">@color/EsstelingOrange</item>
     </style>
 
-    <style name="ColourBlindTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorBlindPrimary</item>
-        <item name="colorPrimaryDark">@color/colorBlindText</item>
-        <item name="colorAccent">@color/colorBackground</item>
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationBar</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationBar" parent="">
+        <item name="colorPrimary">@color/EsstelingRed</item>
+        <item name="android:colorBackground">@color/EsstelingDarkerGreen</item>
+
+    </style>
+
+
+    <style name="ColourBlindTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/colorBlindPrimary</item>
+        <item name="android:colorBackground">@color/colorBlindBackground</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.ColourBlindNavView</item>
+        <item name="android:textColor">@color/colorBlindText</item>
+    </style>
+
+    <style name="Widget.App.ColourBlindNavView" parent="Widget.Design.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.ColourBlindNavBar</item>
+    </style>
+    <style name="ThemeOverlay.App.ColourBlindNavBar" parent="">
+        <item name="colorPrimary">@color/colorBlindText</item>
+        <item name="android:colorBackground">@color/colorBlindBackground</item>
     </style>
 
 
