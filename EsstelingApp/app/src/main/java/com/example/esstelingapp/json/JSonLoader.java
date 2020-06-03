@@ -141,6 +141,7 @@ public class JSonLoader {
 
             reader.close();
             JSONArray stories = new JSONArray(jsonParse);
+            ArrayList<Story> storyList = new ArrayList<>();
 
             for(int i = 0; i < stories.length(); i++){
                 JSONObject story = stories.getJSONObject(i);
@@ -167,15 +168,10 @@ public class JSonLoader {
 //                    }else{
 //                        System.out.println("something here with the game and action");
 //                    }
-
                 }
-
-
-                DataSingleton.getInstance().addStory(new Story(storyName, resId, storyStatus, pieceslist, 0,0,0,0));
+                storyList.add(new Story(storyName, resId, storyStatus, pieceslist, 0,0,0,0));
             }
-            for(Story story : DataSingleton.getInstance().getStories()){
-                System.out.println(story.toString());
-            }
+            DataSingleton.getInstance().setStories(storyList);
         } catch (Error | IOException | JSONException e){
             e.printStackTrace();
         }

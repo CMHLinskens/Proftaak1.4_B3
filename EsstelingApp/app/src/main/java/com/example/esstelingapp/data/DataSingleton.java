@@ -50,8 +50,8 @@ public final class DataSingleton {
     public ArrayList<Story> getStories() {
         return stories;
     }
-    public void addStory (Story story) {
-        this.stories.add(story);
+    public void setStories (ArrayList<Story> stories) {
+        this.stories = stories;
     }
     public boolean isMainLoaded() {
         return mainLoaded;
