@@ -47,7 +47,7 @@
         android:layout_margin="32dp"
         android:gravity="center"
         android:text="Question placeholder"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/storyTitle" />
 
     <RadioGroup
@@ -62,43 +62,43 @@
             android:id="@+id/answerA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:text="answer A placeholder"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <RadioButton
             android:id="@+id/answerB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:text="answer B placeholder"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <RadioButton
             android:id="@+id/answerC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:text="answer C placeholder"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <RadioButton
             android:id="@+id/answerD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:text="answer D placeholder"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
     </RadioGroup>
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:onClick="submitAnswer"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="64dp"
         android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

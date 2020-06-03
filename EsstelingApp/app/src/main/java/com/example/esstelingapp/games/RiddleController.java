@@ -19,13 +19,13 @@ public class RiddleController {
 
     private void getData(StoryTypes storyType) {
         questions = new ArrayList<>();
-        HashMap<String, HashMap<Integer, HashMap<String, ArrayList<String>>>> questionData = DataSingleton.getInstance().getQuizQuestions();
+        HashMap<String, HashMap<Integer, Question>> questionData = DataSingleton.getInstance().getQuizQuestions();
 
         final String nameStoryBiggetjes = storyType.toString();
 
 //        System.out.println(questionData.get(nameStoryBiggetjes));
 
-        for (int i = 0; i < 6; i++) { //amount of stories is still hardcoded
+        for (int i = 0; i < questionData.get(nameStoryBiggetjes).size(); i++) { //amount of stories is still hardcoded
             Question question = questionData.get(nameStoryBiggetjes).get(i);
             questions.add(question);
         }

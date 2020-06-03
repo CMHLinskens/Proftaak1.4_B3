@@ -1,5 +1,7 @@
 package com.example.esstelingapp.games;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +21,18 @@ import java.util.List;
 public class RiddlePage extends Fragment {
     private int timesTried;
     private RiddleController controller;
+    private TextView question;
     private RadioButton correctAnswer;
     private RadioButton answerA;
     private RadioButton answerB;
     private RadioButton answerC;
     private RadioButton answerD;
+    private StoryTypes storyType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        storyType = StoryTypes.BIGGETJES;
         return inflater.inflate(R.layout.activity_riddle, container, false);
     }
 
@@ -36,11 +41,11 @@ public class RiddlePage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //initializing all components
-        controller = new RiddleController(StoryTypes.BIGGETJES);
+        controller = new RiddleController(storyType);
 
         TextView title = getView().findViewById(R.id.storyTitle);
         TextView partOfStory = getView().findViewById(R.id.partOfStory);
-        TextView question = getView().findViewById(R.id.question);
+        question = getView().findViewById(R.id.question);
         Button skipButton = getView().findViewById(R.id.skipButton);
 
         answerA = getView().findViewById(R.id.answerA);
@@ -48,7 +53,13 @@ public class RiddlePage extends Fragment {
         answerC = getView().findViewById(R.id.answerC);
         answerD = getView().findViewById(R.id.answerD);
 
-        Button submitButton = getView().findViewById(R.id.submitButton);
+        final Button submitButton = getView().findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitAnswer(v);
+            }
+        });
 
         showNewQuestion();
     }
@@ -57,6 +68,13 @@ public class RiddlePage extends Fragment {
         timesTried++;
 
         Question question = controller.getNewQuestion();
+        answerA.setChecked(false);
+        answerB.setChecked(false);
+        answerC.setChecked(false);
+        answerD.setChecked(false);
+
+        this.question.setText(question.getQuestion());
+
         List<Integer> randomOrder = new ArrayList<>();
         randomOrder.add(0);
         randomOrder.add(1);
@@ -85,42 +103,53 @@ public class RiddlePage extends Fragment {
         }
     }
 
-    public void  submitAnswer(View v) {
+    public void submitAnswer(View v) {
         boolean correct = false;
 
-        RiddleSubmitPopup popup = new RiddleSubmitPopup();
-        if (answerA.isChecked() && answerA == correctAnswer) {
-            System.out.println("Correct");
-            correct = true;
-            popup.popupType(true, timesTried);
+        if (!answerA.isChecked() && !answerB.isChecked() && !answerC.isChecked() && !answerD.isChecked()) {
+            return;
         }
-        else if (answerB.isChecked() && answerB == correctAnswer) {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+        if (    answerA.isChecked() && answerA == correctAnswer ||
+                answerB.isChecked() && answerB == correctAnswer ||
+                answerC.isChecked() && answerC == correctAnswer ||
+                answerD.isChecked() && answerD == correctAnswer) {
+
             System.out.println("Correct");
-            correct = true;
-            popup.popupType(true, timesTried);
+
+            alert.setMessage("Correct");
+            alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //go back to the story
+                }
+            }).show();
+
         }
-        else if (answerC.isChecked() && answerC == correctAnswer) {
-            System.out.println("Correct");
-            correct = true;
-            popup.popupType(true, timesTried);
-        }
-        else if (answerD.isChecked() && answerD == correctAnswer) {
-            System.out.println("Correct");
-            correct = true;
-            popup.popupType(true, timesTried);
+        else if (timesTried < 3) {
+            System.out.println("Incorrect");
+            alert.setMessage("Incorrect");
+            alert.setPositiveButton("Try again", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    showNewQuestion();
+                }
+            }).show();
         }
         else {
             System.out.println("Incorrect");
-            popup.popupType(false, timesTried);
-        }
-        popup.show(getFragmentManager(), "Submitted");
-        if (correct || timesTried > 2) {
-            // go back to story with points
-        }
-        else {
-            showNewQuestion();
+            alert.setMessage("Incorrect \nBetter luck next time");
+            alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //go back to the story
+                }
+            }).show();
         }
     }
+
 
     public void skipQuestion(View v) {
         //skip
