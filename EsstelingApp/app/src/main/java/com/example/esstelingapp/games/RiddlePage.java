@@ -124,8 +124,8 @@ public class RiddlePage extends Fragment {
                 answerD.isChecked() && answerD == correctAnswer) {
 
             System.out.println("Correct");
-
             alert.setMessage("Correct");
+            alert.setCancelable(false);
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -137,6 +137,7 @@ public class RiddlePage extends Fragment {
         else if (timesTried < 3) {
             System.out.println("Incorrect");
             alert.setMessage("Incorrect");
+            alert.setCancelable(false);
             alert.setPositiveButton("Try again", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -147,6 +148,7 @@ public class RiddlePage extends Fragment {
         else {
             System.out.println("Incorrect");
             alert.setMessage("Incorrect \nBetter luck next time");
+            alert.setCancelable(false);
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
