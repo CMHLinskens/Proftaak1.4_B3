@@ -156,18 +156,24 @@ public class JSonLoader {
 
                 for (int j = 0; j < storyPieces.length(); j++) {
                     JSONObject storyPiece = storyPieces.getJSONObject(j);
-//                    if (storyPiece instanceof ReadingItem){
+                        int pieceID = storyPiece.getInt("pieceID");
+                        if (pieceID==1) {
+                            String storyPartOne = storyPiece.getString("storyPartOne");
+                            int storyPartTwo = storyPiece.getInt("storyPartTwo");
+                            String storyPartThree = storyPiece.getString("storyPartThree");
+                            int storyPartFour = storyPiece.getInt("storyPartFour");
+                            String storyPartFive = storyPiece.getString("storyPartFive");
+                            ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
+//                        }
+//                        else if (pieceID==2){
+//
+                        }else{
+                            String tieInText = storyPiece.getString("tieInText");
 
-                        String storyPartOne = storyPiece.getString("storyPartOne");
-                        int storyPartTwo = storyPiece.getInt("storyPartTwo");
-                        String storyPartThree = storyPiece.getString("storyPartThree");
-                        int storyPartFour = storyPiece.getInt("storyPartFour");
-                        String storyPartFive = storyPiece.getString("storyPartFive");
-                        ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
-                        pieceslist.add(piece);
-//                    }else{
-//                        System.out.println("something here with the game and action");
-//                    }
+                            GameItem piece = new GameItem(tieInText, 0, false);
+                        }
+                            pieceslist.add(piece);
+
                 }
                 storyList.add(new Story(storyName, resId, storyStatus, pieceslist, 0,0,0,0));
             }
