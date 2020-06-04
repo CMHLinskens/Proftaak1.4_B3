@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.json.JSonLoader;
+import com.example.esstelingapp.mqtt.MQTTController;
 import com.example.esstelingapp.ui.AchievementPage;
 import com.example.esstelingapp.ui.HomePage;
 import com.example.esstelingapp.ui.SettingsPage;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
         loadData();
+        MQTTController.getInstance().connectToServer(this);
     }
 
     private void loadData(){
