@@ -49,12 +49,6 @@ public class StoryPage extends Fragment {
 
         // Create recycler view.
         mRecyclerView = getView().findViewById(R.id.StoryRecycler);
-        if(DataSingleton.getInstance().getState().equals(ThemeState.NORMALISE)){
-            mRecyclerView.setBackgroundColor(R.color.EsstelingRed);
-        }
-        if(DataSingleton.getInstance().getState().equals(ThemeState.COLOURBLIND)) {
-
-        }
         // Create an adapter and supply the data to be displayed.
         mAdapter = new StoryAdapter(getContext(), mStoryList, this);
         // Connect the adapter with the recycler view.

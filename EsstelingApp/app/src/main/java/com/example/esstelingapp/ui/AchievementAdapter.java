@@ -2,6 +2,10 @@ package com.example.esstelingapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.provider.ContactsContract;
+import android.text.TextDirectionHeuristic;
+import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.R;
+import com.example.esstelingapp.data.DataSingleton;
+import com.example.esstelingapp.data.ThemeState;
 
 import java.util.LinkedList;
 
@@ -20,6 +26,8 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 
     private final LinkedList<Achievement> mAchievementList;
     private final LayoutInflater mInflater;
+    private static final String PREFS_NAME = "prefs";
+    private boolean isColourBlind;
 
 
     class AchievementViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -75,6 +83,8 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
     public AchievementAdapter(Context context, LinkedList<Achievement> projectList) {
         mInflater = LayoutInflater.from(context);
         this.mAchievementList = projectList;
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        this.isColourBlind = preferences.getBoolean("colour_blind_theme", false);
     }
 
 
@@ -124,6 +134,14 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         int pCurrent = current.getAchievementProgress();
         holder.achievementProgressItemView.setProgress(pCurrent);
         boolean bCurrent = current.getAchievementStatus();
+        if(!this.isColourBlind){
+            holder.itemView.setBackgroundResource(R.color.EsstelingRed);
+            holder.achievementProgressItemView.setBackgroundResource(R.color.EsstelingBlue);
+        } else {
+            holder.itemView.setBackgroundResource(R.color.colorBlindText);
+            holder.achievementProgressItemView.setBackgroundResource(R.color.colorBlindBackground);
+        }
+
         if (bCurrent){
             holder.achievementStatusItemView.setImageResource(R.drawable.star);
         }

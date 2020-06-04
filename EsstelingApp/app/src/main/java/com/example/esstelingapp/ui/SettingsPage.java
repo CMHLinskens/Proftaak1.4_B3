@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ToggleButton;
@@ -80,32 +81,40 @@ public class SettingsPage extends Fragment {
         this.apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Objects.requireNonNull(getActivity()).finish();
-                Intent intent = getActivity().getIntent();
-                startActivity(intent);
+
             }
         });
 
         this.toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(toggleButton.isChecked()){
+                if (toggleButton.isChecked()) {
                     SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putBoolean("switchKey", true);
-                    editor.apply();
+                    editor.putBoolean(PREF_COLOUR_BLIND_THEME, true);
                     toggleColourBlindMode(true);
-                    DataSingleton.getInstance().setState(ThemeState.COLOURBLIND);
+//                    DataSingleton.getInstance().setState(ThemeState.COLOURBLIND);
+                    editor.apply();
                 } else {
                     SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putBoolean("switchKey", false);
-                    editor.apply();
-                    DataSingleton.getInstance().setState(ThemeState.NORMALISE);
+                    editor.putBoolean(PREF_COLOUR_BLIND_THEME, false);
+//                    DataSingleton.getInstance().setState(ThemeState.NORMALISE);
                     toggleColourBlindMode(false);
+                    editor.apply();
                 }
             }
         });
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean isChecked = preferences.getBoolean("switchKey", false);
+        boolean toggleSelected = preferences.getBoolean("isDutch", false);
+        if (toggleSelected) {
+            this.buttonEnglish.setChecked(false);
+            this.buttonDutch.setChecked(true);
+        } else {
+            this.buttonDutch.setChecked(false);
+            this.buttonEnglish.setChecked(true);
+        }
         this.toggleButton.setChecked(isChecked);
     }
 
@@ -113,7 +122,7 @@ public class SettingsPage extends Fragment {
         Resources resources = getResources();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         Configuration config = resources.getConfiguration();
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             config.setLocale(new Locale(localeCode.toLowerCase()));
         } else {
             config.locale = new Locale(localeCode.toLowerCase());
@@ -125,6 +134,10 @@ public class SettingsPage extends Fragment {
         SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putBoolean(PREF_COLOUR_BLIND_THEME, colourBlindTheme);
         editor.apply();
+
+        Objects.requireNonNull(getActivity()).finish();
+        Intent intent = getActivity().getIntent();
+        startActivity(intent);
     }
 }
 

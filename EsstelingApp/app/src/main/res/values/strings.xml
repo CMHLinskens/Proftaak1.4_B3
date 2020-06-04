@@ -16,5 +16,6 @@
 
     // Unlock screen popup strings
     <string name="password">Wachtwoord</string>
+    <string name="apply">Apply</string>
 
 </resources>
