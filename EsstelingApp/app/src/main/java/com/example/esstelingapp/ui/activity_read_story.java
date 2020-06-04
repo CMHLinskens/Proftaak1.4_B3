@@ -22,11 +22,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.esstelingapp.GameItem;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.ReadingItem;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.StoryPiecesInterface;
 import com.example.esstelingapp.data.DataSingleton;
+import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.json.JSonLoader;
 
 import java.util.ArrayList;
@@ -178,15 +180,27 @@ public class activity_read_story extends Fragment {
             @Override
             public void onClick(View v) {
                 marker++;
-                if (marker<subjectStory.getPieces().size()){
-                Fragment readstoryFragment = new activity_read_story();
-                Bundle bundle = new Bundle();
+                if (marker<subjectStory.getPieces().size()) {
+                    if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
+                        Fragment readstoryFragment = new activity_read_story();
+                        Bundle bundle = new Bundle();
 
-                bundle.putInt("storyMarker", marker);
-                bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                readstoryFragment.setArguments(bundle);
+                        bundle.putInt("storyMarker", marker);
+                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                        readstoryFragment.setArguments(bundle);
 
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();}
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+                    }
+                    else if (subjectStory.getPieces().get(marker) instanceof GameItem){
+                        Fragment riddlePage = new RiddlePage();
+                        Bundle bundle = new Bundle();
+
+                        bundle.putInt("storyMarker", marker);
+                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                        riddlePage.setArguments(bundle);
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
+                    }
+                }
                 else {
                     Fragment storylistFragment = new StoryPage();
                     getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
