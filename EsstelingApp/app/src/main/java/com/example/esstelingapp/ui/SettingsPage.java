@@ -7,15 +7,12 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -24,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.data.DataSingleton;
+import com.example.esstelingapp.data.ThemeState;
 import com.example.esstelingapp.json.JSonLoader;
 
 import java.util.Locale;
@@ -96,10 +94,12 @@ public class SettingsPage extends Fragment {
                     editor.putBoolean("switchKey", true);
                     editor.apply();
                     toggleColourBlindMode(true);
+                    DataSingleton.getInstance().setState(ThemeState.COLOURBLIND);
                 } else {
                     SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putBoolean("switchKey", false);
                     editor.apply();
+                    DataSingleton.getInstance().setState(ThemeState.NORMALISE);
                     toggleColourBlindMode(false);
                 }
             }

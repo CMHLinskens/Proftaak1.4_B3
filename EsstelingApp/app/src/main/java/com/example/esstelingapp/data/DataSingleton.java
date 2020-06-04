@@ -22,10 +22,14 @@ public final class DataSingleton {
     private ArrayList<String> randomFacts;
     private ArrayList<Achievement> achievements;
     private ArrayList<Story> stories;
+    private ThemeState state;
 
     private DataSingleton() {
         this.mainLoaded = false;
-        this.stories = new ArrayList<>(); }
+        this.stories = new ArrayList<>();
+        this.state = ThemeState.NORMALISE;
+    }
+
 
     public static DataSingleton getInstance() {
         if(INSTANCE == null) {
@@ -58,5 +62,13 @@ public final class DataSingleton {
     }
     public void setMainLoaded(boolean mainLoaded) {
         this.mainLoaded = mainLoaded;
+    }
+
+    public ThemeState getState() {
+        return state;
+    }
+
+    public void setState(ThemeState state) {
+        this.state = state;
     }
 }
