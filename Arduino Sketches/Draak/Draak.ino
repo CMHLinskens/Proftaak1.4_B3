@@ -18,9 +18,11 @@ const int resolution = 8;
 const int signalAmplifier = 1500;
 
 // Buzzer variables
-const int bFreq = 2000;
+const int bFreq = 100;
 const int buzzerChannel = 1;
 const int bResolution = 12;
+unsigned long lastBuzzTime;
+const int buzzTimer = 200; // in ms
 
 
 void setup(){
@@ -49,14 +51,17 @@ void loop() {
   Serial.println(ledStrength);
   ledcWrite(ledChannel, ledStrength);
 
-  lastPulseTime = millis();
-  //delay(100);
-  }
+    //delay(100);
+  
   if(isDetecting) {
-    ledcWriteTone(buzzerChannel, 137);
+    ledcWriteTone(buzzerChannel, ((1/distance)*signalAmplifier));
+    lastBuzzTime = millis();
   } else {
     ledcWriteTone(buzzerChannel, 0);
   }
+
+  lastPulseTime = millis();
+ }
 }
 
 void startUltrasone(){
