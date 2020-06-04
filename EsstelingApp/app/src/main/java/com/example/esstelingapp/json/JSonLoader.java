@@ -176,6 +176,16 @@ public class JSonLoader {
                         }else{
                             String tieInText = storyPiece.getString("tieInText");
 
+                        String storyPartOne = storyPiece.getString("storyPartOne");
+                        String storyPartTwo = storyPiece.getString("storyPartTwo");
+                        String storyPartThree = storyPiece.getString("storyPartThree");
+                        String storyPartFour = storyPiece.getString("storyPartFour");
+                        String storyPartFive = storyPiece.getString("storyPartFive");
+                        ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
+                        pieceslist.add(piece);
+//                    }else{
+//                        System.out.println("something here with the game and action");
+//                    }
                             GameItem piece = new GameItem(tieInText, 0, false);
                             pieceslist.add(piece);
                         }

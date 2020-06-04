@@ -55,7 +55,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textSize="16dp"
+                    android:layout_marginBottom="15dp"/>
 
                 <Button
                     android:id="@+id/StoryPartOneButton"
@@ -80,7 +82,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView"
-                    android:paddingBottom="10dp"/>
+                    android:textSize="16dp"
+                    android:paddingBottom="15dp"/>
 
                 <Button
                     android:id="@+id/StoryPartThreeButton"
@@ -105,7 +108,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView"
-                    android:paddingBottom="10dp"/>
+                    android:textSize="16dp"
+                    android:paddingBottom="15dp"/>
 
                 <Button
                     android:id="@+id/StoryPartFiveButton"

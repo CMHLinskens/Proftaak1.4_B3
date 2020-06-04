@@ -1,5 +1,17 @@
 package com.example.esstelingapp.ui;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MotionEventCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.drm.DrmStore;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -135,12 +147,15 @@ public class Activity_read_story extends Fragment {
             storyPartOneButton.setHeight(0);
             storyPartOneButton.setVisibility(View.INVISIBLE);
         }
-        if (item.getStoryPartTwo() != -1) {
-            //set image
+        if (!item.getStoryPartTwo().isEmpty()) {
+            storyPartTwoView.getLayoutParams().height = 850;
+            storyPartTwoView.getLayoutParams().width = 850;
+            int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getStoryPartTwo(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
+            storyPartTwoView.setImageResource(id);
         } else {
             storyPartTwoView.setVisibility(View.INVISIBLE);
-            storyPartTwoView.requestLayout();
-            storyPartTwoView.getLayoutParams().height = 60;
+            storyPartTwoView.getLayoutParams().height = 50;
+            storyPartTwoView.getLayoutParams().width = 50;
         }
         if (!item.getStoryPartThree().isEmpty()) {
             storyPartThreeView.setText(item.getStoryPartThree());
@@ -151,10 +166,15 @@ public class Activity_read_story extends Fragment {
             storyPartThreeButton.setHeight(0);
             storyPartThreeButton.setVisibility(View.INVISIBLE);
         }
-        if (item.getStoryPartFour() != -1) {
-            //set image
+        if (!item.getStoryPartFour().isEmpty()) {
+            storyPartFourView.getLayoutParams().height = 850;
+            storyPartFourView.getLayoutParams().width = 850;
+            int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getStoryPartFour(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
+            storyPartFourView.setImageResource(id);
         } else {
             storyPartFourView.setVisibility(View.INVISIBLE);
+            storyPartFourView.getLayoutParams().height = 50;
+            storyPartFourView.getLayoutParams().width = 50;
         }
         if (!item.getStoryPartFive().isEmpty()) {
             storyPartFiveView.setText(item.getStoryPartFive());
