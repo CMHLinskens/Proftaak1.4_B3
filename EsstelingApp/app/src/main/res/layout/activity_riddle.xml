@@ -8,11 +8,11 @@
     <TextView
         android:id="@+id/storyTitle"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:gravity="center_vertical"
         android:text="Title"
-        android:textSize="32sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@id/partOfStory"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,6 +38,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<TextView
+    android:id="@+id/tieInText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:gravity="center"
+    android:text="TieInText Placeholde "
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/storyTitle"
+    />
+
 
     <TextView
         android:id="@+id/question"
@@ -47,7 +58,7 @@
         android:gravity="center"
         android:text="Question placeholder"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/storyTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tieInText" />
 
     <RadioGroup
         android:id="@+id/answerGroup"
