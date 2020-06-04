@@ -1,5 +1,6 @@
 package com.example.esstelingapp.ui;
 
+import android.drm.DrmStore;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.esstelingapp.ActionItem;
+import com.example.esstelingapp.Action_window;
 import com.example.esstelingapp.GameItem;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.ReadingItem;
@@ -186,6 +189,15 @@ public class Activity_read_story extends Fragment {
                         bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                         riddlePage.setArguments(bundle);
                         getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
+                    }
+                    else if(subjectStory.getPieces().get(marker)instanceof ActionItem){
+                        Fragment actionWindow = new Action_window();
+                        Bundle bundle = new Bundle();
+
+                        bundle.putInt("storyMarker", marker);
+                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                        actionWindow.setArguments(bundle);
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, actionWindow).commit();
                     }
                 }
                 else {

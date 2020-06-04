@@ -3,6 +3,7 @@ package com.example.esstelingapp.json;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.esstelingapp.ActionItem;
 import com.example.esstelingapp.GameItem;
 import com.example.esstelingapp.ReadingItem;
 import com.example.esstelingapp.Story;
@@ -166,9 +167,12 @@ public class JSonLoader {
                             String storyPartFive = storyPiece.getString("storyPartFive");
                             ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
                             pieceslist.add(piece);
-//                        }
-//                        else if (pieceID==3){
-//                          pieceslist.add(piece);
+                        }
+                        else if (pieceID==3){
+                            String preText = storyPiece.getString("preActionText");
+                                String postText = storyPiece.getString("postActionText");
+                            ActionItem piece = new ActionItem(preText,postText,0,false);
+                          pieceslist.add(piece);
                         }else{
                             String tieInText = storyPiece.getString("tieInText");
 
