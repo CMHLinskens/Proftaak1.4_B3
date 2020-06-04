@@ -59,9 +59,8 @@
 
                 <Button
                     android:id="@+id/StoryPartOneButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TTS" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
             </LinearLayout>
 
             <ImageView
@@ -85,9 +84,8 @@
 
                 <Button
                     android:id="@+id/StoryPartThreeButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TTS" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"/>
             </LinearLayout>
 
             <ImageView
@@ -111,9 +109,8 @@
 
                 <Button
                     android:id="@+id/StoryPartFiveButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TTS" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
             </LinearLayout>
 
         </LinearLayout>

@@ -69,28 +69,65 @@ public class activity_read_story extends Fragment {
         TextView storyPartThreeView = (TextView) RootView.findViewById(R.id.StoryPartThreeView);
         ImageView storyPartFourView = (ImageView) RootView.findViewById(R.id.StoryPartFourView);
         TextView storyPartFiveView = (TextView) RootView.findViewById(R.id.StoryPartFiveView);
-        Button storyPartOneButton = (Button) RootView.findViewById(R.id.StoryPartOneButton);
+
+        final Button storyPartOneButton = (Button) RootView.findViewById(R.id.StoryPartOneButton);
+        storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+
+        final Button storyPartThreeButton = (Button) RootView.findViewById(R.id.StoryPartThreeButton);
+        storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
+
+        final Button storyPartFiveButton = (Button) RootView.findViewById(R.id.StoryPartFiveButton);
+        storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+
         storyPartOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                storyPartOneButton.setSelected(!storyPartOneButton.isSelected());
+
+                if (storyPartOneButton.isSelected()){
+                    storyPartOneButton.setBackgroundResource(R.drawable.sound_on);
+                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
+                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+                }else {
+                    storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+                }
+
                 TTS1playing = !TTS1playing;
                 TTS3playing = false;
                 TTS5playing = false;
             }
         });
-        Button storyPartThreeButton = (Button) RootView.findViewById(R.id.StoryPartThreeButton);
+
         storyPartThreeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                storyPartThreeButton.setSelected(!storyPartThreeButton.isSelected());
+                if (storyPartThreeButton.isSelected()){
+                    storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_on);
+                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+                }else {
+                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
+                }
+
                 TTS1playing = false;
                 TTS3playing = !TTS3playing;
                 TTS5playing = false;
             }
         });
-        Button storyPartFiveButton = (Button) RootView.findViewById(R.id.StoryPartFiveButton);
+
         storyPartFiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                storyPartFiveButton.setSelected(!storyPartFiveButton.isSelected());
+                if (storyPartFiveButton.isSelected()){
+                    storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
+                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_on);
+                }else {
+                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+                }
+
                 TTS1playing = false;
                 TTS3playing = false;
                 TTS5playing = !TTS5playing;

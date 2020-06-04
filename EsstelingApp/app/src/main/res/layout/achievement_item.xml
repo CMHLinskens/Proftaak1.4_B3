@@ -29,6 +29,7 @@
             android:background="@color/EsstelingRed"
             android:text="Achievement Title"
             android:textSize="18sp"
+            android:textColor="@color/colorBlindPrimary"
             app:layout_constraintStart_toEndOf="@+id/AchievementImageView"
             app:layout_constraintTop_toTopOf="parent" />
 
