@@ -12,13 +12,11 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.data.ThemeState;
 
 import java.util.LinkedList;
 
@@ -66,7 +64,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
                     openUnlockPopUp();
                 }
                 else{
-                    Fragment readstoryFragment = new activity_read_story();
+                    Fragment readstoryFragment = new Activity_read_story();
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("storyInfo", element);  // Key, value
                     readstoryFragment.setArguments(bundle);

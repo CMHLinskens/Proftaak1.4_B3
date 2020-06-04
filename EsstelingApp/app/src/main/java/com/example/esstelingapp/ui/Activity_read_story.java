@@ -22,7 +22,7 @@ import com.example.esstelingapp.games.RiddlePage;
 
 import java.util.ArrayList;
 
-public class activity_read_story extends Fragment {
+public class Activity_read_story extends Fragment {
     private Story subjectStory;
     private int marker;
     private boolean TTS1playing;
@@ -169,7 +169,7 @@ public class activity_read_story extends Fragment {
                 marker++;
                 if (marker<subjectStory.getPieces().size()) {
                     if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                        Fragment readstoryFragment = new activity_read_story();
+                        Fragment readstoryFragment = new Activity_read_story();
                         Bundle bundle = new Bundle();
 
                         bundle.putInt("storyMarker", marker);
@@ -208,7 +208,7 @@ public class activity_read_story extends Fragment {
                     marker--;
                     if (marker < subjectStory.getPieces().size()) {
                         if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                            Fragment readstoryFragment = new activity_read_story();
+                            Fragment readstoryFragment = new Activity_read_story();
                             Bundle bundle = new Bundle();
 
                             bundle.putInt("storyMarker", marker);
@@ -237,7 +237,7 @@ public class activity_read_story extends Fragment {
                 marker++;
                 if (marker < subjectStory.getPieces().size()) {
                     if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                        Fragment readstoryFragment = new activity_read_story();
+                        Fragment readstoryFragment = new Activity_read_story();
                         Bundle bundle = new Bundle();
 
                         bundle.putInt("storyMarker", marker);
@@ -267,7 +267,7 @@ public class activity_read_story extends Fragment {
             public void onSwipeRight() {
                 marker--;
                 if (marker<subjectStory.getPieces().size()){
-                    Fragment readstoryFragment = new activity_read_story();
+                    Fragment readstoryFragment = new Activity_read_story();
                     Bundle bundle = new Bundle();
 
                     bundle.putInt("storyMarker", marker);
@@ -285,7 +285,7 @@ public class activity_read_story extends Fragment {
             public void onSwipeLeft() {
                 marker++;
                 if (marker<subjectStory.getPieces().size()){
-                    Fragment readstoryFragment = new activity_read_story();
+                    Fragment readstoryFragment = new Activity_read_story();
                     Bundle bundle = new Bundle();
 
                     bundle.putInt("storyMarker", marker);
