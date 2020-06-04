@@ -19,7 +19,7 @@ import com.example.esstelingapp.Story;
 import com.example.esstelingapp.StoryPiecesInterface;
 import com.example.esstelingapp.ui.OnSwipeTouchListener;
 import com.example.esstelingapp.ui.StoryPage;
-import com.example.esstelingapp.ui.activity_read_story;
+import com.example.esstelingapp.ui.Activity_read_story;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -108,7 +108,7 @@ public class RiddlePage extends Fragment {
                     marker--;
                     if (marker < subjectStory.getPieces().size()) {
                         if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                            Fragment readstoryFragment = new activity_read_story();
+                            Fragment readstoryFragment = new Activity_read_story();
                             Bundle bundle = new Bundle();
 
                             bundle.putInt("storyMarker", marker);
@@ -137,7 +137,7 @@ public class RiddlePage extends Fragment {
                 marker++;
                 if (marker < subjectStory.getPieces().size()) {
                     if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                        Fragment readstoryFragment = new activity_read_story();
+                        Fragment readstoryFragment = new Activity_read_story();
                         Bundle bundle = new Bundle();
 
                         bundle.putInt("storyMarker", marker);
@@ -223,7 +223,7 @@ public class RiddlePage extends Fragment {
                     marker++;
                     if (marker < subjectStory.getPieces().size()) {
                         if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                            Fragment readstoryFragment = new activity_read_story();
+                            Fragment readstoryFragment = new Activity_read_story();
                             Bundle bundle = new Bundle();
 
                             bundle.putInt("storyMarker", marker);
@@ -269,7 +269,7 @@ public class RiddlePage extends Fragment {
                     marker++;
                     if (marker < subjectStory.getPieces().size()) {
                         if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                            Fragment readstoryFragment = new activity_read_story();
+                            Fragment readstoryFragment = new Activity_read_story();
                             Bundle bundle = new Bundle();
 
                             bundle.putInt("storyMarker", marker);
@@ -300,7 +300,7 @@ public class RiddlePage extends Fragment {
         marker++;
         if (marker < subjectStory.getPieces().size()) {
             if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                Fragment readstoryFragment = new activity_read_story();
+                Fragment readstoryFragment = new Activity_read_story();
                 Bundle bundle = new Bundle();
 
                 bundle.putInt("storyMarker", marker);

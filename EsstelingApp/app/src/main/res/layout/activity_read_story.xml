@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity_read_story">
+    tools:context=".ui.Activity_read_story">
 
     <TextView
         android:id="@+id/ReadStoryTitel"

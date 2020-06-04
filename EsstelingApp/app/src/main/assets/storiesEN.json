@@ -54,6 +54,11 @@
         "storyPartFive": "After many days of frustration, the witch was done waiting. “girl prepare the oven; I have waited too long. I am hungry” Gretel opened the oven and looked it its large belly. It was very large, large enough for even the witch to fit in. “I don’t think Hansel will fit in the oven” she lied. “What are you babbling on about, of course he'll fit.” The witch said as she came to take a look in the oven. Gretel waited for the witch to stick her head into the oven and then pushed her in."
       },
       {
+        "pieceID": 3,
+        "preActionText": "",
+        "postActionText": ""
+      },
+      {
         "pieceID" : 1,
         "storyPartOne": "Now that the witch was in the oven she screamed. Gretel ran to the table where she had seen the key and released her brother. “Good job” Hansel praised. The children took bags filled with food with them and ran away from the candy house. When they were far enough, they still needed to find a way back home. The children remembered that north had the most chance of leading them home from their father and ran that way.",
         "storyPartTwo": -1,

@@ -1,5 +1,6 @@
 package com.example.esstelingapp.ui;
 
+import android.drm.DrmStore;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.esstelingapp.ActionItem;
+import com.example.esstelingapp.Action_window;
 import com.example.esstelingapp.GameItem;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.ReadingItem;
@@ -22,7 +25,7 @@ import com.example.esstelingapp.games.RiddlePage;
 
 import java.util.ArrayList;
 
-public class activity_read_story extends Fragment {
+public class Activity_read_story extends Fragment {
     private Story subjectStory;
     private int marker;
     private boolean TTS1playing;
@@ -169,7 +172,7 @@ public class activity_read_story extends Fragment {
                 marker++;
                 if (marker<subjectStory.getPieces().size()) {
                     if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                        Fragment readstoryFragment = new activity_read_story();
+                        Fragment readstoryFragment = new Activity_read_story();
                         Bundle bundle = new Bundle();
 
                         bundle.putInt("storyMarker", marker);
@@ -186,6 +189,15 @@ public class activity_read_story extends Fragment {
                         bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                         riddlePage.setArguments(bundle);
                         getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
+                    }
+                    else if(subjectStory.getPieces().get(marker)instanceof ActionItem){
+                        Fragment actionWindow = new Action_window();
+                        Bundle bundle = new Bundle();
+
+                        bundle.putInt("storyMarker", marker);
+                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                        actionWindow.setArguments(bundle);
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, actionWindow).commit();
                     }
                 }
                 else {
@@ -208,7 +220,7 @@ public class activity_read_story extends Fragment {
                     marker--;
                     if (marker < subjectStory.getPieces().size()) {
                         if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                            Fragment readstoryFragment = new activity_read_story();
+                            Fragment readstoryFragment = new Activity_read_story();
                             Bundle bundle = new Bundle();
 
                             bundle.putInt("storyMarker", marker);
@@ -237,7 +249,7 @@ public class activity_read_story extends Fragment {
                 marker++;
                 if (marker < subjectStory.getPieces().size()) {
                     if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                        Fragment readstoryFragment = new activity_read_story();
+                        Fragment readstoryFragment = new Activity_read_story();
                         Bundle bundle = new Bundle();
 
                         bundle.putInt("storyMarker", marker);
@@ -267,7 +279,7 @@ public class activity_read_story extends Fragment {
             public void onSwipeRight() {
                 marker--;
                 if (marker<subjectStory.getPieces().size()){
-                    Fragment readstoryFragment = new activity_read_story();
+                    Fragment readstoryFragment = new Activity_read_story();
                     Bundle bundle = new Bundle();
 
                     bundle.putInt("storyMarker", marker);
@@ -285,7 +297,7 @@ public class activity_read_story extends Fragment {
             public void onSwipeLeft() {
                 marker++;
                 if (marker<subjectStory.getPieces().size()){
-                    Fragment readstoryFragment = new activity_read_story();
+                    Fragment readstoryFragment = new Activity_read_story();
                     Bundle bundle = new Bundle();
 
                     bundle.putInt("storyMarker", marker);
