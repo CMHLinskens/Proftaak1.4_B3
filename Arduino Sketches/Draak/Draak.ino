@@ -2,6 +2,7 @@
 #define PIN_ECHO 26
 #define PIN_LED 33
 #define PIN_BUZZER 32
+#define PIN_BUTTON 35
 
 // Ultrasone variables
 const float detectionRange = 50.0f;
@@ -21,15 +22,17 @@ const int signalAmplifier = 1500;
 const int bFreq = 100;
 const int buzzerChannel = 1;
 const int bResolution = 12;
-unsigned long lastBuzzTime;
-const int buzzTimer = 200; // in ms
 
+// Button variables
+unsigned long lastButtonTime;
+const int buttonTimer = 50; // in ms
 
 void setup(){
   Serial.begin(9600);
   pinMode(PIN_TRIGGER, OUTPUT);
   pinMode(PIN_ECHO, INPUT);
   pinMode(PIN_BUZZER, OUTPUT);
+  pinMode(PIN_BUTTON, INPUT);
 
   // Do the setup for the PWM led and buzzer
   ledcSetup(ledChannel, freq, resolution);
@@ -48,19 +51,21 @@ void loop() {
 
   // If the ultrasone is detecting then calculate the PWM value
   int ledStrength = isDetecting? constrain(((1/distance)*signalAmplifier), 0, 255) : 0;
-  Serial.println(ledStrength);
+  //Serial.println(ledStrength);
   ledcWrite(ledChannel, ledStrength);
 
-    //delay(100);
-  
   if(isDetecting) {
     ledcWriteTone(buzzerChannel, ((1/distance)*signalAmplifier));
-    lastBuzzTime = millis();
   } else {
     ledcWriteTone(buzzerChannel, 0);
   }
-
+  
   lastPulseTime = millis();
+ }
+
+ if(digitalRead(PIN_BUTTON) && (lastButtonTime + buttonTimer) < millis()){
+  onButtonPress();
+  lastButtonTime = millis();
  }
 }
 
@@ -109,8 +114,7 @@ pinMode(PIN_BUZZER, INPUT);                // shut off pin to avoid noise from o
 
 }
 
-void freqOut(int freq){
-  digitalWrite(PIN_BUZZER, true);
-  delayMicroseconds((500000 / freq) - 7);
-  digitalWrite(PIN_BUZZER, false);
+void onButtonPressed(){
+  Serial.println("Pressed the button.");
+  // TODO send message via MQTT
 }
