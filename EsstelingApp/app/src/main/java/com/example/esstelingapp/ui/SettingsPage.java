@@ -59,7 +59,6 @@ public class SettingsPage extends Fragment {
         this.buttonDutch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setAppLocale("nl");
                 SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putBoolean("isDutch", true);
                 editor.apply();
@@ -69,7 +68,6 @@ public class SettingsPage extends Fragment {
         this.buttonEnglish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setAppLocale("en");
                 SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putBoolean("isDutch", false);
                 editor.apply();
@@ -109,8 +107,7 @@ public class SettingsPage extends Fragment {
         this.toggleButton.setChecked(isChecked);
     }
 
-    private void setAppLocale(String localeCode) {
-        Resources resources = getResources();
+    public static void setAppLocale(String localeCode, Resources resources) {
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         Configuration config = resources.getConfiguration();
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){

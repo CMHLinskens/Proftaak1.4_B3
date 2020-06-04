@@ -30,7 +30,14 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         if (useColourBlindTheme) {
             setTheme(R.style.ColourBlindTheme);
         }
-        
+
+        // Put the app in the preferred language
+        if(preferences.getBoolean("isDutch", true)){
+            SettingsPage.setAppLocale("nl", getResources());
+        } else {
+            SettingsPage.setAppLocale("en", getResources());
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
