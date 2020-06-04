@@ -61,7 +61,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             Story element = mStoryList.get(mPosition);
             if (element!=null){
                 if(!element.getStoryStatus()) {
-                    openUnlockPopUp();
+                    openUnlockPopUp(element);
                 }
                 else{
                     Fragment readstoryFragment = new Activity_read_story();
@@ -77,8 +77,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
 //            context.startActivity(intent);
         }
 
-        private void openUnlockPopUp(){
+        private void openUnlockPopUp(Story element){
             StoryUnlockPopup storyUnlockPopup = new StoryUnlockPopup();
+            storyUnlockPopup.setStory(element);
             storyUnlockPopup.show(DataSingleton.getInstance().getStoryFragmentManager(), "Unlock Code");
         }
     }
