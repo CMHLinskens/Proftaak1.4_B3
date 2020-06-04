@@ -17,6 +17,7 @@ import com.example.esstelingapp.R;
 import com.example.esstelingapp.ReadingItem;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.StoryPiecesInterface;
+import com.example.esstelingapp.ui.OnSwipeTouchListener;
 import com.example.esstelingapp.ui.StoryPage;
 import com.example.esstelingapp.ui.activity_read_story;
 
@@ -96,6 +97,69 @@ public class RiddlePage extends Fragment {
 
 
         showNewQuestion();
+
+        view.setOnTouchListener(new OnSwipeTouchListener(view.getContext()){
+
+            @Override
+            public void onSwipeRight() {
+                if (marker == 0){
+
+                }else {
+                    marker--;
+                    if (marker < subjectStory.getPieces().size()) {
+                        if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
+                            Fragment readstoryFragment = new activity_read_story();
+                            Bundle bundle = new Bundle();
+
+                            bundle.putInt("storyMarker", marker);
+                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                            readstoryFragment.setArguments(bundle);
+
+                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+                        } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
+                            Fragment riddlePage = new RiddlePage();
+                            Bundle bundle = new Bundle();
+
+                            bundle.putInt("storyMarker", marker);
+                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                            riddlePage.setArguments(bundle);
+                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
+                        }
+                    } else {
+                        Fragment storylistFragment = new StoryPage();
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
+                    }
+                }
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                marker++;
+                if (marker < subjectStory.getPieces().size()) {
+                    if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
+                        Fragment readstoryFragment = new activity_read_story();
+                        Bundle bundle = new Bundle();
+
+                        bundle.putInt("storyMarker", marker);
+                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                        readstoryFragment.setArguments(bundle);
+
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+                    } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
+                        Fragment riddlePage = new RiddlePage();
+                        Bundle bundle = new Bundle();
+
+                        bundle.putInt("storyMarker", marker);
+                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                        riddlePage.setArguments(bundle);
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
+                    }
+                } else {
+                    Fragment storylistFragment = new StoryPage();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
+                }
+            }
+        });
     }
 
     public void showNewQuestion() {
@@ -257,6 +321,5 @@ public class RiddlePage extends Fragment {
             Fragment storylistFragment = new StoryPage();
             getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
         }
-        // go back to story without points
     }
 }
