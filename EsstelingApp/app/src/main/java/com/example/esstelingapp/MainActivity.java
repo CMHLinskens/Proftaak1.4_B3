@@ -82,9 +82,11 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
     };
 
     @Override
-    public void applyCode(String code) {
-        if (code.equals("epic"))
+    public void applyCode(String code, Story story) {
+        if (code.equals("wachtwoord")) {
             System.out.println("Correct");
+            story.setStoryStatus(true);
+        }
         else
             System.out.println("Incorrect");
     }

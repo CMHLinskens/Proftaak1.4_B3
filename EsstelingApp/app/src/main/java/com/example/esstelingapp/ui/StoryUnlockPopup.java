@@ -14,10 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.esstelingapp.R;
+import com.example.esstelingapp.Story;
 
 public class StoryUnlockPopup extends AppCompatDialogFragment {
     private EditText editTextCode;
     private ExampleDialogListener listener;
+    private Story story;
 
     @NonNull
     @Override
@@ -27,7 +29,7 @@ public class StoryUnlockPopup extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.story_unlock_popup, null);
 
-        builder.setView(view).setTitle("Unlock").setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle("Unlock").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -36,7 +38,7 @@ public class StoryUnlockPopup extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String code = editTextCode.getText().toString();
-                listener.applyCode(code);
+                listener.applyCode(code, story);
             }
         });
         editTextCode = view.findViewById(R.id.popup_edit_text);
@@ -50,11 +52,15 @@ public class StoryUnlockPopup extends AppCompatDialogFragment {
         try {
             listener = (ExampleDialogListener) context;
         } catch (Exception e) {
-            throw new ClassCastException(context.toString() + "must implement ExampleDialogListener ");
+            throw new ClassCastException(context.toString() + " must implement ExampleDialogListener ");
         }
     }
 
     public interface ExampleDialogListener {
-        void applyCode(String code);
+        void applyCode(String code, Story story);
+    }
+
+    public void setStory(Story story) {
+        this.story = story;
     }
 }

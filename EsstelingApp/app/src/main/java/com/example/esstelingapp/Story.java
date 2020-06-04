@@ -71,6 +71,10 @@ public class Story implements Parcelable {
             }
         }
 
+    public void setStoryStatus(boolean storyStatus) {
+        StoryStatus = storyStatus;
+    }
+
     @Override
     public int describeContents() {
         return 0;
