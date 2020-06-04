@@ -1,12 +1,16 @@
 package com.example.esstelingapp.games;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.esstelingapp.R;
 
@@ -14,38 +18,69 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RiddlePage extends AppCompatActivity {
+public class RiddlePage extends Fragment {
+    private int timesTried;
     private RiddleController controller;
+    private TextView question;
     private RadioButton correctAnswer;
     private RadioButton answerA;
     private RadioButton answerB;
     private RadioButton answerC;
     private RadioButton answerD;
+    private StoryTypes storyType;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_riddle);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        storyType = StoryTypes.BIGGETJES;
+        return inflater.inflate(R.layout.activity_riddle, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         //initializing all components
-//        controller = new RiddleController(StoryTypes.BIGGETJES);
+        controller = new RiddleController(storyType);
 
-        TextView title = findViewById(R.id.storyTitle);
-        TextView question = findViewById(R.id.question);
-        Button skipButton = findViewById(R.id.skipButton);
+        TextView title = getView().findViewById(R.id.storyTitle);
+        TextView partOfStory = getView().findViewById(R.id.partOfStory);
+        question = getView().findViewById(R.id.question);
+        final Button skipButton = getView().findViewById(R.id.skipButton);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                skipQuestion(v);
+            }
+        });
+        answerA = getView().findViewById(R.id.answerA);
+        answerB = getView().findViewById(R.id.answerB);
+        answerC = getView().findViewById(R.id.answerC);
+        answerD = getView().findViewById(R.id.answerD);
 
-        answerA = findViewById(R.id.answerA);
-        answerB = findViewById(R.id.answerB);
-        answerC = findViewById(R.id.answerC);
-        answerD = findViewById(R.id.answerD);
+        final Button submitButton = getView().findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitAnswer(v);
+            }
+        });
 
-        Button submitButton = findViewById(R.id.submitButton);
 
-//        showNewQuestion();
+        showNewQuestion();
     }
 
     public void showNewQuestion() {
+        timesTried++;
+
         Question question = controller.getNewQuestion();
+        answerA.setChecked(false);
+        answerB.setChecked(false);
+        answerC.setChecked(false);
+        answerD.setChecked(false);
+
+        this.question.setText(question.getQuestion());
+
         List<Integer> randomOrder = new ArrayList<>();
         randomOrder.add(0);
         randomOrder.add(1);
@@ -74,30 +109,58 @@ public class RiddlePage extends AppCompatActivity {
         }
     }
 
-    public void  submitAnswer(View v) {
-        if (answerA.isChecked() && answerA == correctAnswer) {
-            System.out.println("Correct");
-            //win
+    public void submitAnswer(View v) {
+        boolean correct = false;
+
+        if (!answerA.isChecked() && !answerB.isChecked() && !answerC.isChecked() && !answerD.isChecked()) {
+            return;
         }
-        else if (answerB.isChecked() && answerB == correctAnswer) {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+        if (    answerA.isChecked() && answerA == correctAnswer ||
+                answerB.isChecked() && answerB == correctAnswer ||
+                answerC.isChecked() && answerC == correctAnswer ||
+                answerD.isChecked() && answerD == correctAnswer) {
+
             System.out.println("Correct");
-            //win
+            alert.setMessage("Correct");
+            alert.setCancelable(false);
+            alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //go back to the story
+                }
+            }).show();
+
         }
-        else if (answerC.isChecked() && answerC == correctAnswer) {
-            System.out.println("Correct");
-            //win
-        }
-        else if (answerD.isChecked() && answerC == correctAnswer) {
-            System.out.println("Correct");
-            //win
+        else if (timesTried < 3) {
+            System.out.println("Incorrect");
+            alert.setMessage("Incorrect");
+            alert.setCancelable(false);
+            alert.setPositiveButton("Try again", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    showNewQuestion();
+                }
+            }).show();
         }
         else {
             System.out.println("Incorrect");
-            //lose
+            alert.setMessage("Incorrect \nBetter luck next time");
+            alert.setCancelable(false);
+            alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //go back to the story
+                }
+            }).show();
         }
     }
 
+
     public void skipQuestion(View v) {
         //skip
+        // go back to story without points
     }
 }

@@ -1,6 +1,9 @@
 package com.example.esstelingapp.games;
 
+import com.example.esstelingapp.data.DataSingleton;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class RiddleController {
@@ -10,14 +13,22 @@ public class RiddleController {
 
     public RiddleController(StoryTypes storyType) {
         this.storyType = storyType;
-        getData();
+        getData(storyType);
 
     }
 
-    private void getData() {
+    private void getData(StoryTypes storyType) {
         questions = new ArrayList<>();
+        HashMap<String, HashMap<Integer, Question>> questionData = DataSingleton.getInstance().getQuizQuestions();
 
-        //Put all the questions of that story in the List
+        final String nameStoryBiggetjes = storyType.toString();
+
+//        System.out.println(questionData.get(nameStoryBiggetjes));
+
+        for (int i = 0; i < questionData.get(nameStoryBiggetjes).size(); i++) { //amount of stories is still hardcoded
+            Question question = questionData.get(nameStoryBiggetjes).get(i);
+            questions.add(question);
+        }
     }
 
     public Question getNewQuestion() {
