@@ -13,6 +13,7 @@ import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.json.JSonLoader;
 import com.example.esstelingapp.ui.AchievementPage;
 import com.example.esstelingapp.ui.HomePage;
+import com.example.esstelingapp.ui.SettingsPage;
 import com.example.esstelingapp.ui.StoryPage;
 import com.example.esstelingapp.ui.StoryUnlockPopup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -62,8 +63,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
                     selectedFragment = new AchievementPage();
                     break;
                 case R.id.nav_settings:
-//                    selectedFragment = new SettingsPage();
-                    selectedFragment = new RiddlePage();
+                    selectedFragment = new SettingsPage();
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
