@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.mqtt.MQTTController;
@@ -19,11 +20,12 @@ import com.example.esstelingapp.ui.StoryPage;
 public class Action_window extends Fragment {
     private Story subjectStory;
     private int marker;
+    private View RootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View RootView = inflater.inflate(R.layout.activity_action_window, container, false);
+        RootView = inflater.inflate(R.layout.activity_action_window, container, false);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             subjectStory = bundle.getParcelable("storyInfo"); // Key
@@ -88,5 +90,17 @@ public class Action_window extends Fragment {
 
 
         return RootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        TextView title = RootView.findViewById(R.id.titleTextView);
+        title.setText(subjectStory.getStoryName());
+        TextView partOfStory = RootView.findViewById(R.id.pageTextView);
+        String text = "part " + (marker + 1) + " of " + subjectStory.getPieces().size();
+        partOfStory.setText(text);
+
+        super.onViewCreated(view, savedInstanceState);
     }
 }
