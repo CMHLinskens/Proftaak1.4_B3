@@ -33,6 +33,7 @@ import com.example.esstelingapp.R;
 import com.example.esstelingapp.ReadingItem;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.StoryPiecesInterface;
+import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.games.RiddlePage;
 
 import java.util.ArrayList;

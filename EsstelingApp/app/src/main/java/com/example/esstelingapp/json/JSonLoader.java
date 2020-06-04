@@ -161,9 +161,9 @@ public class JSonLoader {
                         int pieceID = storyPiece.getInt("pieceID");
                         if (pieceID==1) {
                             String storyPartOne = storyPiece.getString("storyPartOne");
-                            int storyPartTwo = storyPiece.getInt("storyPartTwo");
+                            String storyPartTwo = storyPiece.getString("storyPartTwo");
                             String storyPartThree = storyPiece.getString("storyPartThree");
-                            int storyPartFour = storyPiece.getInt("storyPartFour");
+                            String storyPartFour = storyPiece.getString("storyPartFour");
                             String storyPartFive = storyPiece.getString("storyPartFive");
                             ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
                             pieceslist.add(piece);
@@ -175,17 +175,6 @@ public class JSonLoader {
                           pieceslist.add(piece);
                         }else{
                             String tieInText = storyPiece.getString("tieInText");
-
-                        String storyPartOne = storyPiece.getString("storyPartOne");
-                        String storyPartTwo = storyPiece.getString("storyPartTwo");
-                        String storyPartThree = storyPiece.getString("storyPartThree");
-                        String storyPartFour = storyPiece.getString("storyPartFour");
-                        String storyPartFive = storyPiece.getString("storyPartFive");
-                        ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
-                        pieceslist.add(piece);
-//                    }else{
-//                        System.out.println("something here with the game and action");
-//                    }
                             GameItem piece = new GameItem(tieInText, 0, false);
                             pieceslist.add(piece);
                         }
