@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
             setTheme(R.style.ColourBlindTheme);
         }
 
+        // Put the app in the preferred language
         if(preferences.getBoolean("isDutch", true)){
             SettingsPage.setAppLocale("nl", getResources());
         } else {
