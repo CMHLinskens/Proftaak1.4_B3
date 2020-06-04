@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.esstelingapp.R;
+import com.example.esstelingapp.data.DataSingleton;
+
+import java.util.Random;
 
 public class HomePage extends Fragment {
     @Nullable
@@ -26,8 +29,10 @@ public class HomePage extends Fragment {
 
         // Finding the random fact text and filling it with a fact
         TextView randomFactText = (TextView) getView().findViewById(R.id.random_fact_text);
-        // TODO make it actually take a random fact from a file
-        randomFactText.setText("De Essteling geeft niet om klantvriendelijkheid.");
+        Random rand = new Random();
+        int randomFactIndex = rand.nextInt(DataSingleton.getInstance().getRandomFacts().size());
+        String randomFact = DataSingleton.getInstance().getRandomFacts().get(randomFactIndex);
+        randomFactText.setText(randomFact);
 
         // Finding the progress bars and setting it a random value
         ProgressBar storyProgressBar = (ProgressBar) getView().findViewById(R.id.story_progressBar);
