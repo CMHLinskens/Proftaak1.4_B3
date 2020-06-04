@@ -15,4 +15,5 @@
     <string name="dutch">Dutch</string>
     <string name="language">Language</string>
     <string name="colourBlindMode">Colour-blind mode</string>
+    <string name="Apply">APPLY</string>
 </resources>

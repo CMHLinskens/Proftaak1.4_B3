@@ -79,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
 
             return true;
         }
-
-        ;
     };
 
     @Override
