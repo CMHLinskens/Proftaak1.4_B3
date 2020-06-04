@@ -159,9 +159,9 @@ public class JSonLoader {
 //                    if (storyPiece instanceof ReadingItem){
 
                         String storyPartOne = storyPiece.getString("storyPartOne");
-                        int storyPartTwo = storyPiece.getInt("storyPartTwo");
+                        String storyPartTwo = storyPiece.getString("storyPartTwo");
                         String storyPartThree = storyPiece.getString("storyPartThree");
-                        int storyPartFour = storyPiece.getInt("storyPartFour");
+                        String storyPartFour = storyPiece.getString("storyPartFour");
                         String storyPartFive = storyPiece.getString("storyPartFive");
                         ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
                         pieceslist.add(piece);
