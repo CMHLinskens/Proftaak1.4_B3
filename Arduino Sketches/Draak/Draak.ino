@@ -1,8 +1,15 @@
+#include <WiFi.h>
+#include <PubSubClient.h>
+
+// Define the pins for the hardware
 #define PIN_TRIGGER 27
 #define PIN_ECHO 26
 #define PIN_LED 33
 #define PIN_BUZZER 32
 #define PIN_BUTTON 35
+
+// This activates the sensor and actuators
+bool isActive = false;
 
 // Ultrasone variables
 const float detectionRange = 50.0f;
@@ -25,7 +32,25 @@ const int bResolution = 12;
 
 // Button variables
 unsigned long lastButtonTime;
-const int buttonTimer = 50; // in ms
+const int buttonTimer = 1000; // in ms
+
+// WIFI details
+const char* WLAN_SSID = "Ziggo98D7C";
+const char* WLAN_ACCESS_KEY = "vrUc2qy43wnf";
+
+// MQTT variables
+const char* MQTT_CLIENT_ID = "MQTTExampleTryout_dkosafjnfjkasndkjbadksafb";
+const char* MQTT_BROKER_URL= "maxwell.bps-software.nl";
+const int   MQTT_PORT = 1883;
+const char* MQTT_USERNAME = "androidTI";
+const char* MQTT_PASSWORD = "&FN+g$$Qhm7j";
+
+const char* MQTT_TOPIC_DRAAK_IN = "B3/DraakIn";
+const char* MQTT_TOPIC_DRAAK_OUT = "B3/DraakOut";
+const int MQTT_QOS = 0;
+
+WiFiClient wifiClient;
+PubSubClient mqttClient(wifiClient);
 
 void setup(){
   Serial.begin(9600);
@@ -41,31 +66,74 @@ void setup(){
   // Attach the led pin
   ledcAttachPin(PIN_LED, ledChannel);
   ledcAttachPin(PIN_BUZZER, buzzerChannel);
+
+  // Setting up WiFi connection
+  WiFi.mode(WIFI_STA);
+  WiFi.disconnect();
+  Serial.print("Connecting to: ");
+  Serial.println(WLAN_SSID);
+  WiFi.begin(WLAN_SSID, WLAN_ACCESS_KEY);
+  uint8_t i = 0;
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    if ((++i % 16) == 0)
+    {
+      Serial.println(F(" still trying to connect"));
+    }
+  }
+  Serial.println("WiFi connected");
+  Serial.println("IP Adress: ");
+  Serial.println(WiFi.localIP());
+
+  //zet MQTT client op
+  mqttClient.setServer(MQTT_BROKER_URL, MQTT_PORT);
+  mqttClient.setCallback(startAction);
+  
+
+  if (mqttClient.connect(MQTT_CLIENT_ID, MQTT_USERNAME, MQTT_PASSWORD)) {
+    Serial.println("Connected to MQTT broker");
+  }else {
+    Serial.println("Failed to connect to MQTT broker");
+  }
+
+  if (mqttClient.subscribe(MQTT_TOPIC_DRAAK_IN, MQTT_QOS)){
+    
+    Serial.println("Subscribed to topic ");
+    Serial.println(MQTT_TOPIC_DRAAK_IN);
+  }else {
+    Serial.println("Failed to connect to topic ");
+    Serial.println(MQTT_TOPIC_DRAAK_IN);
+  }
 }
 
 void loop() {
   if ((lastPulseTime + pulseTimer) < millis()) {
-  startUltrasone();
-  distance = getDetectedDistance();
-  isDetecting = checkIfInRange(distance);
+  if(isActive){
+   startUltrasone();
+   distance = getDetectedDistance();
+   isDetecting = checkIfInRange(distance);
 
-  // If the ultrasone is detecting then calculate the PWM value
-  int ledStrength = isDetecting? constrain(((1/distance)*signalAmplifier), 0, 255) : 0;
-  //Serial.println(ledStrength);
-  ledcWrite(ledChannel, ledStrength);
+   // If the ultrasone is detecting then calculate the PWM value
+   int ledStrength = isDetecting? constrain(((1/distance)*signalAmplifier), 0, 255) : 0;
+   //Serial.println(ledStrength);
+   ledcWrite(ledChannel, ledStrength);
 
-  if(isDetecting) {
+   if(isDetecting) {
     ledcWriteTone(buzzerChannel, ((1/distance)*signalAmplifier));
-  } else {
+   } else {
     ledcWriteTone(buzzerChannel, 0);
+   }
   }
-  
   lastPulseTime = millis();
+
+  mqttClient.loop();
  }
 
- if(digitalRead(PIN_BUTTON) && (lastButtonTime + buttonTimer) < millis()){
-  onButtonPress();
-  lastButtonTime = millis();
+ if(isActive){
+  if(digitalRead(PIN_BUTTON) && (lastButtonTime + buttonTimer) < millis()){
+    endAction();
+    lastButtonTime = millis();
+  }
  }
 }
 
@@ -89,32 +157,35 @@ bool checkIfInRange(double distance){
   return (distance < detectionRange);
 }
 
-void freqout(int freq, int t)  // freq in hz, t in ms
+void freqout(int freq, int t)
 {
-  int hperiod;                               //calculate 1/2 period in us
+  int hperiod;                             
   long cycles, i;
-  pinMode(PIN_BUZZER, OUTPUT);                   // turn on output pin
+  pinMode(PIN_BUZZER, OUTPUT);               
 
-  hperiod = (500000 / freq) - 7;             // subtract 7 us to make up for digitalWrite overhead
+  hperiod = (500000 / freq) - 7;           
 
-  cycles = ((long)freq * (long)t) / 1000;    // calculate cycles
- // Serial.print(freq);
- // Serial.print((char)9);                   // ascii 9 is tab - you have to coerce it to a char to work 
- // Serial.print(hperiod);
- // Serial.print((char)9);
- // Serial.println(cycles);
+  cycles = ((long)freq * (long)t) / 1000;   
 
-  for (i=0; i<= cycles; i++){              // play note for t ms 
+  for (i=0; i<= cycles; i++){              
     digitalWrite(PIN_BUZZER, HIGH); 
     delayMicroseconds(hperiod);
     digitalWrite(PIN_BUZZER, LOW); 
-    delayMicroseconds(hperiod - 1);     // - 1 to make up for digitaWrite overhead
+    delayMicroseconds(hperiod - 1);     
   }
-pinMode(PIN_BUZZER, INPUT);                // shut off pin to avoid noise from other operations
-
+  pinMode(PIN_BUZZER, INPUT);                
 }
 
-void onButtonPressed(){
+void startAction(char* topic, byte* payload, unsigned int length){
+  if(strcmp(topic, MQTT_TOPIC_DRAAK_IN) == 0){
+    isActive = true;
+    Serial.println("Got a message.");
+  }
+}
+
+void endAction(){
   Serial.println("Pressed the button.");
-  // TODO send message via MQTT
+  const char* message = "end";
+  mqttClient.publish(MQTT_TOPIC_DRAAK_OUT, message);
+  isActive = false;
 }
