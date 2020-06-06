@@ -1,5 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Essteling\'s fabel speurders</string>
+    <string name="dutch" translatable="true">Nederlands</string>
+    <string name="english" translatable="true">Engels</string>
+    <string name="language" translatable="true">Taal</string>
+    <string name="colourBlindMode" translatable="true">Kleuren-blind modus</string>
 
     // Home page strings
     <string name="home_stories_text">Verhalen afgerond</string>
@@ -16,7 +20,7 @@
 
     // Unlock screen popup strings
     <string name="password">Wachtwoord</string>
+    <string name="app_name" translatable="false">Essteling\'s fabel speurders</string>
 
     <string name="Apply">TOEPASSEN</string>
-
 </resources>

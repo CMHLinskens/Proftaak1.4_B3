@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dutch">Nederlands</string>
+    <string name="english">Engels</string>
+    <string name="language">Taal</string>
+    <string name="colourBlindMode">Kleuren-blinde modus</string>
+</resources>

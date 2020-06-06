@@ -1,0 +1,69 @@
+[
+	{
+		"name" : "BIGGETJES",
+		"q0": {
+			"question": "Of which materials were the first two house made?",
+			"answers": [
+				"Straw – wood",
+				"Mud – wood",
+				"Bamboe – straw",
+				"Gingerbread – clay"
+			]
+		},
+		"q1": {
+			"question": "What did the wolf do to the piglets houses?",
+			"answers": [
+				"blew them away",
+				"smashed it",
+				"burned it",
+				"broke in"
+			]
+		},
+		"q2": {
+			"question": "Hoe many pigs were in the story?",
+			"answers": [
+				"4",
+				"3",
+				"5",
+				"None, only a wolf"
+			]
+		},
+		"q3": {
+			"question": "Why did the woodcutter leave one tree standing?",
+			"answers": [
+				"The tree was hollow",
+				"It was a very pretty tree",
+				"His axe broke",
+				"He was too tired"
+			]
+		},
+		"q4": {
+			"question": "Where does mother pig live?",
+			"answers": [
+				"In the forest",
+				"In the city",
+				"In the mud",
+				"In the fields"
+			]
+		},
+		"q5": {
+			"question": "Who did the first two piglets come across?",
+			"answers": [
+				"Woodcutter – Farmer",
+				"Potter – Teacher",
+				"knight – Princces",
+				"Dragon – Witch"
+			]
+		}
+	},
+	{
+		"name" : "HANS_EN_GRIETJE",
+		"q0": {
+			"question": "How smelly is Bart?",
+			"answers": [
+				"very very smelly",
+				"very very smelly","very very smelly","very very smelly"
+			]
+		}
+	}
+]

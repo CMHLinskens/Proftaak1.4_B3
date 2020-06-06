@@ -3,4 +3,13 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorBlindBackground">#626567</color>
+    <color name="colorBlindPrimary">#000000</color>
+    <color name="colorBlindText">#F4F6F7 </color>
+    <color name="colorBlindNavBarBackground">#1c1c1c</color>
+    <color name = "EsstelingRed">#be2223</color>
+    <color name = "EsstelingBlue">#95c8f0</color>
+    <color name = "EsstelingGreen">#2a4325</color>
+    <color name="EsstelingDarkerGreen">#20311b</color>
+    <color name = "EsstelingOrange">#eb881c </color>
 </resources>
