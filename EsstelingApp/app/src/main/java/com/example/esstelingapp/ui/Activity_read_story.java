@@ -241,4 +241,11 @@ public class Activity_read_story extends Fragment {
         mediaPlayer.release();
         mediaPlayer = null;
     }
+
+    public int getMarker() {
+        return marker;
+    }
+    public Story getSubjectStory() {
+        return subjectStory;
+    }
 }
