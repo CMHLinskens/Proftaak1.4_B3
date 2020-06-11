@@ -22,23 +22,26 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class JSonLoader {
-    public static void readAllJsonFiles(){
-       Context mainContext = DataSingleton.getInstance().getMainContext();
-       SharedPreferences languagePref = mainContext.getSharedPreferences("prefs", Context.MODE_PRIVATE);
-       String language = languagePref.getBoolean("isDutch", true)? "NL" : "EN";
+    private static boolean isColourBlind;
+
+    public static void readAllJsonFiles() {
+        Context mainContext = DataSingleton.getInstance().getMainContext();
+        SharedPreferences sharedPreferences = mainContext.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getBoolean("isDutch", true) ? "NL" : "EN";
+        String colourblind = sharedPreferences.getBoolean("colour_blind_theme", false) ? "_cb" : "";
 
         readQuizFile(language);
         readFactFile(language);
         readAchievementsFile(language);
-        readStoryFile(language);
+        readStoryFile(language, colourblind);
     }
 
-    private static void readQuizFile(String language){
+    private static void readQuizFile(String language) {
         String jsonString = "";
-        try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("riddle_questions" + language + ".json")){
+        try (InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("riddle_questions" + language + ".json")) {
             // Opening the file and put everything into a String
             Scanner reader = new Scanner(in);
-            while(reader.hasNext()){
+            while (reader.hasNext()) {
                 jsonString += reader.nextLine();
             }
 
@@ -48,16 +51,16 @@ public class JSonLoader {
 
             HashMap<String, HashMap<Integer, Question>> quizQuestions = new HashMap<>();
 
-            for(int i = 0; i < jsonFile.length(); i++){
+            for (int i = 0; i < jsonFile.length(); i++) {
                 JSONObject category = jsonFile.getJSONObject(i);
                 String categoryName = category.getString("name");
                 HashMap<Integer, Question> questionsMap = new HashMap<>();
-                for(int j = 0; j < category.length() - 1; j++){
+                for (int j = 0; j < category.length() - 1; j++) {
                     JSONObject question = category.getJSONObject("q" + j);
                     String questionName = question.getString("question");
                     JSONArray answerJArray = question.getJSONArray("answers");
                     String[] answers = new String[4];
-                    for(int x = 0; x < answerJArray.length(); x++){
+                    for (int x = 0; x < answerJArray.length(); x++) {
                         answers[x] = answerJArray.getString(x);
                     }
                     questionsMap.put(j, new Question(StoryTypes.valueOf(categoryName), questionName, answers));
@@ -65,16 +68,16 @@ public class JSonLoader {
                 quizQuestions.put(categoryName, questionsMap);
             }
             DataSingleton.getInstance().setQuizQuestions(quizQuestions);
-        } catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private static void readFactFile(String language){
+    private static void readFactFile(String language) {
         String jsonString = "";
-        try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("random_facts" + language + ".json")) {
+        try (InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("random_facts" + language + ".json")) {
             // Opening the file and put everything into a String
             Scanner reader = new Scanner(in);
             while (reader.hasNext()) {
@@ -87,22 +90,22 @@ public class JSonLoader {
 
             ArrayList<String> randomFacts = new ArrayList<>();
 
-            for(int i = 0; i < facts.length(); i++){
+            for (int i = 0; i < facts.length(); i++) {
                 randomFacts.add(facts.getString(i));
             }
             DataSingleton.getInstance().setRandomFacts(randomFacts);
-        } catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private static void readAchievementsFile(String language){
+    private static void readAchievementsFile(String language) {
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
 
         String jsonString = "";
-        try(InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("achievements" + language + ".json")) {
+        try (InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("achievements" + language + ".json")) {
             // Opening the file and put everything into a String
             Scanner reader = new Scanner(in);
             while (reader.hasNext()) {
@@ -115,27 +118,28 @@ public class JSonLoader {
 
             ArrayList<Achievement> achievements = new ArrayList<>();
 
-            for(int i = 0; i < achievementsFile.length(); i++){
+            for (int i = 0; i < achievementsFile.length(); i++) {
                 JSONObject achievementInFile = achievementsFile.getJSONObject(i);
                 achievements.add(new Achievement(achievementInFile.getString("name"),
-                                preferences.getBoolean("a"+i, false),
-                                preferences.getInt("a"+i, 0)));
+                        preferences.getBoolean("a" + i, false),
+                        preferences.getInt("a" + i, 0)));
             }
             DataSingleton.getInstance().setAchievements(achievements);
-        } catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private static void readStoryFile(String language){
+    private static void readStoryFile(String language, String colourblind) {
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
 
         String jsonParse = "";
-        try(InputStream inputStream = DataSingleton.getInstance().getMainContext().getAssets().open("stories" + language + ".json")){
+//        boolean isColourBlind = preferences.;
+        try (InputStream inputStream = DataSingleton.getInstance().getMainContext().getAssets().open("stories" + language + ".json")) {
             Scanner reader = new Scanner(inputStream);
-            while(reader.hasNext()){
+            while (reader.hasNext()) {
                 jsonParse += reader.nextLine();
             }
 
@@ -143,36 +147,31 @@ public class JSonLoader {
             JSONArray stories = new JSONArray(jsonParse);
             ArrayList<Story> storyList = new ArrayList<>();
 
-            for(int i = 0; i < stories.length(); i++){
+            for (int i = 0; i < stories.length(); i++) {
                 JSONObject story = stories.getJSONObject(i);
                 String storyName = story.getString("storyName");
-                int storyProgress = preferences.getInt("s"+i, 0);
+                int storyProgress = preferences.getInt("s" + i, 0);
                 String imageResource = story.getString("imageUrl");
-                final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
-                boolean storyStatus = preferences.getBoolean("s"+i, false);
+                final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource + colourblind, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
+                boolean storyStatus = preferences.getBoolean("s" + i, false);
 
-                ArrayList<StoryPiecesInterface> pieceslist = new ArrayList<>();
+                ArrayList<StoryPiecesInterface> piecesList = new ArrayList<>();
                 JSONArray storyPieces = story.getJSONArray("storyPieces");
 
                 for (int j = 0; j < storyPieces.length(); j++) {
                     JSONObject storyPiece = storyPieces.getJSONObject(j);
-//                    if (storyPiece instanceof ReadingItem){
-
-                        String storyPartOne = storyPiece.getString("storyPartOne");
-                        int storyPartTwo = storyPiece.getInt("storyPartTwo");
-                        String storyPartThree = storyPiece.getString("storyPartThree");
-                        int storyPartFour = storyPiece.getInt("storyPartFour");
-                        String storyPartFive = storyPiece.getString("storyPartFive");
-                        ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
-                        pieceslist.add(piece);
-//                    }else{
-//                        System.out.println("something here with the game and action");
-//                    }
+                    String storyPartOne = storyPiece.getString("storyPartOne");
+                    int storyPartTwo = storyPiece.getInt("storyPartTwo");
+                    String storyPartThree = storyPiece.getString("storyPartThree");
+                    int storyPartFour = storyPiece.getInt("storyPartFour");
+                    String storyPartFive = storyPiece.getString("storyPartFive");
+                    ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
+                    piecesList.add(piece);
                 }
-                storyList.add(new Story(storyName, resId, storyStatus, pieceslist, 0,0,0,0));
+                storyList.add(new Story(storyName, resId, storyStatus, piecesList, 0, 0, 0, 0));
             }
             DataSingleton.getInstance().setStories(storyList);
-        } catch (Error | IOException | JSONException e){
+        } catch (Error | IOException | JSONException e) {
             e.printStackTrace();
         }
     }

@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         boolean useColourBlindTheme = preferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
         if (useColourBlindTheme) {
             setTheme(R.style.ColourBlindTheme);
+        } else {
+            setTheme(R.style.EsstelingTheme);
         }
         
         super.onCreate(savedInstanceState);

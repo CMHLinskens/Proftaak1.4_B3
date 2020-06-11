@@ -20,6 +20,7 @@ import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.data.ThemeState;
+import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 
@@ -155,9 +156,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             holder.storyStatusItemView.setImageResource(R.drawable.lock);
         }
         int iCurrent = mStoryList.get(position).getStoryImageResource();
-        holder.storyImageItemView.setImageResource(iCurrent);
+//        holder.storyImageItemView.setImageResource(iCurrent);
+        Picasso.get().load(iCurrent).into(holder.storyImageItemView);
 
-//
 
     }
 

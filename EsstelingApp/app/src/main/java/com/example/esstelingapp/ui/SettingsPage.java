@@ -81,7 +81,9 @@ public class SettingsPage extends Fragment {
         this.apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Objects.requireNonNull(getActivity()).finish();
+                Intent intent = getActivity().getIntent();
+                startActivity(intent);
             }
         });
 
@@ -93,15 +95,16 @@ public class SettingsPage extends Fragment {
                     editor.putBoolean("switchKey", true);
                     editor.putBoolean(PREF_COLOUR_BLIND_THEME, true);
                     toggleColourBlindMode(true);
-//                    DataSingleton.getInstance().setState(ThemeState.COLOURBLIND);
                     editor.apply();
+                    JSonLoader.readAllJsonFiles();
                 } else {
                     SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putBoolean("switchKey", false);
                     editor.putBoolean(PREF_COLOUR_BLIND_THEME, false);
-//                    DataSingleton.getInstance().setState(ThemeState.NORMALISE);
                     toggleColourBlindMode(false);
                     editor.apply();
+                    JSonLoader.readAllJsonFiles();
+
                 }
             }
         });
