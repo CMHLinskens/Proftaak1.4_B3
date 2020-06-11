@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/old_paper">
 
     <TextView
         android:id="@+id/storyTitle"
@@ -45,6 +46,7 @@
     android:layout_margin="16dp"
     android:gravity="center"
     android:text="TieInText Placeholde "
+    android:textSize="16sp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toBottomOf="@id/storyTitle"
     />
@@ -74,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="answer A placeholder"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/answerB"
@@ -82,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="answer B placeholder"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/answerC"
@@ -90,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="answer C placeholder"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/answerD"
@@ -98,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="answer D placeholder"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
     </RadioGroup>
 
     <Button
