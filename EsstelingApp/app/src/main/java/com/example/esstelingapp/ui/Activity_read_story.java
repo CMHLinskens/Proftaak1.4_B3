@@ -183,6 +183,14 @@ public class Activity_read_story extends Fragment {
             }
         });
 
+        Button backStoryPiece = RootView.findViewById(R.id.BackButton);
+        backStoryPiece.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+            }
+        });
+
         ScrollView scrollview = RootView.findViewById(R.id.storyScrollView);
 
         scrollview.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {

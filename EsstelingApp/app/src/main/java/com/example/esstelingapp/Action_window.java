@@ -47,6 +47,13 @@ public class Action_window extends Fragment {
             }
         });
 
+        Button backButton = (Button) RootView.findViewById(R.id.BackButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTravel.fragmentTravel(-1,marker,subjectStory,getFragmentManager());
+            }
+        });
 
         Button nextButton = (Button) RootView.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(new View.OnClickListener() {

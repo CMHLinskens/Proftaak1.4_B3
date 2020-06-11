@@ -24,4 +24,5 @@
     <string name="app_name" translatable="false">Essteling\'s fabel speurders</string>
 
     <string name="Apply">TOEPASSEN</string>
+    <string name="previous">Vorige</string>
 </resources>

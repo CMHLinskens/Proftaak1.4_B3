@@ -16,8 +16,9 @@
 
     // Unlock screen popup strings
     <string name="password">Wachtwoord</string>
-    <string name="apply">Apply</string>
+    <string name="apply">Toepassen</string>
 
     <string name="Apply">TOEPASSEN</string>
+    <string name="previous">Vorige</string>
 
 </resources>

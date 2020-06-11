@@ -16,4 +16,6 @@
     <string name="language">Language</string>
     <string name="colourBlindMode">Colour-blind mode</string>
     <string name="Apply">APPLY</string>
+    <string name="previous">Previous</string>
+    <string name="apply">Apply</string>
 </resources>
