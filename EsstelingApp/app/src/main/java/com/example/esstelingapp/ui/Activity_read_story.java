@@ -212,4 +212,11 @@ public class Activity_read_story extends Fragment {
 
         return RootView;
     }
+
+    public int getMarker() {
+        return marker;
+    }
+    public Story getSubjectStory() {
+        return subjectStory;
+    }
 }

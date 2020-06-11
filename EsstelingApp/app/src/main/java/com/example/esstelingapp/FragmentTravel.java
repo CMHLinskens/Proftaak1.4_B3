@@ -10,6 +10,7 @@ import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.ui.Activity_read_story;
 import com.example.esstelingapp.ui.HomePage;
 import com.example.esstelingapp.ui.StoryPage;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FragmentTravel {
 
@@ -28,7 +29,7 @@ public class FragmentTravel {
                 if (direction == 1)
                     transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
                 else transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
-                transaction.replace(R.id.fragment_container, readstoryFragment).commit();
+                transaction.replace(R.id.fragment_container, readstoryFragment, "STORY_FRAGMENT").commit();
 
             } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
                 Fragment riddlePage = new RiddlePage();
@@ -41,7 +42,7 @@ public class FragmentTravel {
                 if (direction == 1)
                     transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
                 else transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
-                transaction.replace(R.id.fragment_container, riddlePage).commit();
+                transaction.replace(R.id.fragment_container, riddlePage, "STORY_FRAGMENT").commit();
             } else if (subjectStory.getPieces().get(marker) instanceof ActionItem) {
                 Fragment actionWindow = new Action_window();
                 Bundle bundle = new Bundle();
@@ -55,7 +56,7 @@ public class FragmentTravel {
                     transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
                 else transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
 
-                transaction.replace(R.id.fragment_container, actionWindow).commit();
+                transaction.replace(R.id.fragment_container, actionWindow, "STORY_FRAGMENT").commit();
 
             }
         } else {
@@ -73,5 +74,14 @@ public class FragmentTravel {
         }
     }
 
+    public static void returnHome(BottomNavigationView bottomNav, FragmentManager fragmentManager){
+        // Set the bottom nav icon
+        int homePageID = 2131230931;
+        bottomNav.setSelectedItemId(homePageID);
 
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+
+        transaction.replace(R.id.fragment_container, new HomePage()).commit();
+    }
 }

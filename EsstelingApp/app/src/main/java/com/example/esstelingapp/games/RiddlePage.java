@@ -202,4 +202,11 @@ public class RiddlePage extends Fragment {
     public void skipQuestion(View v) {
         FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
     }
+
+    public int getMarker() {
+        return marker;
+    }
+    public Story getSubjectStory() {
+        return subjectStory;
+    }
 }
