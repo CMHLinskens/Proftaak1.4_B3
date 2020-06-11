@@ -83,4 +83,11 @@ public class Action_window extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
     }
+
+    public int getMarker() {
+        return marker;
+    }
+    public Story getSubjectStory() {
+        return subjectStory;
+    }
 }

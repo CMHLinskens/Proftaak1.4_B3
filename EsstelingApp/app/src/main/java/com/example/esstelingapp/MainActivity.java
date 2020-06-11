@@ -151,15 +151,19 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
 
     @Override
     public void onBackPressed() {
-        if(getSupportFragmentManager().findFragmentByTag("STORY_FRAGMENT") != null){
-            if(getSupportFragmentManager().findFragmentByTag("STORY_FRAGMENT").isVisible()) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoryPage()).commit();
+        Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("STORY_FRAGMENT");
+        if(currentFragment != null){
+            if(currentFragment.isVisible()) {
+                if(currentFragment instanceof Activity_read_story) {
+                    FragmentTravel.fragmentTravel(-1, ((Activity_read_story)currentFragment).getMarker(), ((Activity_read_story)currentFragment).getSubjectStory(), getSupportFragmentManager());
+                } else if(currentFragment instanceof Action_window){
+                    FragmentTravel.fragmentTravel(-1, ((Action_window)currentFragment).getMarker(), ((Action_window)currentFragment).getSubjectStory(), getSupportFragmentManager());
+                } else if(currentFragment instanceof RiddlePage){
+                    FragmentTravel.fragmentTravel(-1, ((RiddlePage)currentFragment).getMarker(), ((RiddlePage)currentFragment).getSubjectStory(), getSupportFragmentManager());
+                }
             }
         } else {
-            System.out.println(this.bottomNav.getSelectedItemId());
-            int homePageID = 2131230931;
-            this.bottomNav.setSelectedItemId(homePageID);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
+            FragmentTravel.returnHome(this.bottomNav, getSupportFragmentManager());
         }
     }
 }
