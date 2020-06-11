@@ -36,6 +36,7 @@ public class GUI extends Application {
         Process backgroundProcess = new Process();
         backgroundProcess.setUpThread(DC);
         backgroundProcess.start();
+        MQTTController.getInstance().connectToServer();
         StackPane stackPane = new StackPane();
         VBox base = new VBox();
         Label TitelLabel = new Label("Essteling's Story seekers: code Control");

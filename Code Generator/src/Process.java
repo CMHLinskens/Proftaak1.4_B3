@@ -11,7 +11,7 @@ public class Process extends Thread {
 
     private DataController DC;
     private LocalTime dateTime;
-    private int CodeSize = 6;
+    private int codeSize = 6;
 
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -42,22 +42,33 @@ public class Process extends Thread {
 
     public void Loop() {
         while (true) {
-            while (DC.isGeneratingRandomly()) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-                LocalDateTime RegisteredDateTime = LocalDateTime.parse(DC.getTime(), dtf);
-                LocalDateTime today = LocalDateTime.now();
-                if (today.toLocalDate().isAfter(RegisteredDateTime.toLocalDate()) || today.toLocalDate().equals(RegisteredDateTime.toLocalDate())) {
-                    if (RegisteredDateTime.toLocalTime().isBefore(dateTime) && (today.toLocalTime().isAfter(dateTime) || today.toLocalTime().equals(dateTime))) {
-                        for (Code code : DC.getCodes()) {
-                            code.setCode(generate(CodeSize));
-                            DC.saveCodes();
-                        }
-
-                    } else {
-                        sleep();
-                    }
-                } else {
-                    sleep();
+//            while (DC.isGeneratingRandomly()) {
+//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+//                LocalDateTime RegisteredDateTime = LocalDateTime.parse(DC.getTime(), dtf);
+//                LocalDateTime today = LocalDateTime.now();
+//                if (today.toLocalDate().isAfter(RegisteredDateTime.toLocalDate()) || today.toLocalDate().equals(RegisteredDateTime.toLocalDate())) {
+//                    if (RegisteredDateTime.toLocalTime().isBefore(dateTime) && (today.toLocalTime().isAfter(dateTime) || today.toLocalTime().equals(dateTime))) {
+//                        for (Code code : DC.getCodes()) {
+//                            code.setCode(generate(CodeSize));
+//                            DC.saveCodes();
+//                        }
+//
+//                    } else {
+//                        sleep();
+//                    }
+//                } else {
+//                    sleep();
+//                }
+//            }
+            while(DC.isGeneratingRandomly()){
+                for(Code code : DC.getCodes()){
+                    code.setCode(generate(codeSize));
+                    DC.saveCodes();
+                }
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }

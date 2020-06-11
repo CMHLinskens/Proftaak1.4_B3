@@ -61,7 +61,13 @@ public Code getCodeByID(int ID){
             codeFileBuilder.add("Codes", codesBuilder);
             writer.writeObject(codeFileBuilder.build());
             writer.close();
-            //TODO send json to MQTT broker
+
+            if(MQTTController.getInstance().isConnected()) {
+                for (Code code : this.getCodes()) {
+                    MQTTController.getInstance().sendCode(code.getName(), code.getCode());
+                }
+            }
+
         }catch(Exception e){
             System.out.println("something went wrong:");
             e.printStackTrace();
