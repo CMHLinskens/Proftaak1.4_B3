@@ -68,7 +68,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("storyInfo", element);  // Key, value
                     readstoryFragment.setArguments(bundle);
-                    ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+                    ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment, "STORY_FRAGMENT").commit();
                 }
             }
             else{

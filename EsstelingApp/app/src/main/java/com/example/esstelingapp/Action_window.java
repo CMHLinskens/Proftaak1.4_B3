@@ -61,7 +61,7 @@ public class Action_window extends Fragment {
                 bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                 readstoryFragment.setArguments(bundle);
 
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment, "STORY_FRAGMENT").commit();
             }
             else if (subjectStory.getPieces().get(marker) instanceof GameItem){
                 Fragment riddlePage = new RiddlePage();
@@ -70,7 +70,7 @@ public class Action_window extends Fragment {
                 bundle.putInt("storyMarker", marker);
                 bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                 riddlePage.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage, "STORY_FRAGMENT").commit();
             }
             else if(subjectStory.getPieces().get(marker)instanceof ActionItem){
                 Fragment actionWindow = new Action_window();
@@ -79,12 +79,12 @@ public class Action_window extends Fragment {
                 bundle.putInt("storyMarker", marker);
                 bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                 actionWindow.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, actionWindow).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, actionWindow, "STORY_FRAGMENT").commit();
             }
         }
         else {
             Fragment storylistFragment = new StoryPage();
-            getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
+            getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment, "STORY_FRAGMENT").commit();
         }
     }});
 

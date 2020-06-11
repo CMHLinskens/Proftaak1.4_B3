@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.games.RiddlePage;
@@ -22,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.ExampleDialogListener {
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
+    private BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,8 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
+        this.bottomNav = findViewById(R.id.bottomNavigationView);
+        this.bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
         loadData();
@@ -93,5 +95,19 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
 
     private void runRiddle() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RiddlePage()).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().findFragmentByTag("STORY_FRAGMENT") != null){
+            if(getSupportFragmentManager().findFragmentByTag("STORY_FRAGMENT").isVisible()) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoryPage()).commit();
+            }
+        } else {
+            System.out.println(this.bottomNav.getSelectedItemId());
+            int homePageID = 2131230931;
+            this.bottomNav.setSelectedItemId(homePageID);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
+        }
     }
 }
