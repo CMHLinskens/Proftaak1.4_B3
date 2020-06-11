@@ -99,16 +99,16 @@ public class RiddlePage extends Fragment {
 
         showNewQuestion();
 
-        view.setOnTouchListener(new OnSwipeTouchListener(view.getContext()){
+        view.setOnTouchListener(new OnSwipeTouchListener(view.getContext()) {
 
             @Override
             public void onSwipeRight() {
-     FragmentTravel.fragmentTravel(-1,marker,subjectStory,getFragmentManager());
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
             }
 
             @Override
             public void onSwipeLeft() {
-                FragmentTravel.fragmentTravel(1,marker,subjectStory,getFragmentManager());
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
             }
         });
     }
@@ -160,7 +160,7 @@ public class RiddlePage extends Fragment {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
 
-        if (    answerA.isChecked() && answerA == correctAnswer ||
+        if (answerA.isChecked() && answerA == correctAnswer ||
                 answerB.isChecked() && answerB == correctAnswer ||
                 answerC.isChecked() && answerC == correctAnswer ||
                 answerD.isChecked() && answerD == correctAnswer) {
@@ -171,12 +171,11 @@ public class RiddlePage extends Fragment {
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    FragmentTravel.fragmentTravel(1,marker,subjectStory,getFragmentManager());
+                    FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
                 }
             }).show();
 
-        }
-        else if (timesTried < 3) {
+        } else if (timesTried < 3) {
             System.out.println("Incorrect");
             alert.setMessage("Incorrect");
             alert.setCancelable(false);
@@ -186,15 +185,14 @@ public class RiddlePage extends Fragment {
                     showNewQuestion();
                 }
             }).show();
-        }
-        else {
+        } else {
             System.out.println("Incorrect");
             alert.setMessage("Incorrect \nBetter luck next time");
             alert.setCancelable(false);
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    FragmentTravel.fragmentTravel(1,marker,subjectStory,getFragmentManager());
+                    FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
                 }
             }).show();
         }
@@ -202,6 +200,6 @@ public class RiddlePage extends Fragment {
 
 
     public void skipQuestion(View v) {
-        FragmentTravel.fragmentTravel(1,marker,subjectStory,getFragmentManager());
+        FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
     }
 }

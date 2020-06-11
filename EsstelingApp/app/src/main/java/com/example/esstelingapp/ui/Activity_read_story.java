@@ -179,52 +179,7 @@ public class Activity_read_story extends Fragment {
         nextStoryPiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                marker++;
-                if (marker<subjectStory.getPieces().size()) {
-                    if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                        Fragment readstoryFragment = new Activity_read_story();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        readstoryFragment.setArguments(bundle);
-
-                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-                        transaction.replace(R.id.fragment_container, readstoryFragment).commit();
-                    }
-                    else if (subjectStory.getPieces().get(marker) instanceof GameItem){
-                        Fragment riddlePage = new RiddlePage();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        riddlePage.setArguments(bundle);
-
-                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-                        transaction.replace(R.id.fragment_container, riddlePage).commit();
-                    }
-                    else if(subjectStory.getPieces().get(marker)instanceof ActionItem){
-                        Fragment actionWindow = new Action_window();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        actionWindow.setArguments(bundle);
-
-                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-                        transaction.replace(R.id.fragment_container, actionWindow).commit();
-                    }
-                }
-                else {
-                    Fragment storylistFragment = new StoryPage();
-
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-                    transaction.replace(R.id.fragment_container, storylistFragment).commit();
-                }
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
             }
         });
 
