@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.esstelingapp.ActionItem;
 import com.example.esstelingapp.Action_window;
+import com.example.esstelingapp.FragmentTravel;
 import com.example.esstelingapp.GameItem;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.ReadingItem;
@@ -89,11 +90,11 @@ public class Activity_read_story extends Fragment {
             public void onClick(View v) {
                 storyPartOneButton.setSelected(!storyPartOneButton.isSelected());
 
-                if (storyPartOneButton.isSelected()){
+                if (storyPartOneButton.isSelected()) {
                     storyPartOneButton.setBackgroundResource(R.drawable.sound_on);
                     storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
                     storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
-                }else {
+                } else {
                     storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
                 }
 
@@ -107,11 +108,11 @@ public class Activity_read_story extends Fragment {
             @Override
             public void onClick(View v) {
                 storyPartThreeButton.setSelected(!storyPartThreeButton.isSelected());
-                if (storyPartThreeButton.isSelected()){
+                if (storyPartThreeButton.isSelected()) {
                     storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
                     storyPartThreeButton.setBackgroundResource(R.drawable.sound_on);
                     storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
-                }else {
+                } else {
                     storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
                 }
 
@@ -125,11 +126,11 @@ public class Activity_read_story extends Fragment {
             @Override
             public void onClick(View v) {
                 storyPartFiveButton.setSelected(!storyPartFiveButton.isSelected());
-                if (storyPartFiveButton.isSelected()){
+                if (storyPartFiveButton.isSelected()) {
                     storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
                     storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
                     storyPartFiveButton.setBackgroundResource(R.drawable.sound_on);
-                }else {
+                } else {
                     storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
                 }
 
@@ -190,146 +191,34 @@ public class Activity_read_story extends Fragment {
         nextStoryPiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                marker++;
-                if (marker<subjectStory.getPieces().size()) {
-                    if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                        Fragment readstoryFragment = new Activity_read_story();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        readstoryFragment.setArguments(bundle);
-
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
-                    }
-                    else if (subjectStory.getPieces().get(marker) instanceof GameItem){
-                        Fragment riddlePage = new RiddlePage();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        riddlePage.setArguments(bundle);
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
-                    }
-                    else if(subjectStory.getPieces().get(marker)instanceof ActionItem){
-                        Fragment actionWindow = new Action_window();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        actionWindow.setArguments(bundle);
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, actionWindow).commit();
-                    }
-                }
-                else {
-                    Fragment storylistFragment = new StoryPage();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
-                }
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
             }
         });
 
         ScrollView scrollview = RootView.findViewById(R.id.storyScrollView);
 
-
-        scrollview.setOnTouchListener(new OnSwipeTouchListener(container.getContext()){
+        scrollview.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
 
             @Override
             public void onSwipeRight() {
-                if (marker == 0){
-
-                }else {
-                    marker--;
-                    if (marker < subjectStory.getPieces().size()) {
-                        if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                            Fragment readstoryFragment = new Activity_read_story();
-                            Bundle bundle = new Bundle();
-
-                            bundle.putInt("storyMarker", marker);
-                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                            readstoryFragment.setArguments(bundle);
-
-                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
-                        } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
-                            Fragment riddlePage = new RiddlePage();
-                            Bundle bundle = new Bundle();
-
-                            bundle.putInt("storyMarker", marker);
-                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                            riddlePage.setArguments(bundle);
-                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
-                        }
-                    } else {
-                        Fragment storylistFragment = new StoryPage();
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
-                    }
-                }
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
             }
 
             @Override
             public void onSwipeLeft() {
-                marker++;
-                if (marker < subjectStory.getPieces().size()) {
-                    if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                        Fragment readstoryFragment = new Activity_read_story();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        readstoryFragment.setArguments(bundle);
-
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
-                    } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
-                        Fragment riddlePage = new RiddlePage();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        riddlePage.setArguments(bundle);
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
-                    }
-                } else {
-                    Fragment storylistFragment = new StoryPage();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
-                }
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
             }
         });
 
-        RootView.setOnTouchListener(new OnSwipeTouchListener(container.getContext()){
-
+        RootView.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
             @Override
             public void onSwipeRight() {
-                marker--;
-                if (marker<subjectStory.getPieces().size()){
-                    Fragment readstoryFragment = new Activity_read_story();
-                    Bundle bundle = new Bundle();
-
-                    bundle.putInt("storyMarker", marker);
-                    bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                    readstoryFragment.setArguments(bundle);
-
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();}
-                else {
-                    Fragment storylistFragment = new StoryPage();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
-                }
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
             }
 
             @Override
             public void onSwipeLeft() {
-                marker++;
-                if (marker<subjectStory.getPieces().size()){
-                    Fragment readstoryFragment = new Activity_read_story();
-                    Bundle bundle = new Bundle();
-
-                    bundle.putInt("storyMarker", marker);
-                    bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                    readstoryFragment.setArguments(bundle);
-
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();}
-                else {
-                    Fragment storylistFragment = new StoryPage();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
-                }
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
             }
         });
 
