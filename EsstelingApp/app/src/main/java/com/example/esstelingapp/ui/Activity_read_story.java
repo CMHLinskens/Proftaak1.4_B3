@@ -1,5 +1,6 @@
 package com.example.esstelingapp.ui;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public class Activity_read_story extends Fragment {
     private boolean TTS1playing;
     private boolean TTS3playing;
     private boolean TTS5playing;
+    private MediaPlayer mediaPlayer;
 
     @Nullable
     @Override
@@ -50,7 +52,7 @@ public class Activity_read_story extends Fragment {
         }
         View RootView = inflater.inflate(R.layout.activity_read_story, container, false);
         ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
-        ReadingItem item = (ReadingItem) storyArrayList.get(marker);
+        final ReadingItem item = (ReadingItem) storyArrayList.get(marker);
 
         TextView StoryTitel = (TextView) RootView.findViewById(R.id.ReadStoryTitel);
         StoryTitel.setText(subjectStory.getStoryName());
@@ -76,55 +78,68 @@ public class Activity_read_story extends Fragment {
         storyPartOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storyPartOneButton.setSelected(!storyPartOneButton.isSelected());
-
-                if (storyPartOneButton.isSelected()) {
-                    storyPartOneButton.setBackgroundResource(R.drawable.sound_on);
-                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
-                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
-                } else {
-                    storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+                if (!item.getAudio1().isEmpty()) {
+                    storyPartOneButton.setSelected(!storyPartOneButton.isSelected());
+                    if (storyPartOneButton.isSelected()) {
+                        storyPartOneButton.setBackgroundResource(R.drawable.sound_on);
+                        storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
+                        storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+                        int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getAudio1(), "raw", DataSingleton.getInstance().getMainContext().getPackageName());
+                        playAudio(id);
+                    } else {
+                        storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+                        stopAudio();
+                    }
+                    TTS1playing = !TTS1playing;
+                    TTS3playing = false;
+                    TTS5playing = false;
                 }
-
-                TTS1playing = !TTS1playing;
-                TTS3playing = false;
-                TTS5playing = false;
             }
         });
 
         storyPartThreeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storyPartThreeButton.setSelected(!storyPartThreeButton.isSelected());
-                if (storyPartThreeButton.isSelected()) {
-                    storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
-                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_on);
-                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
-                } else {
-                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
-                }
+                if (!item.getAudio1().isEmpty()) {
+                    storyPartThreeButton.setSelected(!storyPartThreeButton.isSelected());
+                    if (storyPartThreeButton.isSelected()) {
+                        storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+                        storyPartThreeButton.setBackgroundResource(R.drawable.sound_on);
+                        storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+                        int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getAudio3(), "raw", DataSingleton.getInstance().getMainContext().getPackageName());
+                        playAudio(id);
+                    } else {
+                        storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
+                        stopAudio();
+                    }
 
-                TTS1playing = false;
-                TTS3playing = !TTS3playing;
-                TTS5playing = false;
+                    TTS1playing = false;
+                    TTS3playing = !TTS3playing;
+                    TTS5playing = false;
+                }
             }
         });
 
         storyPartFiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storyPartFiveButton.setSelected(!storyPartFiveButton.isSelected());
-                if (storyPartFiveButton.isSelected()) {
-                    storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
-                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
-                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_on);
-                } else {
-                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
-                }
+                if (!item.getAudio1().isEmpty()) {
+                    storyPartFiveButton.setSelected(!storyPartFiveButton.isSelected());
+                    if (storyPartFiveButton.isSelected()) {
+                        storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+                        storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
+                        storyPartFiveButton.setBackgroundResource(R.drawable.sound_on);
+                        int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getAudio5(), "raw", DataSingleton.getInstance().getMainContext().getPackageName());
+                        playAudio(id);
+                    } else {
+                        storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+                        stopAudio();
+                    }
 
-                TTS1playing = false;
-                TTS3playing = false;
-                TTS5playing = !TTS5playing;
+                    TTS1playing = false;
+                    TTS3playing = false;
+                    TTS5playing = !TTS5playing;
+                }
             }
         });
 
@@ -219,6 +234,20 @@ public class Activity_read_story extends Fragment {
         });
 
         return RootView;
+    }
+
+    public void playAudio(int id){
+        if(mediaPlayer == null)
+            mediaPlayer = MediaPlayer.create(this.getContext(), id);
+        mediaPlayer.start();
+        System.out.println(mediaPlayer.isPlaying());
+        System.out.println("Started");
+    }
+
+    public void stopAudio(){
+        System.out.println("Stopping...");
+        mediaPlayer.release();
+        mediaPlayer = null;
     }
 
     public int getMarker() {
