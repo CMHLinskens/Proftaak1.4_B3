@@ -4,6 +4,7 @@
     <string name="english" translatable="true">Engels</string>
     <string name="language" translatable="true">Taal</string>
     <string name="colourBlindMode" translatable="true">Kleuren-blind modus</string>
+    <string name="apply">Toepassen</string>
 
     // Home page strings
     <string name="home_stories_text">Verhalen afgerond</string>

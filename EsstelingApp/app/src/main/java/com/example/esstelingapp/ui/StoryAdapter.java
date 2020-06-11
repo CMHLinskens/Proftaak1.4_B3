@@ -2,6 +2,7 @@ package com.example.esstelingapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.data.DataSingleton;
+import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 
@@ -25,6 +27,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
     private final LinkedList<Story> mStoryList;
     private final LayoutInflater mInflater;
     private Fragment storyMenuFragment;
+    private static final String PREFS_NAME = "prefs";
+    private boolean isColourBlind;
+
 
 
     class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -40,12 +45,12 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
          * the RecyclerView.
          *
          * @param itemView The view in which to display the data.
-         * @param adapter The adapter that manages the the data and views
-         *                for the RecyclerView.
+         * @param adapter  The adapter that manages the the data and views
+         *                 for the RecyclerView.
          */
         public StoryViewHolder(View itemView, StoryAdapter adapter) {
             super(itemView);
-            context= itemView.getContext();
+            context = itemView.getContext();
             storyNameItemView = itemView.findViewById(R.id.StoryTitelView);
             storyStatusItemView = itemView.findViewById(R.id.StoryStatusImage);
             storyProgressItemView = itemView.findViewById(R.id.storyProgressBar);
@@ -68,10 +73,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("storyInfo", element);  // Key, value
                     readstoryFragment.setArguments(bundle);
-                    ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+                    ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
                 }
-            }
-            else{
+            } else {
 //                intent =  new Intent(context, Detail.class);
             }
 //            context.startActivity(intent);
@@ -88,17 +92,18 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
         this.storyMenuFragment = storymenuFragment;
         mInflater = LayoutInflater.from(context);
         this.mStoryList = projectList;
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        this.isColourBlind = preferences.getBoolean("colour_blind_theme", false);
     }
-
 
     /**
      * Called when RecyclerView needs a new ViewHolder of the given type to
      * represent an item.
-     *
+     * <p>
      * This new ViewHolder should be constructed with a new View that can
      * represent the items of the given type. You can either create a new View
      * manually or inflate it from an XML layout file.
-     *
+     * <p>
      * The new ViewHolder will be used to display items of the adapter using
      * onBindViewHolder(ViewHolder, int, List). Since it will be reused to
      * display different items in the data set, it is a good idea to cache
@@ -112,10 +117,11 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
      */
     @Override
     public StoryAdapter.StoryViewHolder onCreateViewHolder(ViewGroup parent,
-                                                               int viewType) {
+                                                           int viewType) {
         // Inflate an item view.
         View mItemView = mInflater.inflate(
                 R.layout.story_item, parent, false);
+
         return new StoryViewHolder(mItemView, this);
     }
 
@@ -129,6 +135,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
      *                 data set.
      * @param position The position of the item within the adapter's data set.
      */
+    //TODO probeer in de readStory de textviews colourblind mode vriendelijk te maken
     @Override
     public void onBindViewHolder(StoryAdapter.StoryViewHolder holder, int position) {
         String mCurrent = mStoryList.get(position).getStoryName();
@@ -136,16 +143,22 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
         int pCurrent = mStoryList.get(position).getStoryProgress();
         holder.storyProgressItemView.setProgress(pCurrent);
         Boolean bCurrent = mStoryList.get(position).getStoryStatus();
-        if (bCurrent){
-           holder.storyStatusItemView.setImageResource(R.drawable.arrow);
+        if (!this.isColourBlind) {
+            holder.itemView.setBackgroundResource(R.color.EsstelingRed);
+            holder.storyProgressItemView.setBackgroundResource(R.color.EsstelingBlue);
+        } else {
+            holder.itemView.setBackgroundResource(R.color.colorBlindText);
+            holder.storyProgressItemView.setBackgroundResource(R.color.colorBlindBackground);
         }
-        else {
- holder.storyStatusItemView.setImageResource(R.drawable.lock);
+        if (bCurrent) {
+            holder.storyStatusItemView.setImageResource(R.drawable.arrow);
+        } else {
+            holder.storyStatusItemView.setImageResource(R.drawable.lock);
         }
         int iCurrent = mStoryList.get(position).getStoryImageResource();
-            holder.storyImageItemView.setImageResource(iCurrent);
+//        holder.storyImageItemView.setImageResource(iCurrent);
+        Picasso.get().load(iCurrent).into(holder.storyImageItemView);
 
-//
 
     }
 
