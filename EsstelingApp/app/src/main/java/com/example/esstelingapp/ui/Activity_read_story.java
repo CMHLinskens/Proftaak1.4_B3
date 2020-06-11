@@ -1,18 +1,5 @@
 package com.example.esstelingapp.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MotionEventCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.drm.DrmStore;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.esstelingapp.ActionItem;
 import com.example.esstelingapp.Action_window;
@@ -47,7 +35,7 @@ public class Activity_read_story extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         TTS1playing = false;
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -200,7 +188,9 @@ public class Activity_read_story extends Fragment {
                         bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                         readstoryFragment.setArguments(bundle);
 
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                        transaction.replace(R.id.fragment_container, readstoryFragment).commit();
                     }
                     else if (subjectStory.getPieces().get(marker) instanceof GameItem){
                         Fragment riddlePage = new RiddlePage();
@@ -209,7 +199,10 @@ public class Activity_read_story extends Fragment {
                         bundle.putInt("storyMarker", marker);
                         bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                         riddlePage.setArguments(bundle);
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
+
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                        transaction.replace(R.id.fragment_container, riddlePage).commit();
                     }
                     else if(subjectStory.getPieces().get(marker)instanceof ActionItem){
                         Fragment actionWindow = new Action_window();
@@ -218,12 +211,18 @@ public class Activity_read_story extends Fragment {
                         bundle.putInt("storyMarker", marker);
                         bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                         actionWindow.setArguments(bundle);
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, actionWindow).commit();
+
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                        transaction.replace(R.id.fragment_container, actionWindow).commit();
                     }
                 }
                 else {
                     Fragment storylistFragment = new StoryPage();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                    transaction.replace(R.id.fragment_container, storylistFragment).commit();
                 }
             }
         });
