@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.games.RiddlePage;
@@ -23,6 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.ExampleDialogListener {
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
+    private int currentTab;
 
 
     @Override
@@ -58,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
         }
 
+        currentTab = 0;
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
+        loadData();
         MQTTController.getInstance().connectToServer(this);
     }
 
@@ -72,24 +77,59 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            int animationDirection = 0;
             Fragment selectedFragment = null;
 
             switch (item.getItemId()) {
                 case R.id.nav_home:
                     selectedFragment = new HomePage();
+                    if (currentTab != 0 && currentTab > 0) {
+                        animationDirection = 1;
+                    }
+                    currentTab = 0;
                     break;
                 case R.id.nav_story:
                     selectedFragment = new StoryPage();
+                    if (currentTab != 1 && currentTab > 1) {
+                        animationDirection = 1;
+                    }
+                    else if (currentTab != 1 && currentTab < 1) {
+                        animationDirection = 2;
+                    }
+                    currentTab = 1;
                     break;
                 case R.id.nav_achievements:
                     selectedFragment = new AchievementPage();
+                    if (currentTab != 2 && currentTab > 2) {
+                        animationDirection = 1;
+                    }
+                    else if (currentTab != 2 && currentTab < 2) {
+                        animationDirection = 2;
+                    }
+                    currentTab = 2;
                     break;
                 case R.id.nav_settings:
                     selectedFragment = new SettingsPage();
+                    if (currentTab != 3 && currentTab < 3) {
+                        animationDirection = 2;
+                    }
+                    currentTab = 3;
                     break;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 
+            if (animationDirection == 0) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            }
+            else if (animationDirection == 1) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+                fragmentTransaction.replace(R.id.fragment_container, selectedFragment).commit();
+            }
+            else if (animationDirection == 2){
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                fragmentTransaction.replace(R.id.fragment_container, selectedFragment).commit();
+            }
             return true;
         }
     };

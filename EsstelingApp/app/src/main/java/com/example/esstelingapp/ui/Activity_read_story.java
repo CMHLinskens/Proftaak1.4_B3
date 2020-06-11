@@ -1,18 +1,5 @@
 package com.example.esstelingapp.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MotionEventCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.drm.DrmStore;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.esstelingapp.ActionItem;
 import com.example.esstelingapp.Action_window;
@@ -48,7 +36,7 @@ public class Activity_read_story extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         TTS1playing = false;
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -191,7 +179,52 @@ public class Activity_read_story extends Fragment {
         nextStoryPiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                marker++;
+                if (marker<subjectStory.getPieces().size()) {
+                    if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
+                        Fragment readstoryFragment = new Activity_read_story();
+                        Bundle bundle = new Bundle();
+
+                        bundle.putInt("storyMarker", marker);
+                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                        readstoryFragment.setArguments(bundle);
+
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                        transaction.replace(R.id.fragment_container, readstoryFragment).commit();
+                    }
+                    else if (subjectStory.getPieces().get(marker) instanceof GameItem){
+                        Fragment riddlePage = new RiddlePage();
+                        Bundle bundle = new Bundle();
+
+                        bundle.putInt("storyMarker", marker);
+                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                        riddlePage.setArguments(bundle);
+
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                        transaction.replace(R.id.fragment_container, riddlePage).commit();
+                    }
+                    else if(subjectStory.getPieces().get(marker)instanceof ActionItem){
+                        Fragment actionWindow = new Action_window();
+                        Bundle bundle = new Bundle();
+
+                        bundle.putInt("storyMarker", marker);
+                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+                        actionWindow.setArguments(bundle);
+
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                        transaction.replace(R.id.fragment_container, actionWindow).commit();
+                    }
+                }
+                else {
+                    Fragment storylistFragment = new StoryPage();
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                    transaction.replace(R.id.fragment_container, storylistFragment).commit();
+                }
             }
         });
 
