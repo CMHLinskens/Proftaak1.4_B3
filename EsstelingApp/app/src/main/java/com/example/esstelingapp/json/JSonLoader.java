@@ -170,17 +170,17 @@ public class JSonLoader {
                             String storyPartFour = storyPiece.getString("storyPartFour");
                             String storyPartFive = storyPiece.getString("storyPartFive");
                             ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
-                            pieceslist.add(piece);
+                            piecesList.add(piece);
                         }
                         else if (pieceID==3){
                             String preText = storyPiece.getString("preActionText");
                                 String postText = storyPiece.getString("postActionText");
                             ActionItem piece = new ActionItem(preText,postText,0,false);
-                          pieceslist.add(piece);
+                            piecesList.add(piece);
                         }else{
                             String tieInText = storyPiece.getString("tieInText");
                             GameItem piece = new GameItem(tieInText, 0, false);
-                            pieceslist.add(piece);
+                            piecesList.add(piece);
                         }
                 }
                 storyList.add(new Story(storyName, resId, storyStatus, piecesList, 0, 0, 0, 0));
