@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.mqtt.MQTTController;
 import com.example.esstelingapp.ui.Activity_read_story;
+import com.example.esstelingapp.ui.OnSwipeTouchListener;
 import com.example.esstelingapp.ui.StoryPage;
 
 public class Action_window extends Fragment {
@@ -38,7 +39,7 @@ public class Action_window extends Fragment {
         }
 
 
-        Button actionButton = (Button)RootView.findViewById(R.id.actionButton);
+        Button actionButton = (Button) RootView.findViewById(R.id.actionButton);
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,42 +52,21 @@ public class Action_window extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                marker++;
-        if (marker<subjectStory.getPieces().size()) {
-            if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                Fragment readstoryFragment = new Activity_read_story();
-                Bundle bundle = new Bundle();
-
-                bundle.putInt("storyMarker", marker);
-                bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                readstoryFragment.setArguments(bundle);
-
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
             }
-            else if (subjectStory.getPieces().get(marker) instanceof GameItem){
-                Fragment riddlePage = new RiddlePage();
-                Bundle bundle = new Bundle();
+        });
 
-                bundle.putInt("storyMarker", marker);
-                bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                riddlePage.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
+        RootView.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
+            @Override
+            public void onSwipeRight() {
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
             }
-            else if(subjectStory.getPieces().get(marker)instanceof ActionItem){
-                Fragment actionWindow = new Action_window();
-                Bundle bundle = new Bundle();
 
-                bundle.putInt("storyMarker", marker);
-                bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                actionWindow.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, actionWindow).commit();
+            @Override
+            public void onSwipeLeft() {
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
             }
-        }
-        else {
-            Fragment storylistFragment = new StoryPage();
-            getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
-        }
-    }});
+        });
 
 
         return RootView;

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.esstelingapp.FragmentTravel;
 import com.example.esstelingapp.GameItem;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.ReadingItem;
@@ -102,62 +103,12 @@ public class RiddlePage extends Fragment {
 
             @Override
             public void onSwipeRight() {
-                if (marker == 0){
-
-                }else {
-                    marker--;
-                    if (marker < subjectStory.getPieces().size()) {
-                        if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                            Fragment readstoryFragment = new Activity_read_story();
-                            Bundle bundle = new Bundle();
-
-                            bundle.putInt("storyMarker", marker);
-                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                            readstoryFragment.setArguments(bundle);
-
-                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
-                        } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
-                            Fragment riddlePage = new RiddlePage();
-                            Bundle bundle = new Bundle();
-
-                            bundle.putInt("storyMarker", marker);
-                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                            riddlePage.setArguments(bundle);
-                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
-                        }
-                    } else {
-                        Fragment storylistFragment = new StoryPage();
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
-                    }
-                }
+     FragmentTravel.fragmentTravel(-1,marker,subjectStory,getFragmentManager());
             }
 
             @Override
             public void onSwipeLeft() {
-                marker++;
-                if (marker < subjectStory.getPieces().size()) {
-                    if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                        Fragment readstoryFragment = new Activity_read_story();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        readstoryFragment.setArguments(bundle);
-
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
-                    } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
-                        Fragment riddlePage = new RiddlePage();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        riddlePage.setArguments(bundle);
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
-                    }
-                } else {
-                    Fragment storylistFragment = new StoryPage();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
-                }
+                FragmentTravel.fragmentTravel(1,marker,subjectStory,getFragmentManager());
             }
         });
     }
@@ -220,30 +171,7 @@ public class RiddlePage extends Fragment {
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    marker++;
-                    if (marker < subjectStory.getPieces().size()) {
-                        if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                            Fragment readstoryFragment = new Activity_read_story();
-                            Bundle bundle = new Bundle();
-
-                            bundle.putInt("storyMarker", marker);
-                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                            readstoryFragment.setArguments(bundle);
-
-                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
-                        } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
-                            Fragment riddlePage = new RiddlePage();
-                            Bundle bundle = new Bundle();
-
-                            bundle.putInt("storyMarker", marker);
-                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                            riddlePage.setArguments(bundle);
-                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
-                        }
-                    } else {
-                        Fragment storylistFragment = new StoryPage();
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
-                    }
+                    FragmentTravel.fragmentTravel(1,marker,subjectStory,getFragmentManager());
                 }
             }).show();
 
@@ -266,30 +194,7 @@ public class RiddlePage extends Fragment {
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    marker++;
-                    if (marker < subjectStory.getPieces().size()) {
-                        if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                            Fragment readstoryFragment = new Activity_read_story();
-                            Bundle bundle = new Bundle();
-
-                            bundle.putInt("storyMarker", marker);
-                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                            readstoryFragment.setArguments(bundle);
-
-                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
-                        } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
-                            Fragment riddlePage = new RiddlePage();
-                            Bundle bundle = new Bundle();
-
-                            bundle.putInt("storyMarker", marker);
-                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                            riddlePage.setArguments(bundle);
-                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
-                        }
-                    } else {
-                        Fragment storylistFragment = new StoryPage();
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
-                    }
+                    FragmentTravel.fragmentTravel(1,marker,subjectStory,getFragmentManager());
                 }
             }).show();
         }
@@ -297,29 +202,6 @@ public class RiddlePage extends Fragment {
 
 
     public void skipQuestion(View v) {
-        marker++;
-        if (marker < subjectStory.getPieces().size()) {
-            if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                Fragment readstoryFragment = new Activity_read_story();
-                Bundle bundle = new Bundle();
-
-                bundle.putInt("storyMarker", marker);
-                bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                readstoryFragment.setArguments(bundle);
-
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
-            } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
-                Fragment riddlePage = new RiddlePage();
-                Bundle bundle = new Bundle();
-
-                bundle.putInt("storyMarker", marker);
-                bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                riddlePage.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
-            }
-        } else {
-            Fragment storylistFragment = new StoryPage();
-            getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
-        }
+        FragmentTravel.fragmentTravel(1,marker,subjectStory,getFragmentManager());
     }
 }
