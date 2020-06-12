@@ -9,45 +9,34 @@
         android:id="@+id/storyTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center_vertical"
-        android:text="Title"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Titel"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@id/partOfStory"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/partOfStory"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="part?"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/storyTitle"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tieInText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:gravity="center"
-        android:text="Part "
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/skipButton"
-        />
-
-    <Button
-        android:id="@+id/skipButton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_margin="16dp"
-        android:text="Skip"
-        android:textSize="16sp"
+        android:text="TieInText Placeholde "
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-<TextView
-    android:id="@+id/tieInText"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:gravity="center"
-    android:text="TieInText Placeholde "
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/storyTitle"
-    />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/storyTitle" />
 
 
     <TextView
@@ -58,6 +47,8 @@
         android:gravity="center"
         android:text="Question placeholder"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tieInText" />
 
     <RadioGroup
@@ -110,6 +101,19 @@
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/skipButton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginBottom="80dp"
+        android:text="Skip"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="603dp"
+        app:layout_constraintStart_toEndOf="@+id/BackButton"
+        app:layout_constraintEnd_toStartOf="@+id/submitButton"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <Button
         android:id="@+id/BackButton"
