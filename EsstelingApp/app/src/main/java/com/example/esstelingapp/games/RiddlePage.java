@@ -97,7 +97,7 @@ public class RiddlePage extends Fragment {
         });
 
         Button backButton = getView().findViewById(R.id.BackButton);
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTravel.fragmentTravel(-1,marker,subjectStory,getFragmentManager());
