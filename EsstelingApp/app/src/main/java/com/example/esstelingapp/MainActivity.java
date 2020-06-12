@@ -151,12 +151,17 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
 
     @Override
     public void applyCode(String code, Story story) {
-        if (code.equals("wachtwoord")) {
+        if (code.equals(DataSingleton.getInstance().getUnlockCodes().get(story.getMqttTopic()))) {
             System.out.println("Correct");
             story.setStoryStatus(true);
+            SharedPreferences.Editor editor = getSharedPreferences("progress", MODE_PRIVATE).edit();
+            editor.putBoolean(story.getMqttTopic(), true);
+            editor.apply();
         }
         else
-            System.out.println("Incorrect");
+            System.out.println("Incorrect " + code + " != " + DataSingleton.getInstance().getUnlockCodes().get(story.getMqttTopic()));
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoryPage()).commit();
     }
 
     private void runRiddle() {

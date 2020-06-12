@@ -155,8 +155,8 @@ public class JSonLoader {
                 int storyProgress = preferences.getInt("s" + i, 0);
                 String imageResource = story.getString("imageUrl");
                 final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource + colourblind, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
-                boolean storyStatus = preferences.getBoolean("s" + i, false);
                 String mqttTopic = story.getString("topic");
+                boolean storyStatus = preferences.getBoolean(mqttTopic, false);
 
                 ArrayList<StoryPiecesInterface> piecesList = new ArrayList<>();
                 JSONArray storyPieces = story.getJSONArray("storyPieces");

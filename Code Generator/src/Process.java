@@ -61,15 +61,16 @@ public class Process extends Thread {
 //                }
 //            }
             while(DC.isGeneratingRandomly()){
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 for(Code code : DC.getCodes()){
                     code.setCode(generate(codeSize));
                     DC.saveCodes();
                 }
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                sleep();
             }
         }
     }
