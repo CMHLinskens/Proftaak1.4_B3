@@ -57,12 +57,59 @@
 		}
 	},
 	{
-		"name" : "HANS_EN_GRIETJE",
+		"name" : "TUTORIAL",
 		"q0": {
-			"question": "How smelly is Bart?",
+			"question": "Hoe kan je de kleuren van je boek veranderen?",
 			"answers": [
-				"very very smelly",
-				"very very smelly","very very smelly","very very smelly"
+				"door een opties spreuk",
+				"dat gebeurt vanzelf",
+				"dat kan niet",
+				"door een trol te vragen"
+			]
+		},
+		"q1": {
+			"question": "hoe druk is het dorp?",
+			"answers": [
+				"bijna leeg",
+				"heel druk",
+				"welk dorp?",
+				"zoals iedere dag, normale drukte"
+			]
+		},
+		"q2": {
+			"question": "wie heeft de fabels weggenomen?",
+			"answers": [
+				"de boze geest van het woud",
+				"de koning",
+				"Pardipsus",
+				"Zorna"
+			]
+		},
+		"q3": {
+			"question": "waar vind je hoe goed je bent als een speurder?",
+			"answers": [
+				"in het prestaties gedeelte van het boek",
+				"in het fabel gedeelte van het boek",
+				"bij de optie spreuken",
+				"dat moet je vooral aan Zorna vragen"
+			]
+		},
+		"q4": {
+			"question": "In welk koninkrijk ben je?",
+			"answers": [
+				"de Essteling",
+				"Groot Britanie",
+				"Avalon",
+				"nergens"
+			]
+		},
+		"q5": {
+			"question": "wie is geen speurder?",
+			"answers": [
+				"Scribe",
+				"Zorna",
+				"Pardipsus",
+				"Jij"
 			]
 		}
 	}
