@@ -15,12 +15,9 @@ import androidx.fragment.app.Fragment;
 import com.example.esstelingapp.FragmentTravel;
 import com.example.esstelingapp.GameItem;
 import com.example.esstelingapp.R;
-import com.example.esstelingapp.ReadingItem;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.StoryPiecesInterface;
 import com.example.esstelingapp.ui.OnSwipeTouchListener;
-import com.example.esstelingapp.ui.StoryPage;
-import com.example.esstelingapp.ui.Activity_read_story;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +39,6 @@ public class RiddlePage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        storyType = StoryTypes.BIGGETJES;
         return inflater.inflate(R.layout.activity_riddle, container, false);
     }
 
@@ -61,6 +57,7 @@ public class RiddlePage extends Fragment {
             }
         }
 
+        this.storyType = subjectStory.getStoryType();
         ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
         GameItem item = (GameItem) storyArrayList.get(marker);
 

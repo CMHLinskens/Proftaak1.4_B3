@@ -2,6 +2,7 @@
   {
     "storyName": "Tutorial",
     "imageUrl": "tutorial",
+    "storyType": "TUTORIAL",
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -55,8 +56,9 @@
   },
   {
     "storyName": "De drie biggetjes",
-    "imageUrl": "threepigs"
-   , "storyPieces": [
+    "imageUrl": "threepigs",
+    "storyType": "BIGGETJES",
+    "storyPieces": [
     {
       "pieceID" : 1,
       "storyAudio1" :  "",
@@ -99,6 +101,7 @@
   {
     "storyName": "Hans en grietje",
     "imageUrl": "hansgretel",
+    "storyType": "HANS_EN_GRIETJE",
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -146,6 +149,7 @@
   {
     "storyName": "Roodkapje",
     "imageUrl": "redriding",
+    "storyType": "ROODKAPJE",
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -193,6 +197,7 @@
   {
     "storyName": "Draak blaaskaak",
     "imageUrl": "blaaskaak",
+    "storyType": "DRAAK",
     "storyPieces": [
       {
         "pieceID" : 1,
