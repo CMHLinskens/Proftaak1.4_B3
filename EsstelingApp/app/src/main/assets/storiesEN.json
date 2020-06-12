@@ -1,7 +1,7 @@
 [
   {
     "storyName": "Tutorial",
-    "imageUrl": "threepigs",
+    "imageUrl": "tutorial",
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -9,7 +9,7 @@
         "storyAudio3" : "",
         "storyAudio5" : "" ,
         "storyPartOne": "“Hey, you there!” you hear someone call out to you. A lean man comes walking up to you. “I haven’t seen you before. Are you new to the kingdom of the Essteling?” you nod in response; you had just arrived. “well it's nice to see a fresh face around, the kingdom has become quiet empty lately. The names Scribe, I’m the kingdoms librarian.” the man looked at you with a puzzled stare. “are you by any chance the new seeker?” again you nod in response. “that’s great, the kingdom could use some help.” He said cheerful. “Let me bring you to the castle, they probably want to see you as soon as possible.” You follow Scribe to the castle through the empty streets. “As you probably know the evil spirit has been taking away the stories and locking them up so not many people visit this part anymore.” Scribe sighs. “but now you’re here and can help us get them back.” The librarian brings you to the gate of the castle and goes back to the town.  ",
-        "storyPartTwo": "",
+        "storyPartTwo": "tutorial_kasteel",
         "storyPartThree": "Inside you find two people bickering one smaller man and a tall woman each of them had books and other equipment on their belts. Those two must be the kingdoms seekers. You approach and hear what they are bickering about. “do you have any idea how long this is going to take with all the searching, researching and don’t forget the possible monster fighting.” The man said in a stressed tone. “long and dangerous but like I’ve said the past 20 times you need to get yourself up those stories aren’t going to free themselves” she snapped back at him. She sees you and looks you over. Then turns her companion to face you. “ow did you need something of us?” he said in an apologetic tone. “of course, Pardipsus that is obviously a junior seeker.” She said. Pardipsus narrowed his eyes looking at what you have with you and what you are wearing. “Ah yes, I think your right Zorna” he nods enthusiastically. “say if you’re a seeker then that must mean you’re here to help us, right?” Zorna asks you. You nod in response. “Then let’s get started, there is no time to waste.” ",
         "storyPartFour": "",
         "storyPartFive": ""

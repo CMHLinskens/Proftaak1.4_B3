@@ -194,6 +194,10 @@ public class Activity_read_story extends Fragment {
         nextStoryPiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (item.canGainPoints()){
+                    subjectStory.addPointsToStory(item.getPoints());
+                    item.setGainPoints(false);
+                }
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
             }
         });
