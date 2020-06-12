@@ -126,7 +126,9 @@
         "pieceID": 3,
         "preActionText": "Quickly close the oven door, so she can't escape!",
         "postActionText": "Good job Hansel and Gretel are now safe from the witch.",
-        "MQTTTopic": "OVEN"
+        "MQTTTopic": "OVEN",
+        "preImage": "",
+        "postImage": ""
       },
       {
         "pieceID" : 1,
@@ -171,7 +173,9 @@
         "pieceID": 3,
         "preActionText": "",
         "postActionText": "",
-        "MQTTTopic": "DOORBELL"
+        "MQTTTopic": "DOORBELL",
+        "preImage": "roodkapje_aanbellen",
+        "postImage": "verklede_wolf"
       },
       {
         "pieceID" : 1,
@@ -205,7 +209,9 @@
         "pieceID": 3,
         "preActionText": "You need to keep the correct distance to not anger the dragon and steal the treasure. ",
         "postActionText": "You successfully stole the treasure, well done. ",
-        "MQTTTopic": "Draak"
+        "MQTTTopic": "Draak",
+        "preImage": "blaaskaak_schatkist",
+        "postImage": "schatkist"
       },
       {
         "pieceID" : 1,
@@ -217,7 +223,7 @@
         "storyPartThree": "",
         "storyPartFour": "",
         "storyPartFive": ""
-      },
+      }
 
     ]
   }
