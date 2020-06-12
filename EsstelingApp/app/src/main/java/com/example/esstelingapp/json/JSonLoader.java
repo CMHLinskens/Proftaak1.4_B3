@@ -179,7 +179,9 @@ public class JSonLoader {
                             String preText = storyPiece.getString("preActionText");
                                 String postText = storyPiece.getString("postActionText");
                                 String MQTTTopic = storyPiece.getString("MQTTTopic");
-                            ActionItem piece = new ActionItem(preText,postText, MQTTTopic, 0,false);
+                                String preImage = storyPiece.getString("preImage");
+                                String postImage = storyPiece.getString("postImage");
+                            ActionItem piece = new ActionItem(preText,postText, MQTTTopic, preImage, postImage, 0,false);
                             piecesList.add(piece);
                         }else{
                             String tieInText = storyPiece.getString("tieInText");

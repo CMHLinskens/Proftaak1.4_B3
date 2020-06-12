@@ -1,22 +1,21 @@
 package com.example.esstelingapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.example.esstelingapp.games.RiddlePage;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.mqtt.MQTTController;
-import com.example.esstelingapp.ui.Activity_read_story;
 import com.example.esstelingapp.ui.OnSwipeTouchListener;
-import com.example.esstelingapp.ui.StoryPage;
 
 public class Action_window extends Fragment {
     private Story subjectStory;
@@ -41,6 +40,21 @@ public class Action_window extends Fragment {
         final ActionItem item = (ActionItem) subjectStory.getPieces().get(marker);
         final TextView actionText = RootView.findViewById(R.id.ActionText);
         actionText.setText(item.getPreActionText());
+
+        //initializing image
+        final ImageView imageView = RootView.findViewById(R.id.actionImageView);
+        if (!item.getPreImage().isEmpty()) {
+            imageView.getLayoutParams().height = 850;
+            imageView.getLayoutParams().width = 850;
+            int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getPreImage(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
+            imageView.setImageResource(id);
+        }
+        else {
+            imageView.setVisibility(View.INVISIBLE);
+            imageView.getLayoutParams().height = 400;
+            imageView.getLayoutParams().width = 50;
+        }
+
         Button actionButton = (Button) RootView.findViewById(R.id.actionButton);
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +78,19 @@ public class Action_window extends Fragment {
                 else{
                     MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic());
                 }
+                //updating image and text after button press
                 actionText.setText(item.getPostActionText());
+                if (!item.getPostImage().isEmpty()) {
+                    imageView.getLayoutParams().height = 850;
+                    imageView.getLayoutParams().width = 850;
+                    int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getPostImage(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
+                    imageView.setImageResource(id);
+                }
+                else {
+                    imageView.setVisibility(View.INVISIBLE);
+                    imageView.getLayoutParams().height = 400;
+                    imageView.getLayoutParams().width = 50;
+                }
             }
         });
 
@@ -85,6 +111,21 @@ public class Action_window extends Fragment {
         });
 
         RootView.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
+            @Override
+            public void onSwipeRight() {
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+            }
+        });
+
+        ScrollView scrollview = RootView.findViewById(R.id.actionScrollView);
+
+        scrollview.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
+
             @Override
             public void onSwipeRight() {
                 FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());

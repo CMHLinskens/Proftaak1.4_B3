@@ -126,7 +126,9 @@
         "pieceID": 3,
         "preActionText": "Snel doe de ovendeur dicht zodat de heks niet kan ontsnappen!",
         "postActionText": "Goed gedaan, nu zijn Hans en Grietje veilig van de heks.",
-        "MQTTTopic": "OVEN"
+        "MQTTTopic": "OVEN",
+        "preImage": "hans_en_grietje_oven1",
+        "postImage": "hans_en_grietje_oven2"
       },
       {
         "pieceID" : 1,
@@ -171,7 +173,9 @@
         "pieceID": 3,
         "preActionText": "",
         "postActionText": "",
-        "MQTTTopic": "DOORBELL"
+        "MQTTTopic": "DOORBELL",
+        "preImage": "roodkapje_aanbellen",
+        "postImage": "verklede_wolf"
       },
       {
         "pieceID" : 1,
@@ -205,7 +209,9 @@
         "pieceID": 3,
         "preActionText": "Je moet op de juiste afstand staan om de draak niet boos te maken en de schat te stelen.  ",
         "postActionText": "Het is gelukt om een schat te stelen.",
-        "MQTTTopic": "Draak"
+        "MQTTTopic": "Draak",
+        "preImage": "blaaskaak_schatkist",
+        "postImage": "schatkist"
       },
       {
         "pieceID" : 1,
