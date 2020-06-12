@@ -178,7 +178,8 @@ public class JSonLoader {
                         else if (pieceID==3){
                             String preText = storyPiece.getString("preActionText");
                                 String postText = storyPiece.getString("postActionText");
-                            ActionItem piece = new ActionItem(preText,postText,0,false);
+                                String MQTTTopic = storyPiece.getString("MQTTTopic");
+                            ActionItem piece = new ActionItem(preText,postText, MQTTTopic, 0,false);
                             piecesList.add(piece);
                         }else{
                             String tieInText = storyPiece.getString("tieInText");

@@ -125,7 +125,8 @@
       {
         "pieceID": 3,
         "preActionText": "",
-        "postActionText": ""
+        "postActionText": "",
+        "MQTTTopic": ""
       },
       {
         "pieceID" : 1,
@@ -167,6 +168,12 @@
         "storyPartFive": ""
       },
       {
+        "pieceID": 3,
+        "preActionText": "",
+        "postActionText": "",
+        "MQTTTopic": ""
+      },
+      {
         "pieceID" : 1,
         "storyAudio1" :  "",
         "storyAudio3" : "",
@@ -188,29 +195,24 @@
         "storyAudio1" :  "",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
-        "storyPartOne": "",
+        "storyPartOne": "Diep in het duisterste gedeelte van het fabel woud leefde er een draak die de ontelbare schatten had verzameld van koninkrijken. Dit was de grote groene draak Argonant. Argonant was een arrogante draak die beweerde dat geen mens zijn schatten kon stelen zolang hij er zat. Velen ridders en prinsen hebben een poging gedaan tot het stelen van de schatten om rijk te worden maar allen zaten op blaren voor een jaar lang. De koning loofde een beloning uit voor wie van de draak een schat kon stelen. Hij zou die persoon tot ridder eren. Vele probeerde van Argonant te stelen maar allen kwamen terug met lege handen. ",
         "storyPartTwo": "",
-        "storyPartThree": "",
+        "storyPartThree": "“Kan niemand van deze arrogante draak stelen?” vroeg de koning. Een kleine jongen stapte naar voren. “Ik ben klein en kan langs de draak glippen. Hij heeft namelijk slechte ogen.” De koning moest lachen en zei dat het een volwassenen taak was en niet voor kinderen. De jongen stormde boos weg en ging het bos in. Het pad was zo vaak bewandeld door de ridders dat het makkelijk te volgen was. De jongen kwam bij de opening waar de draak zat. De draak zat gebogen over zijn kist en pufte rookwolkjes uit zijn neus. Zijn groene schubben glimmerede in de zon en zijn ademhaling rommelde door het woud heen. Toen de jongen dichtbij kwam maakte hij te veel geluid en de draak zijn ogen schoten naar de jongen toe. “Wie doorbreekt mijn rust? Kom jij voor mijn schatten?” zei de draak met een grom. “Nee draak ik kwam je alleen bewonderen” zei de jongen. “Ik had nog nooit een draak zo groot en sterk gezien.” De draak snufte en keek voor zich uit. “Dat is prima maar blijf van mijn schat weg.” “Maar ik zou graag ook je schat willen bewonderen” zegt de jongen. “Kan je de deksel van de kist openhouden dat ik ze vanaf hier kan zien?” de draak knikte en opende de kist. De jongen liep naar voren tot de ogen van de draak op hem afschoten. “Kom niet dichterbij, anders verbrand ik je” gromde de draak. De jongen deed een stap achteruit. Dat was dus het punt tot waar de draak kon zien. De jongen bleef aan verschillende plekken proberen en iedere keer zei de draak hetzelfde. De jongen kreeg door dat de draak het slechtste recht vooruit kon kijken dus sloop op hem af. ",
         "storyPartFour": "",
         "storyPartFive": ""
+      },
+      {
+        "pieceID": 3,
+        "preActionText": "Je moet op de juiste afstand staan om de draak niet boos te maken en de schat te stelen.  ",
+        "postActionText": "Het is gelukt om een schat te stelen.",
+        "MQTTTopic": ""
       },
       {
         "pieceID" : 1,
         "storyAudio1" :  "",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
-        "storyPartOne": "",
-        "storyPartTwo": "",
-        "storyPartThree": "",
-        "storyPartFour": "",
-        "storyPartFive": ""
-      },
-      {
-        "pieceID" : 1,
-        "storyAudio1" :  "",
-        "storyAudio3" : "",
-        "storyAudio5" : "" ,
-        "storyPartOne": "",
+        "storyPartOne": "De jongen sloop weer achteruit. “Ow grote draak, je waakt zo goed over je schat maar, ik moet nu naar huis” zei de jongen. “Mag ik nog eens langs komen?” vroeg hij. “Dat mag zeker, je mag mij en mijn schitterende schat iedere dag komen bewonderen als je dat wilt.” Zei hij trots. De jongen beloofde de volgende dag terug te komen en ging naar huis. Daar verstopte hij de schat in zijn slaapkamer. De stad lachte hem uit toen hij naar ze terug was gekomen maar de jongen wist beter. En zo ging de jongen iedere dag terug om een ding mee te nemen tot de kist leeg was. Toen hij het laatste bij had vertelde hij tegen de draak dat hij niet meer terug mocht komen en de draak vond dat zeer jammer hij genoot wel van bezoek dat niet zijn schatten probeerde te stelen. De jongen pakte thuis een zak en deed daar alle schatten in. Hij liep naar de koning toe en legde de zak aan zijn voeten neer. De koning keek verbaast naar de jongen en moest lachen. “Goed gedaan nu zal ik je benoemen naar ridder …” “Johan” zei de jongen. De jongen werd tot ridder benoemt maar wist ook iets over de koning ook die had slechte ogen en daar haalde hij hetzelfde trucje uit hij stal iedere dag een schat tot niks over was. En zo leefde ridder Johan een rijk leven en de arrogante koning en draak Argonant hadden zonder dat ze het wiste geen schat meer over. ",
         "storyPartTwo": "",
         "storyPartThree": "",
         "storyPartFour": "",
