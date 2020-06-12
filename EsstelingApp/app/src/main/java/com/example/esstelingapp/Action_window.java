@@ -38,12 +38,33 @@ public class Action_window extends Fragment {
             }
         }
 
-
+        final ActionItem item = (ActionItem) subjectStory.getPieces().get(marker);
+        final TextView actionText = RootView.findViewById(R.id.ActionText);
+        actionText.setText(item.getPreActionText());
         Button actionButton = (Button) RootView.findViewById(R.id.actionButton);
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MQTTController.getInstance().sendRawMessage("B3/OVEN");
+                if (subjectStory.getStoryName().equals("Draak blaaskaak")||subjectStory.getStoryName().equals("Dragon argonat")){
+                    MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic()+"In");
+                    Thread dragon = new Thread(){
+                        @Override
+                        public void run() {
+                            boolean isDragonDone = false;
+                            while (!isDragonDone){
+                                MQTTController.getInstance().readRawMessage("B3/"+item.getMQTTTopic()+"Out");
+                                //TODO: read the mqtt and end loop.
+                                isDragonDone = true;
+                            }
+                        }
+                    };
+                    dragon.start();
+                    //wait till confirm
+                }
+                else{
+                    MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic());
+                }
+                actionText.setText(item.getPostActionText());
             }
         });
 
