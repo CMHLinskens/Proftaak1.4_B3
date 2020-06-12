@@ -4,5 +4,6 @@ public enum StoryTypes {
     BIGGETJES,
     ROODKAPJE,
     DRAAK,
-    HANS_EN_GRIETJE
+    HANS_EN_GRIETJE,
+    TUTORIAL
 }

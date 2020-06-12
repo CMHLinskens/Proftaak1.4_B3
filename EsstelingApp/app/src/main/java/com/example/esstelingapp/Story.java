@@ -3,7 +3,11 @@ package com.example.esstelingapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.esstelingapp.games.StoryTypes;
+
 import java.util.ArrayList;
+
+import javax.security.auth.Subject;
 
 public class Story implements Parcelable {
         private String StoryName;
@@ -14,16 +18,18 @@ public class Story implements Parcelable {
         private int StoryCompleted;
         private int StoryMaxPoints;
         private int StoryCompletionReward;
+        private StoryTypes storyType;
 
-        public Story(String storyName, int storyImageURL, boolean storyStatus, ArrayList<StoryPiecesInterface> pieces, int storyProgress, int pointsOfStory, int storyMaxPoints, int storyCompletionReward) {
-            StoryName = storyName;
-            StoryImageURL = storyImageURL;
-            StoryStatus = storyStatus;
-            StoryProgress = storyProgress;
-            StoryPieces = pieces;
-            StoryMaxPoints = storyMaxPoints;
-            StoryCompleted = pointsOfStory;
-            StoryCompletionReward = storyCompletionReward;
+        public Story(String storyName, int storyImageURL, boolean storyStatus, ArrayList<StoryPiecesInterface> pieces, int storyProgress, int pointsOfStory, int storyMaxPoints, int storyCompletionReward, StoryTypes storyType) {
+            this.StoryName = storyName;
+            this.StoryImageURL = storyImageURL;
+            this.StoryStatus = storyStatus;
+            this.StoryProgress = storyProgress;
+            this.StoryPieces = pieces;
+            this.StoryMaxPoints = storyMaxPoints;
+            this.StoryCompleted = pointsOfStory;
+            this.StoryCompletionReward = storyCompletionReward;
+            this.storyType = storyType;
         }
 
         public String getStoryName() {
@@ -73,6 +79,10 @@ public class Story implements Parcelable {
 
     public void setStoryStatus(boolean storyStatus) {
         StoryStatus = storyStatus;
+    }
+
+    public StoryTypes getStoryType() {
+        return storyType;
     }
 
     @Override

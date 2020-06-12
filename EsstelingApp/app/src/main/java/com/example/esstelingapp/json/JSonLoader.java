@@ -157,6 +157,8 @@ public class JSonLoader {
                 final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource + colourblind, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
                 boolean storyStatus = preferences.getBoolean("s" + i, false);
 
+                StoryTypes storyType = StoryTypes.valueOf(story.getString("storyType"));
+
                 ArrayList<StoryPiecesInterface> piecesList = new ArrayList<>();
                 JSONArray storyPieces = story.getJSONArray("storyPieces");
 
@@ -178,7 +180,10 @@ public class JSonLoader {
                         else if (pieceID==3){
                             String preText = storyPiece.getString("preActionText");
                                 String postText = storyPiece.getString("postActionText");
-                            ActionItem piece = new ActionItem(preText,postText,0,false);
+                                String MQTTTopic = storyPiece.getString("MQTTTopic");
+                                String preImage = storyPiece.getString("preImage");
+                                String postImage = storyPiece.getString("postImage");
+                            ActionItem piece = new ActionItem(preText,postText, MQTTTopic, preImage, postImage, 0,false);
                             piecesList.add(piece);
                         }else{
                             String tieInText = storyPiece.getString("tieInText");
@@ -186,7 +191,7 @@ public class JSonLoader {
                             piecesList.add(piece);
                         }
                 }
-                storyList.add(new Story(storyName, resId, storyStatus, piecesList, 0, 0, 0, 0));
+                storyList.add(new Story(storyName, resId, storyStatus, piecesList, 0, 0, 0, 0, storyType));
             }
             DataSingleton.getInstance().setStories(storyList);
         } catch (Error | IOException | JSONException e) {

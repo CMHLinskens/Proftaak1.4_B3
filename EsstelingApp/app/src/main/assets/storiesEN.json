@@ -1,7 +1,8 @@
 [
   {
     "storyName": "Tutorial",
-    "imageUrl": "threepigs",
+    "imageUrl": "tutorial",
+    "storyType": "TUTORIAL",
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -9,7 +10,7 @@
         "storyAudio3" : "",
         "storyAudio5" : "" ,
         "storyPartOne": "“Hey, you there!” you hear someone call out to you. A lean man comes walking up to you. “I haven’t seen you before. Are you new to the kingdom of the Essteling?” you nod in response; you had just arrived. “well it's nice to see a fresh face around, the kingdom has become quiet empty lately. The names Scribe, I’m the kingdoms librarian.” the man looked at you with a puzzled stare. “are you by any chance the new seeker?” again you nod in response. “that’s great, the kingdom could use some help.” He said cheerful. “Let me bring you to the castle, they probably want to see you as soon as possible.” You follow Scribe to the castle through the empty streets. “As you probably know the evil spirit has been taking away the stories and locking them up so not many people visit this part anymore.” Scribe sighs. “but now you’re here and can help us get them back.” The librarian brings you to the gate of the castle and goes back to the town.  ",
-        "storyPartTwo": "",
+        "storyPartTwo": "tutorial_kasteel",
         "storyPartThree": "Inside you find two people bickering one smaller man and a tall woman each of them had books and other equipment on their belts. Those two must be the kingdoms seekers. You approach and hear what they are bickering about. “do you have any idea how long this is going to take with all the searching, researching and don’t forget the possible monster fighting.” The man said in a stressed tone. “long and dangerous but like I’ve said the past 20 times you need to get yourself up those stories aren’t going to free themselves” she snapped back at him. She sees you and looks you over. Then turns her companion to face you. “ow did you need something of us?” he said in an apologetic tone. “of course, Pardipsus that is obviously a junior seeker.” She said. Pardipsus narrowed his eyes looking at what you have with you and what you are wearing. “Ah yes, I think your right Zorna” he nods enthusiastically. “say if you’re a seeker then that must mean you’re here to help us, right?” Zorna asks you. You nod in response. “Then let’s get started, there is no time to waste.” ",
         "storyPartFour": "",
         "storyPartFive": ""
@@ -38,7 +39,7 @@
       },
       {
         "pieceID": 2,
-        "tieInText": ""
+        "tieInText": "Answer Zorna and Pardipsus their questions correctly"
       },
       {
         "pieceID" : 1,
@@ -56,6 +57,7 @@
   {
     "storyName": "The three little piglets",
     "imageUrl": "threepigs",
+    "storyType": "BIGGETJES",
     "storyPieces": [
     {
       "pieceID" : 1,
@@ -99,6 +101,7 @@
   {
     "storyName": "Hansel and Gretel",
     "imageUrl": "hansgretel",
+    "storyType": "HANS_EN_GRIETJE",
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -124,8 +127,11 @@
       },
       {
         "pieceID": 3,
-        "preActionText": "",
-        "postActionText": ""
+        "preActionText": "Quickly close the oven door, so she can't escape!",
+        "postActionText": "Good job Hansel and Gretel are now safe from the witch.",
+        "MQTTTopic": "OVEN",
+        "preImage": "hans_en_grietje_oven1",
+        "postImage": "hans_en_grietje_oven2"
       },
       {
         "pieceID" : 1,
@@ -143,6 +149,7 @@
   {
     "storyName": "Little red riding hood",
     "imageUrl": "redriding",
+    "storyType": "ROODKAPJE",
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -165,6 +172,14 @@
         "storyPartThree": "",
         "storyPartFour": "",
         "storyPartFive": ""
+      },
+      {
+        "pieceID": 3,
+        "preActionText": "",
+        "postActionText": "",
+        "MQTTTopic": "DOORBELL",
+        "preImage": "roodkapje_aanbellen",
+        "postImage": "verklede_wolf"
       },
       {
         "pieceID" : 1,
@@ -182,40 +197,39 @@
   {
     "storyName": "Dragon argonat",
     "imageUrl": "blaaskaak",
+    "storyType": "DRAAK",
     "storyPieces": [
       {
         "pieceID" : 1,
         "storyAudio1" :  "",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
-        "storyPartOne": "",
+        "storyPartOne": "Deep in the darkest parts of the forest there lives a dragon with countless treasures that it has collected over the years. This dragon was the great green dragon Argonant. Argonant was an arrogant dragon who claimed that no human can steel his treasure from him for as long as he guarded it. Many knights and princes tried but all came back with burned behinds. The king put up a bounty for any who could steal from that arrogant dragon would be knighted by him. So many again went and tried to steal from the dragon Argonant. All came back with empty hands. ",
         "storyPartTwo": "",
-        "storyPartThree": "",
+        "storyPartThree": "“Can nobody steal from this arrogant dragon?” the king asked. A small body stepped forward. “i am small and can sneak past the dragon. He has a bad eyesight.” the king laughed at the boy and told him this was a grownups task and not for little kids. The boy stomped off and went into the forest.  the path had been so often walked by the knights that it was easy to follow. The boy came across the clearing where the dragon sat. The dragon was guarding its chest and puffed a small smoke cloud out its nose. Its green scales shimmered in the dun and its breathing rumbled through the woods like thunder. When the boy got close the dragon made a loud noise and his eyes shot towards the boy. “who disturbs my slumber? Are you here to steal my treasure?” snarled the dragon. “no dragon I came here to admire you” said the boy. “i had never seen a dragon so large and strong before.” The dragon snorted and stared ahead. “that is fine but stay away from my treasure” “but I would also like to admire your treasure” said the boy. “can you open the lid of the chest so I can see it from here?” the dragon nodded and opened the chest. The boy walked closer till the dragon's eyes shot off back to him. “do not come closer, or I will burn you.” he growled. The boy stepped back. Now he knew how far he could until the dragon saw him. The boy kept trying the dragon's eyesight from different sides and noticed the front was its worst side. The boy started sneaking towards the treasure chest. ",
         "storyPartFour": "",
         "storyPartFive": ""
+      },
+      {
+        "pieceID": 3,
+        "preActionText": "You need to keep the correct distance to not anger the dragon and steal the treasure. ",
+        "postActionText": "You successfully stole the treasure, well done. ",
+        "MQTTTopic": "Draak",
+        "preImage": "blaaskaak_schatkist",
+        "postImage": "schatkist"
       },
       {
         "pieceID" : 1,
         "storyAudio1" :  "",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
-        "storyPartOne": "",
-        "storyPartTwo": "",
-        "storyPartThree": "",
-        "storyPartFour": "",
-        "storyPartFive": ""
-      },
-      {
-        "pieceID" : 1,
-        "storyAudio1" :  "",
-        "storyAudio3" : "",
-        "storyAudio5" : "" ,
-        "storyPartOne": "",
+        "storyPartOne": "The boy crept back. “ow great dragon, you watch over your treasure so well, but I have to go back home now said the boy. “may I come by again?” he asked. “you may, you may come and admire me and my treasure every day if you wish.” he said with a proud smile on him. The boy promised to come by the next day en went home. At home he hid the treasure in his bedroom. The city laughed at him when he returned to them with empty hands, the boy knew better though. And so, the boy went back to steel one treasure each day until the chest was empty. When he took the last treasure, he told the dragon he wasn’t allow to come back again and the was sad about that. He enjoyed the company that wouldn’t try to steal his treasures. The boy grabbed the bag where he hid the treasures in. He approached the king and placed the bag of treasures in front of the king. The king was surprised, and his eyes went wide. “well done, now I will knight you to knight …\" “Johan” the boy said. Johan was named knight but knew something about the king not many knew. The king too had bad eyesight and Johan used the same trick on him.  And so, knight Johan stole a treasure from the king every day until he had them all back. In the end he would live a rich life leaving the arrogant king and the dragon Argonant none the wiser of their stolen treasure.",
         "storyPartTwo": "",
         "storyPartThree": "",
         "storyPartFour": "",
         "storyPartFive": ""
       }
+
     ]
   }
 ]

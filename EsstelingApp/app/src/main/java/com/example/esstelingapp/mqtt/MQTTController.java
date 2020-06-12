@@ -65,4 +65,8 @@ public class MQTTController {
             e.printStackTrace();
         }
     }
+    public void readRawMessage(String topic){
+        //something here dunno
+        //TODO: we need to read rawmessage for success or not or end
+    }
 }
