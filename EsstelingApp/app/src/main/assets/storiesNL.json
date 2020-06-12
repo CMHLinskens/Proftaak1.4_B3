@@ -1,8 +1,9 @@
 [
   {
     "storyName": "De drie biggetjes",
-    "imageUrl": "threepigs"
-   , "storyPieces": [
+    "imageUrl": "threepigs",
+    "maxPoints": 1400,
+    "storyPieces": [
     {
       "pieceID" : 1,
       "storyPartOne": "In het bos woonde een moeder big met drie kinderen. Moeder big had maar een klein huisje waar ze haar groter wordende kinderen niet in kwijt kon. Ze besloot ze op avontuur te sturen om een nieuw huisje te vinden voor hunzelf. De biggetjes zeurde, maar moeder big had de keuze al gemaakt. De volgende dag gingen ze alle drie op pad. Ieder een richting op. Moeder big zwaaide ze uit tot ze verdwenen waren in het bos.",
@@ -36,6 +37,7 @@
   {
     "storyName": "Hans en grietje",
     "imageUrl": "hansgretel",
+    "maxPoints": 2000,
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -71,6 +73,7 @@
   {
     "storyName": "Roodkapje",
     "imageUrl": "redriding",
+    "maxPoints":  1800,
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -101,6 +104,7 @@
   {
     "storyName": "Draak blaaskaak",
     "imageUrl": "blaaskaak",
+    "maxPoints": 2000,
     "storyPieces": [
       {
         "pieceID" : 1,

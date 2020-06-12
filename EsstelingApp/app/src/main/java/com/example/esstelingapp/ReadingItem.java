@@ -50,6 +50,11 @@ public class ReadingItem implements StoryPiecesInterface {
     }
 
     @Override
+    public void setGainPoints(boolean canGainPoints) {
+        this.PointsReceived = canGainPoints;
+    }
+
+    @Override
     public boolean canGainPoints() {
         return PointsReceived;
     }

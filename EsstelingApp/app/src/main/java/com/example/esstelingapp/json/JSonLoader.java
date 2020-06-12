@@ -153,6 +153,7 @@ public class JSonLoader {
                 JSONObject story = stories.getJSONObject(i);
                 String storyName = story.getString("storyName");
                 int storyProgress = preferences.getInt("s" + i, 0);
+                final int maxPoints = story.getInt("maxPoints");
                 String imageResource = story.getString("imageUrl");
                 final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource + colourblind, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
                 boolean storyStatus = preferences.getBoolean("s" + i, false);
@@ -162,28 +163,27 @@ public class JSonLoader {
 
                 for (int j = 0; j < storyPieces.length(); j++) {
                     JSONObject storyPiece = storyPieces.getJSONObject(j);
-                        int pieceID = storyPiece.getInt("pieceID");
-                        if (pieceID==1) {
-                            String storyPartOne = storyPiece.getString("storyPartOne");
-                            String storyPartTwo = storyPiece.getString("storyPartTwo");
-                            String storyPartThree = storyPiece.getString("storyPartThree");
-                            String storyPartFour = storyPiece.getString("storyPartFour");
-                            String storyPartFive = storyPiece.getString("storyPartFive");
-                            ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
-                            piecesList.add(piece);
-                        }
-                        else if (pieceID==3){
-                            String preText = storyPiece.getString("preActionText");
-                                String postText = storyPiece.getString("postActionText");
-                            ActionItem piece = new ActionItem(preText,postText,0,false);
-                            piecesList.add(piece);
-                        }else{
-                            String tieInText = storyPiece.getString("tieInText");
-                            GameItem piece = new GameItem(tieInText, 0, false);
-                            piecesList.add(piece);
-                        }
+                    int pieceID = storyPiece.getInt("pieceID");
+                    if (pieceID == 1) {
+                        String storyPartOne = storyPiece.getString("storyPartOne");
+                        String storyPartTwo = storyPiece.getString("storyPartTwo");
+                        String storyPartThree = storyPiece.getString("storyPartThree");
+                        String storyPartFour = storyPiece.getString("storyPartFour");
+                        String storyPartFive = storyPiece.getString("storyPartFive");
+                        ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false);
+                        piecesList.add(piece);
+                    } else if (pieceID == 3) {
+                        String preText = storyPiece.getString("preActionText");
+                        String postText = storyPiece.getString("postActionText");
+                        ActionItem piece = new ActionItem(preText, postText, 0, false);
+                        piecesList.add(piece);
+                    } else {
+                        String tieInText = storyPiece.getString("tieInText");
+                        GameItem piece = new GameItem(tieInText, 0, false);
+                        piecesList.add(piece);
+                    }
                 }
-                storyList.add(new Story(storyName, resId, storyStatus, piecesList, 0, 0, 0, 0));
+                storyList.add(new Story(storyName, resId, storyStatus, piecesList, 0, 0, maxPoints, 0));
             }
             DataSingleton.getInstance().setStories(storyList);
         } catch (Error | IOException | JSONException e) {

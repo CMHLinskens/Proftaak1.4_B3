@@ -42,6 +42,7 @@ public class FragmentTravel {
                     transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
                 else transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
                 transaction.replace(R.id.fragment_container, riddlePage).commit();
+
             } else if (subjectStory.getPieces().get(marker) instanceof ActionItem) {
                 Fragment actionWindow = new Action_window();
                 Bundle bundle = new Bundle();
@@ -56,7 +57,6 @@ public class FragmentTravel {
                 else transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
 
                 transaction.replace(R.id.fragment_container, actionWindow).commit();
-
             }
         } else {
             if (subjectStory.getStoryName().equals("Tutorial")/*&&shared preference isFirstTime==true*/) {

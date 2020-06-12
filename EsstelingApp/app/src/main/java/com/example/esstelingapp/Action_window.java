@@ -18,6 +18,8 @@ import com.example.esstelingapp.ui.Activity_read_story;
 import com.example.esstelingapp.ui.OnSwipeTouchListener;
 import com.example.esstelingapp.ui.StoryPage;
 
+import java.util.ArrayList;
+
 public class Action_window extends Fragment {
     private Story subjectStory;
     private int marker;
@@ -38,11 +40,17 @@ public class Action_window extends Fragment {
             }
         }
 
+        ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
+        final ActionItem actionItem = (ActionItem) storyArrayList.get(marker);
 
-        Button actionButton = (Button) RootView.findViewById(R.id.actionButton);
+        final Button actionButton = (Button) RootView.findViewById(R.id.actionButton);
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (actionItem.canGainPoints()){
+                    subjectStory.addPointsToStory(actionItem.getPoints());
+                    actionItem.setGainPoints(false);
+                }
                 MQTTController.getInstance().sendRawMessage("B3/OVEN");
             }
         });

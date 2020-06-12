@@ -1,6 +1,7 @@
 package com.example.esstelingapp.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class Activity_read_story extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         TTS1playing = false;
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -50,7 +51,8 @@ public class Activity_read_story extends Fragment {
         }
         View RootView = inflater.inflate(R.layout.activity_read_story, container, false);
         ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
-        ReadingItem item = (ReadingItem) storyArrayList.get(marker);
+        final ReadingItem item = (ReadingItem) storyArrayList.get(marker);
+        item.setGainPoints(true);
 
         TextView StoryTitel = (TextView) RootView.findViewById(R.id.ReadStoryTitel);
         StoryTitel.setText(subjectStory.getStoryName());
@@ -179,6 +181,11 @@ public class Activity_read_story extends Fragment {
         nextStoryPiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(item.canGainPoints()){
+                    subjectStory.addPointsToStory(200);
+                    Log.d("POINT SYSTEM", String.valueOf(item.getPoints()));
+                    item.setGainPoints(false);
+                }
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
             }
         });

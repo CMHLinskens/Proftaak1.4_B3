@@ -50,10 +50,10 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         loadData();
         if (preferences.getBoolean("isFirstTime", true)){
-            Story Tutorial = DataSingleton.getInstance().getStories().get(0);
+//            Story Tutorial = DataSingleton.getInstance().getStories().get(0);
             Fragment readstoryFragment = new Activity_read_story();
             Bundle bundle = new Bundle();
-            bundle.putParcelable("storyInfo", Tutorial);  // Key, value
+//            bundle.putParcelable("storyInfo", Tutorial);  // Key, value
             readstoryFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,readstoryFragment).commit();
         }else {
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         currentTab = 0;
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
         loadData();
-        MQTTController.getInstance().connectToServer(this);
+//        MQTTController.getInstance().connectToServer(this);
     }
 
     private void loadData(){

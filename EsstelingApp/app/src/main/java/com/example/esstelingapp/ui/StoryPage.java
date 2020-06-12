@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.data.ThemeState;
 
 import java.util.LinkedList;
 

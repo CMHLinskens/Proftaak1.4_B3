@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ToggleButton;
@@ -22,7 +21,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.data.ThemeState;
 import com.example.esstelingapp.json.JSonLoader;
 
 import java.util.Locale;

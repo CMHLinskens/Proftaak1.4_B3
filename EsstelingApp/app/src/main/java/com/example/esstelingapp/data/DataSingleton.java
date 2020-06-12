@@ -1,6 +1,9 @@
 package com.example.esstelingapp.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.service.autofill.AutofillService;
+import android.view.Display;
 
 import androidx.fragment.app.FragmentManager;
 
@@ -18,16 +21,16 @@ public final class DataSingleton {
     private String info = "Initial info class";
     private FragmentManager storyFragmentManager;
     private Context mainContext;
+    private User user;
     private HashMap<String, HashMap<Integer, Question>> quizQuestions;
     private ArrayList<String> randomFacts;
     private ArrayList<Achievement> achievements;
     private ArrayList<Story> stories;
-    private ThemeState state;
 
     private DataSingleton() {
         this.mainLoaded = false;
         this.stories = new ArrayList<>();
-        this.state = ThemeState.NORMALISE;
+        this.user = new User();
     }
 
 
@@ -35,7 +38,6 @@ public final class DataSingleton {
         if(INSTANCE == null) {
             INSTANCE = new DataSingleton();
         }
-
         return INSTANCE;
     }
     // getters and setters
@@ -64,11 +66,11 @@ public final class DataSingleton {
         this.mainLoaded = mainLoaded;
     }
 
-    public ThemeState getState() {
-        return state;
+    public User getUser() {
+        return user;
     }
 
-    public void setState(ThemeState state) {
-        this.state = state;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

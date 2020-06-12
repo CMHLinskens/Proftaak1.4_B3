@@ -13,10 +13,10 @@
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationBar" parent="">
-        <item name="colorPrimary">@color/EsstelingRed</item>
+        <item name="colorPrimary">@color/EsstelingOrange</item>
+        <item name="android:textColor">@color/EsstelingBlue</item>
         <item name="android:colorBackground">@color/EsstelingDarkerGreen</item>
     </style>
-
 
     <style name="ColourBlindTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimaryDark">@color/colorBlindPrimary</item>
