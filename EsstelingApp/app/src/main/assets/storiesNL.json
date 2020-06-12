@@ -127,8 +127,8 @@
         "preActionText": "Snel doe de ovendeur dicht zodat de heks niet kan ontsnappen!",
         "postActionText": "Goed gedaan, nu zijn Hans en Grietje veilig van de heks.",
         "MQTTTopic": "OVEN",
-        "preImage": "",
-        "postImage": ""
+        "preImage": "hans_en_grietje_oven1",
+        "postImage": "hans_en_grietje_oven2"
       },
       {
         "pieceID" : 1,

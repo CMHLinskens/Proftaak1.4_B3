@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -110,6 +111,21 @@ public class Action_window extends Fragment {
         });
 
         RootView.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
+            @Override
+            public void onSwipeRight() {
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+            }
+        });
+
+        ScrollView scrollview = RootView.findViewById(R.id.actionScrollView);
+
+        scrollview.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
+
             @Override
             public void onSwipeRight() {
                 FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
