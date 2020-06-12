@@ -127,8 +127,8 @@
         "preActionText": "Quickly close the oven door, so she can't escape!",
         "postActionText": "Good job Hansel and Gretel are now safe from the witch.",
         "MQTTTopic": "OVEN",
-        "preImage": "",
-        "postImage": ""
+        "preImage": "hans_en_grietje_oven1",
+        "postImage": "hans_en_grietje_oven2"
       },
       {
         "pieceID" : 1,
