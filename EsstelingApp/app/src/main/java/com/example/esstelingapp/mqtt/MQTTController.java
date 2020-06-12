@@ -74,11 +74,11 @@ public class MQTTController {
     public void subscribeToCodes(){
         for(Story story : DataSingleton.getInstance().getStories()){
             try {
-                client.subscribe("B3/Codes/" + story.getMqttTopic(), 1, new IMqttMessageListener() {
+                client.subscribe("B3/Codes/" + story.getMqttTopic(), 2, new IMqttMessageListener() {
                     @Override
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
-                        String story = topic.substring(topic.lastIndexOf('/') + 1);
-                        DataSingleton.getInstance().putUnlockCodes(story, message + "");
+                        String storyString = topic.substring(topic.lastIndexOf('/') + 1);
+                        DataSingleton.getInstance().putUnlockCodes(storyString, message + "");
                     }
                 });
             } catch (MqttException e) {

@@ -1,17 +1,8 @@
-import javafx.stage.Stage;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
-
 public class Process extends Thread {
 
     private DataController DC;
-    private LocalTime dateTime;
     private int codeSize = 6;
+    private boolean codeSwitcher = false;
 
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -24,52 +15,42 @@ public class Process extends Thread {
         return builder.toString();
     }
 
-
     @Override
     public void run() {
-        String str = "06:00";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        dateTime = LocalTime.parse(str, formatter);
-        System.out.println("hello");
-        System.out.println("process is running");
-        Loop();
+        publishLoop();
     }
 
     public void setUpThread(DataController dc) {
         DC = dc;
     }
 
-
-    public void Loop() {
+    public void publishLoop() {
         while (true) {
-//            while (DC.isGeneratingRandomly()) {
-//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-//                LocalDateTime RegisteredDateTime = LocalDateTime.parse(DC.getTime(), dtf);
-//                LocalDateTime today = LocalDateTime.now();
-//                if (today.toLocalDate().isAfter(RegisteredDateTime.toLocalDate()) || today.toLocalDate().equals(RegisteredDateTime.toLocalDate())) {
-//                    if (RegisteredDateTime.toLocalTime().isBefore(dateTime) && (today.toLocalTime().isAfter(dateTime) || today.toLocalTime().equals(dateTime))) {
-//                        for (Code code : DC.getCodes()) {
-//                            code.setCode(generate(CodeSize));
-//                            DC.saveCodes();
-//                        }
-//
-//                    } else {
-//                        sleep();
-//                    }
-//                } else {
-//                    sleep();
-//                }
-//            }
-            while(DC.isGeneratingRandomly()){
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            // Give the DC time to make a connection with the mqtt broker
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("process is running");
+            Thread generateThread = new Thread(() -> {
+                while(true) {
+                    if(DC.isGeneratingRandomly())
+                    for(Code code : DC.getCodes()){
+                        code.setCode(generate(codeSize));
+                        codeSwitcher = !codeSwitcher;
+                        DC.saveCodes();
+                    }
+                    try {
+                        Thread.sleep(20 * 1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-                for(Code code : DC.getCodes()){
-                    code.setCode(generate(codeSize));
-                    DC.saveCodes();
-                }
+            });
+            generateThread.start();
+            while(true){
+                DC.publishCodes();
                 sleep();
             }
         }
@@ -77,13 +58,14 @@ public class Process extends Thread {
 
     public void sleep() {
         try {
-            System.out.println("going to sleep");
-            sleep(60 * 1000);
+            sleep(5 * 1000);
 
         } catch (Exception e) {
-            System.out.println("something went wrong");
             e.printStackTrace();
         }
+    }
 
+    public boolean codeSwitcher() {
+        return codeSwitcher;
     }
 }

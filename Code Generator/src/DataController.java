@@ -62,11 +62,7 @@ public Code getCodeByID(int ID){
             writer.writeObject(codeFileBuilder.build());
             writer.close();
 
-//            if(MQTTController.getInstance().isConnected()) {
-                for (Code code : this.getCodes()) {
-                    MQTTController.getInstance().sendCode(code.getName(), code.getCode());
-                }
-//            }
+            publishCodes();
 
         }catch(Exception e){
             System.out.println("something went wrong:");
@@ -103,6 +99,13 @@ public Code getCodeByID(int ID){
             if (code.getStoryID()==CodeID){
                 code.setCode(newCode);
             }
+        }
+    }
+
+    public void publishCodes(){
+        // Publish the codes to the mqtt broker
+        for (Code code : this.getCodes()) {
+            MQTTController.getInstance().sendCode(code.getName(), code.getCode());
         }
     }
 }

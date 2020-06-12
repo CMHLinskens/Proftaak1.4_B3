@@ -27,6 +27,7 @@ public class GUI extends Application {
     DateTimeFormatter dtfT = DateTimeFormatter.ofPattern("HH:mm:ss");
     private DataController DC;
     private boolean isediting = false;
+    private GridPane gridPane;
 
 
     @Override
@@ -43,7 +44,7 @@ public class GUI extends Application {
         TitelLabel.setTextFill(Color.web("#0076a3"));
         TitelLabel.setFont(new Font("Arial", 25));
         ScrollPane scrollPane = new ScrollPane();
-        GridPane gridPane = SettupCodeGrid();
+        gridPane = SettupCodeGrid();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setAlignment(Pos.CENTER);
@@ -101,7 +102,8 @@ public class GUI extends Application {
                         toggleGenerateRandomlyButton.setText("Toggle randomly generate: inactive");
                     } else {
                         toggleGenerateRandomlyButton.setText("Toggle randomly generate: active");
-                    }            DC.changeToggleGenerateRandomly();
+                    }
+                    DC.changeToggleGenerateRandomly();
                     DC.saveCodes();
                 });
 
@@ -111,10 +113,45 @@ public class GUI extends Application {
         stackPane.getChildren().addAll(background,base);
         Scene scene = new Scene(stackPane);
 
+        Thread codeGUIThread = new Thread( () -> {
+            boolean lastCodeSwitch = backgroundProcess.codeSwitcher();
+            while(true){
+                if(lastCodeSwitch != backgroundProcess.codeSwitcher()){
+                    lastCodeSwitch = backgroundProcess.codeSwitcher();
+                    updateTextFields();
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        codeGUIThread.start();
+
         primaryStage.setTitle("Code Control");
         primaryStage.setResizable(true);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public void updateTextFields(){
+        // Wait for the codes to be updated
+        delayThread(1500);
+
+        // Update the codes
+        ObservableList<Node> childrens = gridPane.getChildren();
+
+        for (Node node : childrens) {
+            if (gridPane.getColumnIndex(node) == 2) {
+                TextField codefield = (TextField) node;
+                int storyID = gridPane.getRowIndex(node) - 1;
+                delayThread(25);
+                String newCode = DC.getCodes().get(storyID).getCode();
+                delayThread(25);
+                codefield.setText(newCode);
+            }
+        }
     }
 
     public GridPane SettupCodeGrid() {
@@ -122,12 +159,19 @@ public class GUI extends Application {
 
         for (Code code : DC.getCodes()) {
             gridPane.add(new Label(code.getName()), 1, code.getStoryID());
-            TextField CodeField = new TextField(code.getCode());
-            CodeField.setEditable(false);
-            gridPane.add(CodeField, 2, code.getStoryID());
+            TextField codeField = new TextField(code.getCode());
+            codeField.setEditable(false);
+            gridPane.add(codeField, 2, code.getStoryID());
         }
         return gridPane;
     }
 
+    public void delayThread(int ms){
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

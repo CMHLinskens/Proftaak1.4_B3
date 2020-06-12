@@ -6,11 +6,6 @@ public class MQTTController {
     private static MQTTController INSTANCE;
     private MqttClient client;
     private final String topic = "B3/Codes/";
-    private boolean isConnected = false;
-
-    public boolean isConnected() {
-        return isConnected;
-    }
 
     public MQTTController() {
     }
@@ -35,13 +30,11 @@ public class MQTTController {
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken iMqttToken) {
-                    isConnected = true;
                     System.out.println("Succesfully connected!");
                 }
 
                 @Override
                 public void onFailure(IMqttToken iMqttToken, Throwable exception) {
-                    isConnected = false;
                     System.out.println(("Failed to connect: " + exception.getMessage()));
                 }
             });
