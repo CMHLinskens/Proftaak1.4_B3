@@ -13,7 +13,7 @@
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationBar" parent="">
-        <item name="colorPrimary">@color/EsstelingRed</item>
+        <item name="colorPrimary">@color/normalRed</item>
         <item name="android:colorBackground">@color/EsstelingDarkerGreen</item>
     </style>
 

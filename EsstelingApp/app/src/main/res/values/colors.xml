@@ -7,7 +7,8 @@
     <color name="colorBlindPrimary">#000000</color>
     <color name="colorBlindText">#F4F6F7 </color>
     <color name="colorBlindNavBarBackground">#1c1c1c</color>
-    <color name = "EsstelingRed">#be2223</color>
+    <color name = "EsstelingRed">#75FF0000</color>
+    <color name="normalRed">#be2223</color>
     <color name = "EsstelingBlue">#95c8f0</color>
     <color name = "EsstelingGreen">#2a4325</color>
     <color name="EsstelingDarkerGreen">#20311b</color>
