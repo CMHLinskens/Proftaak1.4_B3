@@ -62,11 +62,11 @@ public Code getCodeByID(int ID){
             writer.writeObject(codeFileBuilder.build());
             writer.close();
 
-            if(MQTTController.getInstance().isConnected()) {
+//            if(MQTTController.getInstance().isConnected()) {
                 for (Code code : this.getCodes()) {
                     MQTTController.getInstance().sendCode(code.getName(), code.getCode());
                 }
-            }
+//            }
 
         }catch(Exception e){
             System.out.println("something went wrong:");

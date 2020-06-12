@@ -52,7 +52,7 @@ public class MQTTController {
 
     public void sendCode(String story, String code){
         try {
-            client.publish(topic + "/" + story, new MqttMessage(code.getBytes("UTF-8")));
+            client.publish(topic + story, new MqttMessage(code.getBytes("UTF-8")));
         } catch (MqttException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {

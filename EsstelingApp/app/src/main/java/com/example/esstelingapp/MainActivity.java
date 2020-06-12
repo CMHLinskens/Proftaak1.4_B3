@@ -64,7 +64,21 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         currentTab = 0;
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
         loadData();
-        MQTTController.getInstance().connectToServer(this);
+
+        Thread mqttThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                MQTTController.getInstance().connectToServer(DataSingleton.getInstance().getMainContext());
+                while(true) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        mqttThread.start();
     }
 
     private void loadData(){

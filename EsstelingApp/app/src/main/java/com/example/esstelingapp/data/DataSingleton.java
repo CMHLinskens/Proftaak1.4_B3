@@ -1,6 +1,7 @@
 package com.example.esstelingapp.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.fragment.app.FragmentManager;
 
@@ -10,6 +11,8 @@ import com.example.esstelingapp.games.Question;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static android.content.ContentValues.TAG;
 
 public final class DataSingleton {
 
@@ -23,11 +26,13 @@ public final class DataSingleton {
     private ArrayList<Achievement> achievements;
     private ArrayList<Story> stories;
     private ThemeState state;
+    private HashMap<String, String> unlockCodes;
 
     private DataSingleton() {
         this.mainLoaded = false;
         this.stories = new ArrayList<>();
         this.state = ThemeState.NORMALISE;
+        this.unlockCodes = new HashMap<>();
     }
 
 
@@ -63,12 +68,12 @@ public final class DataSingleton {
     public void setMainLoaded(boolean mainLoaded) {
         this.mainLoaded = mainLoaded;
     }
-
     public ThemeState getState() {
         return state;
     }
-
     public void setState(ThemeState state) {
         this.state = state;
     }
+    public HashMap<String, String> getUnlockCodes() { return unlockCodes; }
+    public void putUnlockCodes(String story, String code) { this.unlockCodes.put(story, code); }
 }

@@ -14,8 +14,9 @@ public class Story implements Parcelable {
         private int StoryCompleted;
         private int StoryMaxPoints;
         private int StoryCompletionReward;
+        private String mqttTopic;
 
-        public Story(String storyName, int storyImageURL, boolean storyStatus, ArrayList<StoryPiecesInterface> pieces, int storyProgress, int pointsOfStory, int storyMaxPoints, int storyCompletionReward) {
+        public Story(String storyName, int storyImageURL, boolean storyStatus, ArrayList<StoryPiecesInterface> pieces, int storyProgress, int pointsOfStory, int storyMaxPoints, int storyCompletionReward, String mqttTopic) {
             StoryName = storyName;
             StoryImageURL = storyImageURL;
             StoryStatus = storyStatus;
@@ -24,6 +25,7 @@ public class Story implements Parcelable {
             StoryMaxPoints = storyMaxPoints;
             StoryCompleted = pointsOfStory;
             StoryCompletionReward = storyCompletionReward;
+            this.mqttTopic = mqttTopic;
         }
 
         public String getStoryName() {
@@ -62,7 +64,9 @@ public class Story implements Parcelable {
             return StoryStatus;
         }
 
-        public void addPointsToStory(int points){
+        public String getMqttTopic() { return mqttTopic; }
+
+    public void addPointsToStory(int points){
             if (StoryProgress!=StoryMaxPoints){
                 StoryProgress+=points;
             }

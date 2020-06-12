@@ -2,6 +2,7 @@
   {
     "storyName": "The three little piglets",
     "imageUrl": "threepigs",
+    "topic": "DrieBiggetjes",
     "storyPieces": [
     {
       "pieceID" : 1,
@@ -36,6 +37,7 @@
   {
     "storyName": "Hansel and Gretel",
     "imageUrl": "hansgretel",
+    "topic": "HansEnGrietje",
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -71,6 +73,7 @@
   {
     "storyName": "Little red riding hood",
     "imageUrl": "redriding",
+    "topic": "Roodkapje",
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -101,6 +104,7 @@
   {
     "storyName": "Dragon argonat",
     "imageUrl": "blaaskaak",
+    "topic": "DraakBlaaskaak",
     "storyPieces": [
       {
         "pieceID" : 1,

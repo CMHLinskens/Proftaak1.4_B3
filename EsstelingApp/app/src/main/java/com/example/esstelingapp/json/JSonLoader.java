@@ -156,6 +156,7 @@ public class JSonLoader {
                 String imageResource = story.getString("imageUrl");
                 final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource + colourblind, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
                 boolean storyStatus = preferences.getBoolean("s" + i, false);
+                String mqttTopic = story.getString("topic");
 
                 ArrayList<StoryPiecesInterface> piecesList = new ArrayList<>();
                 JSONArray storyPieces = story.getJSONArray("storyPieces");
@@ -183,7 +184,7 @@ public class JSonLoader {
                             piecesList.add(piece);
                         }
                 }
-                storyList.add(new Story(storyName, resId, storyStatus, piecesList, 0, 0, 0, 0));
+                storyList.add(new Story(storyName, resId, storyStatus, piecesList, 0, 0, 0, 0, mqttTopic));
             }
             DataSingleton.getInstance().setStories(storyList);
         } catch (Error | IOException | JSONException e) {
