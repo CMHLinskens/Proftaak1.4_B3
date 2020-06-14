@@ -2,7 +2,7 @@
   {
     "storyName": "De drie biggetjes",
     "imageUrl": "threepigs",
-    "maxPoints": 1400,
+    "maxPoints": 1000,
     "storyPieces": [
     {
       "pieceID" : 1,
@@ -37,7 +37,7 @@
   {
     "storyName": "Hans en grietje",
     "imageUrl": "hansgretel",
-    "maxPoints": 2000,
+    "maxPoints": 1000,
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -73,7 +73,7 @@
   {
     "storyName": "Roodkapje",
     "imageUrl": "redriding",
-    "maxPoints":  1800,
+    "maxPoints":  600,
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -104,7 +104,7 @@
   {
     "storyName": "Draak blaaskaak",
     "imageUrl": "blaaskaak",
-    "maxPoints": 2000,
+    "maxPoints": 600,
     "storyPieces": [
       {
         "pieceID" : 1,

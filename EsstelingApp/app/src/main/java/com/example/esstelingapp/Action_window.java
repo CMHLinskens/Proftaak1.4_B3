@@ -5,13 +5,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.mqtt.MQTTController;
 import com.example.esstelingapp.ui.Activity_read_story;
@@ -29,6 +34,7 @@ public class Action_window extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         RootView = inflater.inflate(R.layout.activity_action_window, container, false);
+        final SharedPreferences.Editor preferenceEditor = DataSingleton.getInstance().getMainContext().getSharedPreferences("userData", Context.MODE_PRIVATE).edit();
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             subjectStory = bundle.getParcelable("storyInfo"); // Key
@@ -48,7 +54,6 @@ public class Action_window extends Fragment {
             @Override
             public void onClick(View v) {
                 if (actionItem.canGainPoints()){
-                    subjectStory.addPointsToStory(actionItem.getPoints());
                     actionItem.setGainPoints(false);
                 }
                 MQTTController.getInstance().sendRawMessage("B3/OVEN");
@@ -60,6 +65,12 @@ public class Action_window extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (actionItem.canGainPoints()){
+                    DataSingleton.getInstance().getUser().addPoints(400);
+                    DataSingleton.getInstance().getUser().addToTotal(400);
+                    subjectStory.addPointsToStory((DataSingleton.getInstance().getUser().getPoints() / subjectStory.getStoryMaxPoints()) * 100);
+                    actionItem.setGainPoints(false);
+                }
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
             }
         });
@@ -75,8 +86,6 @@ public class Action_window extends Fragment {
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
             }
         });
-
-
         return RootView;
     }
 

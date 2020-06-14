@@ -3,6 +3,7 @@ package com.example.esstelingapp.games;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.esstelingapp.R;
 import com.example.esstelingapp.ReadingItem;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.StoryPiecesInterface;
+import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.ui.OnSwipeTouchListener;
 import com.example.esstelingapp.ui.StoryPage;
 import com.example.esstelingapp.ui.Activity_read_story;
@@ -27,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class RiddlePage extends Fragment {
+    private GameItem gameItem;
     private Story subjectStory;
     private int marker;
     private int timesTried;
@@ -62,7 +65,7 @@ public class RiddlePage extends Fragment {
         }
 
         ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
-        GameItem item = (GameItem) storyArrayList.get(marker);
+        this.gameItem = (GameItem) storyArrayList.get(marker);
 
         TextView title = getView().findViewById(R.id.storyTitle);
         title.setText(subjectStory.getStoryName());
@@ -70,7 +73,7 @@ public class RiddlePage extends Fragment {
         String text = "part " + (marker + 1) + " of " + subjectStory.getPieces().size();
         partOfStory.setText(text);
         TextView tieInText = getView().findViewById(R.id.tieInText);
-        tieInText.setText(item.getTieInText());
+        tieInText.setText(this.gameItem.getTieInText());
 
         //initializing all components
         controller = new RiddleController(storyType);
@@ -167,6 +170,13 @@ public class RiddlePage extends Fragment {
 
             System.out.println("Correct");
             alert.setMessage("Correct");
+            if(this.gameItem.canGainPoints()){
+                DataSingleton.getInstance().getUser().addPoints(400);
+                DataSingleton.getInstance().getUser().addToTotal(400);
+                subjectStory.addPointsToStory((DataSingleton.getInstance().getUser().getPoints() / subjectStory.getStoryMaxPoints()) * 100);
+                Log.d("GAME POINTS", "POINTS HAVE BEEN ADDED");
+                this.gameItem.setGainPoints(false);
+            }
             alert.setCancelable(false);
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override

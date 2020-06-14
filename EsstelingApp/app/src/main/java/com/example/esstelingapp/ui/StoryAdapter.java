@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             int mPosition = getLayoutPosition();
             Story element = mStoryList.get(mPosition);
             if (element!=null){
-                if(!element.getStoryStatus()) {
+                if(!element.isUnlocked()) {
                     openUnlockPopUp(element);
                 }
                 else{
@@ -142,7 +143,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
         holder.storyNameItemView.setText(mCurrent);
         int pCurrent = mStoryList.get(position).getStoryProgress();
         holder.storyProgressItemView.setProgress(pCurrent);
-        Boolean bCurrent = mStoryList.get(position).getStoryStatus();
+        boolean bCurrent = mStoryList.get(position).isUnlocked();
         if (!this.isColourBlind) {
             holder.itemView.setBackgroundResource(R.color.EsstelingRed);
             holder.storyProgressItemView.setBackgroundResource(R.color.EsstelingBlue);

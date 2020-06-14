@@ -1,5 +1,7 @@
 package com.example.esstelingapp.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +31,10 @@ import com.example.esstelingapp.games.RiddlePage;
 import java.util.ArrayList;
 
 public class Activity_read_story extends Fragment {
+    private static final String USER_DATA = "userData";
+    private static final String USER_POINTS = "points";
+    private static final String STORY_COMPLETE = "storyComplete";
+
     private Story subjectStory;
     private int marker;
     private boolean TTS1playing;
@@ -40,6 +46,9 @@ public class Activity_read_story extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         TTS1playing = false;
         Bundle bundle = this.getArguments();
+
+        final SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+
         if (bundle != null) {
             subjectStory = bundle.getParcelable("storyInfo"); // Key
             try {
@@ -49,10 +58,11 @@ public class Activity_read_story extends Fragment {
                 marker = 0;
             }
         }
+
         View RootView = inflater.inflate(R.layout.activity_read_story, container, false);
-        ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
+        final ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
         final ReadingItem item = (ReadingItem) storyArrayList.get(marker);
-        item.setGainPoints(true);
+
 
         TextView StoryTitel = (TextView) RootView.findViewById(R.id.ReadStoryTitel);
         StoryTitel.setText(subjectStory.getStoryName());
@@ -181,9 +191,11 @@ public class Activity_read_story extends Fragment {
         nextStoryPiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(item.canGainPoints()){
-                    subjectStory.addPointsToStory(200);
-                    Log.d("POINT SYSTEM", String.valueOf(item.getPoints()));
+                if (item.canGainPoints()) {
+                    DataSingleton.getInstance().getUser().addPoints(200);
+                    DataSingleton.getInstance().getUser().addToTotal(200);
+                    subjectStory.addPointsToStory((DataSingleton.getInstance().getUser().getPoints() / subjectStory.getStoryMaxPoints()) * 100);
+                    Log.d("POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
                     item.setGainPoints(false);
                 }
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());

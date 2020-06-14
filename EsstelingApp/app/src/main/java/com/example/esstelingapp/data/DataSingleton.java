@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.service.autofill.AutofillService;
 import android.view.Display;
+import android.view.DragAndDropPermissions;
 
 import androidx.fragment.app.FragmentManager;
 
@@ -30,7 +31,6 @@ public final class DataSingleton {
     private DataSingleton() {
         this.mainLoaded = false;
         this.stories = new ArrayList<>();
-        this.user = new User();
     }
 
 

@@ -1,20 +1,12 @@
 package com.example.esstelingapp.data;
 
-import com.example.esstelingapp.ReadingItem;
-import com.example.esstelingapp.Story;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class User {
     private int points;
-    private boolean achievementUnlocked;
-    private HashMap<Story, HashMap<ReadingItem, String>> storiesCompleted;
+    private int totalPoints;
 
-    public User (){
-        this.points = 0;
-        this.achievementUnlocked = false;
-        this.storiesCompleted = new HashMap<>();
+    public User(int points) {
+        this.points = points;
+        this.totalPoints = 0;
     }
 
     public int getPoints() {
@@ -25,21 +17,20 @@ public class User {
         this.points = points;
     }
 
-    public boolean isAchievementUnlocked() {
-        return achievementUnlocked;
-    }
-
-    public void setAchievementUnlocked(boolean achievementUnlocked) {
-        this.achievementUnlocked = achievementUnlocked;
-    }
-
-    public HashMap<Story, HashMap<ReadingItem, String>> getStoriesCompleted() {
-        return storiesCompleted;
-    }
-
-    public void setStoriesCompleted(HashMap<Story, HashMap<ReadingItem, String>> storiesCompleted) {
-        this.storiesCompleted = storiesCompleted;
+    public void addPoints(int points){
+        this.points += points;
     }
 
 
+    public int getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
+    }
+
+    public void addToTotal(int points){
+        this.totalPoints += points;
+    }
 }

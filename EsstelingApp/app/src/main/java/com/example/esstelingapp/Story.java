@@ -11,15 +11,17 @@ public class Story implements Parcelable {
     private ArrayList<StoryPiecesInterface> StoryPieces;
     private int StoryImageURL;
     private boolean StoryStatus;
+    private boolean isUnlocked;
     private int StoryCompleted;
     private int StoryMaxPoints;
     private int StoryCompletionReward;
 
-    public Story(String storyName, int storyImageURL, boolean storyStatus, ArrayList<StoryPiecesInterface> pieces, int storyProgress, int pointsOfStory, int storyMaxPoints, int storyCompletionReward) {
+    public Story(String storyName, int storyImageURL, boolean storyStatus, boolean isUnlocked,ArrayList<StoryPiecesInterface> pieces, int storyProgress, int pointsOfStory, int storyMaxPoints, int storyCompletionReward) {
         StoryName = storyName;
         StoryImageURL = storyImageURL;
         StoryStatus = storyStatus;
         StoryProgress = storyProgress;
+        this.isUnlocked = isUnlocked;
         StoryPieces = pieces;
         StoryMaxPoints = storyMaxPoints;
         StoryCompleted = pointsOfStory;
@@ -60,17 +62,28 @@ public class Story implements Parcelable {
 
     public boolean getStoryStatus() { return StoryStatus; }
 
+    public boolean isUnlocked() {
+        return isUnlocked;
+    }
+
     public void addPointsToStory(int points) {
         if (StoryProgress != StoryMaxPoints) {
             StoryProgress += points;
-        }
-        if (StoryProgress == StoryCompleted) {
+        } else if (StoryProgress == StoryCompleted) {
             addPointsToStory(StoryCompletionReward);
         }
     }
 
     public void setStoryStatus(boolean storyStatus) {
         StoryStatus = storyStatus;
+    }
+
+    public void setStoryProgress(int storyProgress) {
+        StoryProgress = storyProgress;
+    }
+
+    public void setUnlocked(boolean unlocked) {
+        isUnlocked = unlocked;
     }
 
     @Override

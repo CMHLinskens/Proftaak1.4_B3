@@ -1,7 +1,10 @@
 package com.example.esstelingapp.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,10 @@ public class AchievementPage extends Fragment {
     private final LinkedList<Achievement> mAchievementList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private AchievementAdapter mAdapter;
+    private static final String USER_DATA = "userData";
+    private static final String USER_TOTAL_POINTS = "totalPoints";
+    private static final String STORY_COMPLETE = "storyComplete";
+
 
     @Nullable
     @Override
@@ -34,7 +41,7 @@ public class AchievementPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
 //        mAchievementList.add(new Achievement("Piglet home builder",true,0));
 //        mAchievementList.add(new Achievement("Red riding hood",false,0));
 //        mAchievementList.add(new Achievement("follow the breadcrumbs",false,0));
