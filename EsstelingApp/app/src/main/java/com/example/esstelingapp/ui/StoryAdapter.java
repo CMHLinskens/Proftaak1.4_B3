@@ -31,6 +31,12 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
     private static final String PREFS_NAME = "prefs";
     private boolean isColourBlind;
 
+    private static final String USER_DATA = "userData";
+    private static final String USER_POINTS = "points";
+    private static final String USER_TOTAL_POINTS = "totalPoints";
+    private static final String STORY_COMPLETE = "storyComplete";
+    private static final String PROGRESS = "progress";
+
 
 
     class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -67,12 +73,13 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             Story element = mStoryList.get(mPosition);
             if (element!=null){
                 if(!element.isUnlocked()) {
-                    openUnlockPopUp(element);
+                    openUnlockPopUp(element, mPosition);
                 }
                 else{
                     Fragment readstoryFragment = new Activity_read_story();
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable("storyInfo", element);  // Key, value
+                    bundle.putParcelable("storyInfo", element); // Key, value
+                    bundle.putInt("storyIndex", mPosition);
                     readstoryFragment.setArguments(bundle);
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
                 }
@@ -82,9 +89,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
 //            context.startActivity(intent);
         }
 
-        private void openUnlockPopUp(Story element){
+        private void openUnlockPopUp(Story element, int storyPosition){
             StoryUnlockPopup storyUnlockPopup = new StoryUnlockPopup();
-            storyUnlockPopup.setStory(element);
+            storyUnlockPopup.setStory(element, storyPosition);
             storyUnlockPopup.show(DataSingleton.getInstance().getStoryFragmentManager(), "Unlock Code");
         }
     }
@@ -139,9 +146,10 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
     //TODO probeer in de readStory de textviews colourblind mode vriendelijk te maken
     @Override
     public void onBindViewHolder(StoryAdapter.StoryViewHolder holder, int position) {
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
         String mCurrent = mStoryList.get(position).getStoryName();
         holder.storyNameItemView.setText(mCurrent);
-        int pCurrent = mStoryList.get(position).getStoryProgress();
+        int pCurrent = (int)preferences.getFloat(PROGRESS + position, 0);
         holder.storyProgressItemView.setProgress(pCurrent);
         boolean bCurrent = mStoryList.get(position).isUnlocked();
         if (!this.isColourBlind) {
@@ -157,7 +165,6 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             holder.storyStatusItemView.setImageResource(R.drawable.lock);
         }
         int iCurrent = mStoryList.get(position).getStoryImageResource();
-//        holder.storyImageItemView.setImageResource(iCurrent);
         Picasso.get().load(iCurrent).into(holder.storyImageItemView);
 
 

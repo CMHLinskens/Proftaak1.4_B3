@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,16 +44,7 @@ public class StoryPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
-        int i = 0;
-        for (Story story : DataSingleton.getInstance().getStories()) {
-            int progress = preferences.getInt(PROGRESS + i, 0);
-            if (story.isUnlocked()) {
-                story.setStoryProgress(progress);
-            }
-            i++;
-            mStoryList.add(story);
-        }
+        mStoryList.addAll(DataSingleton.getInstance().getStories());
 
         // Create recycler view.
         mRecyclerView = getView().findViewById(R.id.StoryRecycler);

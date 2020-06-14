@@ -26,15 +26,17 @@ public class FragmentTravel {
     private static final String STORY_COMPLETE = "storyComplete";
     private static final String PROGRESS = "progress";
 
-    public static void fragmentTravel(int direction, int marker, Story subjectStory, FragmentManager fragmentManager) {
+    public static void fragmentTravel(int direction, int marker, Story subjectStory, FragmentManager fragmentManager, int storyIndex) {
         marker += direction;
+        Bundle bundle = new Bundle();
+
+        bundle.putInt("storyMarker", marker);
+        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
+        bundle.putInt("storyIndex", storyIndex);
+
         if (marker < subjectStory.getPieces().size() && marker >= 0) {
             if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
                 Fragment readstoryFragment = new Activity_read_story();
-                Bundle bundle = new Bundle();
-
-                bundle.putInt("storyMarker", marker);
-                bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                 readstoryFragment.setArguments(bundle);
 
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -45,11 +47,8 @@ public class FragmentTravel {
 
             } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
                 Fragment riddlePage = new RiddlePage();
-                Bundle bundle = new Bundle();
-
-                bundle.putInt("storyMarker", marker);
-                bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                 riddlePage.setArguments(bundle);
+
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 if (direction == 1)
                     transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
@@ -58,10 +57,6 @@ public class FragmentTravel {
 
             } else if (subjectStory.getPieces().get(marker) instanceof ActionItem) {
                 Fragment actionWindow = new Action_window();
-                Bundle bundle = new Bundle();
-
-                bundle.putInt("storyMarker", marker);
-                bundle.putParcelable("storyInfo", subjectStory);  // Key, value
                 actionWindow.setArguments(bundle);
 
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -72,41 +67,38 @@ public class FragmentTravel {
                 transaction.replace(R.id.fragment_container, actionWindow).commit();
             }
         } else {
+            SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+
+            float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+            boolean storyStatus = preferences.getBoolean(STORY_COMPLETE + storyIndex, false);
+
+            if (progress == 100.0f && !storyStatus) {
+                editor.putBoolean(STORY_COMPLETE + storyIndex, true);
+                storyStatus = true;
+                DataSingleton.getInstance().getUser().addToTotal(subjectStory.getStoryCompletionReward());
+                Log.d("STORY COMPLETED", "I HAVE REACHED THE IF STATEMENT");
+            }
+            Log.d("STORY STATUS", String.valueOf(storyStatus));
+
+            editor.putInt(USER_POINTS, DataSingleton.getInstance().getUser().getPoints());
+
+            Log.d("USER TOTAL POINTS", String.valueOf(DataSingleton.getInstance().getUser().getTotalPoints()));
+
+            DataSingleton.getInstance().getUser().setPoints(0);
+            editor.putInt(USER_TOTAL_POINTS, DataSingleton.getInstance().getUser().getTotalPoints());
+            editor.apply();
+
             if (subjectStory.getStoryName().equals("Tutorial")/*&&shared preference isFirstTime==true*/) {
-                Fragment HomePageFragement = new HomePage();
+                Fragment HomePageFragment = new HomePage();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-                transaction.replace(R.id.fragment_container, HomePageFragement).commit();
+                transaction.replace(R.id.fragment_container, HomePageFragment).commit();
             } else {
                 Fragment storyListFragment = new StoryPage();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
                 transaction.replace(R.id.fragment_container, storyListFragment).commit();
-
-                SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-
-                editor.putInt(USER_POINTS, DataSingleton.getInstance().getUser().getPoints());
-                editor.putInt(USER_TOTAL_POINTS, DataSingleton.getInstance().getUser().getTotalPoints());
-                int i = 0;
-                for (Story story : DataSingleton.getInstance().getStories()) {
-                    if (story.getStoryName().equals(subjectStory.getStoryName())) {
-                        editor.putInt(PROGRESS + i, subjectStory.getStoryProgress());
-                        editor.putBoolean(STORY_COMPLETE + i, true);
-                        Log.d("STORY PROGRESS", String.valueOf(subjectStory.getStoryProgress()));
-                    }
-                    i++;
-                }
-
-                if (subjectStory.getStoryStatus()) {
-                    DataSingleton.getInstance().getUser().addToTotal(subjectStory.getStoryCompletionReward());
-                    DataSingleton.getInstance().getUser().setPoints(0);
-                    Log.d("POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
-                }
-                editor.apply();
-
-                Log.d("USER TOTAL POINTS", String.valueOf(DataSingleton.getInstance().getUser().getTotalPoints()));
-
             }
         }
     }

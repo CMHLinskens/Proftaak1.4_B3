@@ -1,7 +1,9 @@
 package com.example.esstelingapp.games;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import java.util.List;
 public class RiddlePage extends Fragment {
     private GameItem gameItem;
     private Story subjectStory;
+    private int storyIndex;
     private int marker;
     private int timesTried;
     private RiddleController controller;
@@ -41,6 +44,12 @@ public class RiddlePage extends Fragment {
     private RadioButton answerC;
     private RadioButton answerD;
     private StoryTypes storyType;
+
+    private static final String USER_DATA = "userData";
+    private static final String USER_POINTS = "points";
+    private static final String USER_TOTAL_POINTS = "totalPoints";
+    private static final String STORY_COMPLETE = "storyComplete";
+    private static final String PROGRESS = "progress";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +65,7 @@ public class RiddlePage extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             subjectStory = bundle.getParcelable("storyInfo"); // Key
+            this.storyIndex = bundle.getInt("storyIndex");
             try {
                 marker = bundle.getInt("storyMarker");
             } catch (Exception e) {
@@ -106,12 +116,12 @@ public class RiddlePage extends Fragment {
 
             @Override
             public void onSwipeRight() {
-                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
 
             @Override
             public void onSwipeLeft() {
-                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
     }
@@ -156,7 +166,8 @@ public class RiddlePage extends Fragment {
     }
 
     public void submitAnswer(View v) {
-
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = preferences.edit();
         if (!answerA.isChecked() && !answerB.isChecked() && !answerC.isChecked() && !answerD.isChecked()) {
             return;
         }
@@ -170,18 +181,25 @@ public class RiddlePage extends Fragment {
 
             System.out.println("Correct");
             alert.setMessage("Correct");
-            if(this.gameItem.canGainPoints()){
+            if(!this.gameItem.canGainPoints()){
                 DataSingleton.getInstance().getUser().addPoints(400);
                 DataSingleton.getInstance().getUser().addToTotal(400);
-                subjectStory.addPointsToStory((DataSingleton.getInstance().getUser().getPoints() / subjectStory.getStoryMaxPoints()) * 100);
-                Log.d("GAME POINTS", "POINTS HAVE BEEN ADDED");
-                this.gameItem.setGainPoints(false);
+
+                float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+                float progressPercent = (400.0f/ subjectStory.getStoryMaxPoints()) * 100;
+                Log.d("PROGRESS PERCENT ", String.valueOf(progressPercent));
+                progress += progressPercent;
+
+                prefEditor.putFloat(PROGRESS + storyIndex, progress);
+                prefEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+                prefEditor.apply();
+                this.gameItem.setGainPoints(true);
             }
             alert.setCancelable(false);
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                    FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
                 }
             }).show();
 
@@ -202,7 +220,7 @@ public class RiddlePage extends Fragment {
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                    FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
                 }
             }).show();
         }
@@ -210,6 +228,6 @@ public class RiddlePage extends Fragment {
 
 
     public void skipQuestion(View v) {
-        FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+        FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
     }
 }

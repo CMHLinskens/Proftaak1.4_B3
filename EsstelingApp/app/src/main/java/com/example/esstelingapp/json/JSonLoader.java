@@ -28,6 +28,7 @@ public class JSonLoader {
     private static final String PROGRESS = "progress";
     private static final String USER_TOTAL_POINTS = "totalPoints";
     private static final String USER_POINTS = "points";
+    private static final String UNLOCK = "storyUnlock";
     private static final String STORY_COMPLETE = "storyComplete";
 
     public static void readAllJsonFiles() {
@@ -142,7 +143,6 @@ public class JSonLoader {
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
 
         String jsonParse = "";
-        boolean isUnlocked;
 
         try (InputStream inputStream = DataSingleton.getInstance().getMainContext().getAssets().open("stories" + language + ".json")) {
             Scanner reader = new Scanner(inputStream);
@@ -158,10 +158,9 @@ public class JSonLoader {
                 JSONObject story = stories.getJSONObject(i);
                 String storyName = story.getString("storyName");
                 final int maxPoints = story.getInt("maxPoints");
-                int storyProgress = preferences.getInt(PROGRESS + i, 0);
                 String imageResource = story.getString("imageUrl");
                 final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource + colourblind, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
-                boolean storyStatus = preferences.getBoolean(STORY_COMPLETE + i, false);
+                boolean isUnlocked = preferences.getBoolean(UNLOCK + i, false);
 
                 ArrayList<StoryPiecesInterface> piecesList = new ArrayList<>();
                 JSONArray storyPieces = story.getJSONArray("storyPieces");
@@ -169,31 +168,28 @@ public class JSonLoader {
                 for (int j = 0; j < storyPieces.length(); j++) {
                     JSONObject storyPiece = storyPieces.getJSONObject(j);
                     int pieceID = storyPiece.getInt("pieceID");
+                    boolean storyPieceProgress = preferences.getBoolean(STORY_COMPLETE + i + "." + j, false);
                     if (pieceID == 1) {
                         String storyPartOne = storyPiece.getString("storyPartOne");
                         String storyPartTwo = storyPiece.getString("storyPartTwo");
                         String storyPartThree = storyPiece.getString("storyPartThree");
                         String storyPartFour = storyPiece.getString("storyPartFour");
                         String storyPartFive = storyPiece.getString("storyPartFive");
-                        ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, true);
+                        ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, storyPieceProgress);
                         piecesList.add(piece);
                     } else if (pieceID == 3) {
                         String preText = storyPiece.getString("preActionText");
                         String postText = storyPiece.getString("postActionText");
-                        ActionItem piece = new ActionItem(preText, postText, 0, true);
+                        ActionItem piece = new ActionItem(preText, postText, 0, storyPieceProgress);
                         piecesList.add(piece);
                     } else {
                         String tieInText = storyPiece.getString("tieInText");
-                        GameItem piece = new GameItem(tieInText, 0, true);
+                        GameItem piece = new GameItem(tieInText, 0, storyPieceProgress);
                         piecesList.add(piece);
                     }
                 }
-                if (storyStatus) {
-                    isUnlocked = true;
-                } else {
-                    isUnlocked = false;
-                }
-                storyList.add(new Story(storyName, resId, storyStatus, isUnlocked, piecesList, storyProgress, 0, maxPoints, 200));
+
+                storyList.add(new Story(storyName, resId, isUnlocked, piecesList,0, maxPoints, 200));
         }
             DataSingleton.getInstance().setStories(storyList);
         } catch (Error | IOException | JSONException e) {

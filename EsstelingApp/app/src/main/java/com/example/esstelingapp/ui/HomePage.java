@@ -3,6 +3,7 @@ package com.example.esstelingapp.ui;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.esstelingapp.R;
+import com.example.esstelingapp.Story;
 import com.example.esstelingapp.data.DataSingleton;
 
 import java.util.Random;
 
 public class HomePage extends Fragment {
+
+    private static final String USER_DATA = "userData";
+    private static final String USER_POINTS = "points";
+    private static final String USER_TOTAL_POINTS = "totalPoints";
+    private static final String STORY_COMPLETE = "storyComplete";
+    private static final String PROGRESS = "progress";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,6 +39,7 @@ public class HomePage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences userPrefs = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
         boolean isColourblind = preferences.getBoolean("colour_blind_theme", false);
         ImageView appLogo = (ImageView) getView().findViewById(R.id.logo_image);
         ImageView backgroundImage = getView().findViewById(R.id.background_image);
@@ -48,11 +58,25 @@ public class HomePage extends Fragment {
         String randomFact = DataSingleton.getInstance().getRandomFacts().get(randomFactIndex);
         randomFactText.setText(randomFact);
 
-        // Finding the progress bars and setting it a random value
         ProgressBar storyProgressBar = (ProgressBar) getView().findViewById(R.id.story_progressBar);
         ProgressBar achievementProgressBar = (ProgressBar) getView().findViewById(R.id.achievement_progressBar);
+        // Finding the progress bars and setting it a random value
+        int i = 0;
+        int j = 0;
+        boolean placeHolder;
+        for (Story story : DataSingleton.getInstance().getStories()){
+            placeHolder = userPrefs.getBoolean(STORY_COMPLETE + i, false);
+            if(placeHolder){
+                j++;
+            }
+            i++;
+        }
+        int storyProgress = (int) (((double) j/i) * 100);
+        Log.d("I", String.valueOf(i));
+        Log.d("J", String.valueOf(j));
+        Log.d("STORY PROGRESS", String.valueOf(storyProgress));
         // TODO connect it to the user data and calculate progress
-        storyProgressBar.setProgress(80);
+        storyProgressBar.setProgress(storyProgress);
         achievementProgressBar.setProgress(33);
     }
 }

@@ -20,6 +20,7 @@ public class StoryUnlockPopup extends AppCompatDialogFragment {
     private EditText editTextCode;
     private ExampleDialogListener listener;
     private Story story;
+    private int position;
 
     @NonNull
     @Override
@@ -38,7 +39,7 @@ public class StoryUnlockPopup extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String code = editTextCode.getText().toString();
-                listener.applyCode(code, story);
+                listener.applyCode(code, story, position);
             }
         });
         editTextCode = view.findViewById(R.id.popup_edit_text);
@@ -57,10 +58,11 @@ public class StoryUnlockPopup extends AppCompatDialogFragment {
     }
 
     public interface ExampleDialogListener {
-        void applyCode(String code, Story story);
+        void applyCode(String code, Story story, int position);
     }
 
-    public void setStory(Story story) {
+    public void setStory(Story story, int position) {
+        this.position = position;
         this.story = story;
     }
 }

@@ -34,8 +34,10 @@ public class Activity_read_story extends Fragment {
     private static final String USER_DATA = "userData";
     private static final String USER_POINTS = "points";
     private static final String STORY_COMPLETE = "storyComplete";
+    private static final String PROGRESS = "progress";
 
     private Story subjectStory;
+    private int storyIndex;
     private int marker;
     private boolean TTS1playing;
     private boolean TTS3playing;
@@ -43,14 +45,16 @@ public class Activity_read_story extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         TTS1playing = false;
         Bundle bundle = this.getArguments();
 
         final SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = preferences.edit();
 
         if (bundle != null) {
             subjectStory = bundle.getParcelable("storyInfo"); // Key
+            this.storyIndex = bundle.getInt("storyIndex");
             try {
                 marker = bundle.getInt("storyMarker");
             } catch (Exception e) {
@@ -191,14 +195,24 @@ public class Activity_read_story extends Fragment {
         nextStoryPiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (item.canGainPoints()) {
+                if (!item.canGainPoints()) {
                     DataSingleton.getInstance().getUser().addPoints(200);
                     DataSingleton.getInstance().getUser().addToTotal(200);
-                    subjectStory.addPointsToStory((DataSingleton.getInstance().getUser().getPoints() / subjectStory.getStoryMaxPoints()) * 100);
+
+                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+                    float progressPercent = (200.0f / subjectStory.getStoryMaxPoints()) * 100;
+
+                    Log.d("PROGRESS PERCENT ", String.valueOf(progressPercent));
+
+                    progress += progressPercent;
+
+                    editor.putFloat(PROGRESS + storyIndex, progress);
                     Log.d("POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
-                    item.setGainPoints(false);
+                    editor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+                    editor.apply();
+                    item.setGainPoints(true);
                 }
-                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
 
@@ -208,24 +222,24 @@ public class Activity_read_story extends Fragment {
 
             @Override
             public void onSwipeRight() {
-                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
 
             @Override
             public void onSwipeLeft() {
-                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
 
         RootView.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
             @Override
             public void onSwipeRight() {
-                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
 
             @Override
             public void onSwipeLeft() {
-                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
 
