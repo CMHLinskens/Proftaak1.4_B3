@@ -1,6 +1,9 @@
 package com.example.esstelingapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.mqtt.MQTTController;
 import com.example.esstelingapp.ui.OnSwipeTouchListener;
+
+import java.time.LocalTime;
 
 public class Action_window extends Fragment {
     private Story subjectStory;
@@ -59,37 +65,47 @@ public class Action_window extends Fragment {
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (subjectStory.getStoryName().equals("Draak blaaskaak")||subjectStory.getStoryName().equals("Dragon argonat")){
-                    MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic()+"In");
-                    Thread dragon = new Thread(){
-                        @Override
-                        public void run() {
-                            boolean isDragonDone = false;
-                            while (!isDragonDone){
-                                MQTTController.getInstance().readRawMessage("B3/"+item.getMQTTTopic()+"Out");
-                                //TODO: read the mqtt and end loop.
-                                isDragonDone = true;
+                SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
+                LocalTime lastActionTime = LocalTime.parse(preferences.getString("lastAction" + subjectStory.getStoryName(), LocalTime.now().minusHours(1).toString()));
+                if (lastActionTime.plusHours(1).isBefore(LocalTime.now())) {
+                    if (subjectStory.getStoryName().equals("Draak blaaskaak") || subjectStory.getStoryName().equals("Dragon argonat")) {
+                        MQTTController.getInstance().sendRawMessage("B3/" + item.getMQTTTopic() + "In");
+                        Thread dragon = new Thread() {
+                            @Override
+                            public void run() {
+                                boolean isDragonDone = false;
+                                while (!isDragonDone) {
+                                    MQTTController.getInstance().readRawMessage("B3/" + item.getMQTTTopic() + "Out");
+                                    //TODO: read the mqtt and end loop.
+                                    isDragonDone = true;
+                                }
                             }
-                        }
-                    };
-                    dragon.start();
-                    //wait till confirm
-                }
-                else{
-                    MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic());
-                }
-                //updating image and text after button press
-                actionText.setText(item.getPostActionText());
-                if (!item.getPostImage().isEmpty()) {
-                    imageView.getLayoutParams().height = 850;
-                    imageView.getLayoutParams().width = 850;
-                    int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getPostImage(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
-                    imageView.setImageResource(id);
-                }
-                else {
-                    imageView.setVisibility(View.INVISIBLE);
-                    imageView.getLayoutParams().height = 400;
-                    imageView.getLayoutParams().width = 50;
+                        };
+                        dragon.start();
+                        //wait till confirm
+                    } else {
+                        MQTTController.getInstance().sendRawMessage("B3/" + item.getMQTTTopic());
+                    }
+
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("lastAction" + subjectStory.getStoryName(), LocalTime.now().toString());
+                    editor.apply();
+
+                    //updating image and text after button press
+                    actionText.setText(item.getPostActionText());
+                    if (!item.getPostImage().isEmpty()) {
+                        imageView.getLayoutParams().height = 850;
+                        imageView.getLayoutParams().width = 850;
+                        int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getPostImage(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
+                        imageView.setImageResource(id);
+                    } else {
+                        imageView.setVisibility(View.INVISIBLE);
+                        imageView.getLayoutParams().height = 400;
+                        imageView.getLayoutParams().width = 50;
+                    }
+                } else {
+                    Toast toast = Toast.makeText(getContext(), getString(R.string.toastWaitText) + lastActionTime.plusHours(1).getHour() + ":" + lastActionTime.plusHours(1).getMinute(), Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });

@@ -25,4 +25,6 @@
 
     <string name="Apply">TOEPASSEN</string>
     <string name="previous">Vorige</string>
+
+    <string name="toastWaitText">U kunt de actie weer uitvoeren om: </string>
 </resources>

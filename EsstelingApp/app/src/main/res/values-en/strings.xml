@@ -18,4 +18,5 @@
     <string name="Apply">APPLY</string>
     <string name="previous">Previous</string>
     <string name="apply">Apply</string>
+    <string name="toastWaitText">You can perform the action again at: </string>
 </resources>
