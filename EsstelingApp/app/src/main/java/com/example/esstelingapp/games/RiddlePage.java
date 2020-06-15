@@ -121,7 +121,7 @@ public class RiddlePage extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTravel.fragmentTravel(-1,marker,subjectStory,getFragmentManager());
+                FragmentTravel.fragmentTravel(-1,marker,subjectStory,getFragmentManager(), storyIndex);
             }
         });
 

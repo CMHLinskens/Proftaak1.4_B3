@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         } else {
             setTheme(R.style.EsstelingTheme);
         }
-//        clearPrefs();
+        clearPrefs();
         // Put the app in the preferred language
         if (preferences.getBoolean("isDutch", true)) {
             SettingsPage.setAppLocale("nl", getResources());
@@ -58,18 +58,21 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
             SettingsPage.setAppLocale("en", getResources());
         }
 
+        SharedPreferences.Editor editor = this.userPref.edit();
+        editor.putBoolean("storyUnlock0", true);
+        editor.apply();
 
         loadData();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.bottomNav = findViewById(R.id.bottomNavigationView);
         this.bottomNav.setOnNavigationItemSelectedListener(navListener);
-        loadData();
         if (preferences.getBoolean("isFirstTime", true)){
             Story Tutorial = DataSingleton.getInstance().getStories().get(0);
             Fragment readstoryFragment = new Activity_read_story();
             Bundle bundle = new Bundle();
             bundle.putParcelable("storyInfo", Tutorial);  // Key, value
+            bundle.putInt("storyIndex", 0);
             readstoryFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
         } else {
@@ -78,16 +81,18 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
 
         currentTab = 0;
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
-//        MQTTController.getInstance().connectToServer(this);
+        MQTTController.getInstance().connectToServer(this);
     }
 
     private void loadData() {
         if (!DataSingleton.getInstance().isMainLoaded()) {
+            Log.d("INIT", "Loading data");
             DataSingleton.getInstance().setMainContext(this);
             DataSingleton.getInstance().setUser(new User(0));
             DataSingleton.getInstance().getUser().setTotalPoints(this.userPref.getInt(USER_TOTAL_POINTS, 0));
             JSonLoader.readAllJsonFiles();
             DataSingleton.getInstance().setMainLoaded(true);
+            Log.d("INIT", "Data loaded");
         }
     }
 
@@ -175,11 +180,11 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         if(currentFragment != null){
             if(currentFragment.isVisible()) {
                 if(currentFragment instanceof Activity_read_story) {
-                    FragmentTravel.fragmentTravel(-1, ((Activity_read_story)currentFragment).getMarker(), ((Activity_read_story)currentFragment).getSubjectStory(), getSupportFragmentManager());
+                    FragmentTravel.fragmentTravel(-1, ((Activity_read_story)currentFragment).getMarker(), ((Activity_read_story)currentFragment).getSubjectStory(), getSupportFragmentManager(), 0);
                 } else if(currentFragment instanceof Action_window){
-                    FragmentTravel.fragmentTravel(-1, ((Action_window)currentFragment).getMarker(), ((Action_window)currentFragment).getSubjectStory(), getSupportFragmentManager());
+                    FragmentTravel.fragmentTravel(-1, ((Action_window)currentFragment).getMarker(), ((Action_window)currentFragment).getSubjectStory(), getSupportFragmentManager(), 0);
                 } else if(currentFragment instanceof RiddlePage){
-                    FragmentTravel.fragmentTravel(-1, ((RiddlePage)currentFragment).getMarker(), ((RiddlePage)currentFragment).getSubjectStory(), getSupportFragmentManager());
+                    FragmentTravel.fragmentTravel(-1, ((RiddlePage)currentFragment).getMarker(), ((RiddlePage)currentFragment).getSubjectStory(), getSupportFragmentManager(), 0);
                 }
             }
         } else {

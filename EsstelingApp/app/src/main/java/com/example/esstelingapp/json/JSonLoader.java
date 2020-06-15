@@ -200,7 +200,7 @@ public class JSonLoader {
                             piecesList.add(piece);
                         }
                 }
-                storyList.add(new Story(storyName, resId, isUnlocked, piecesList, 0, maxPoints, 200));
+                storyList.add(new Story(storyName, resId, isUnlocked, piecesList, 0, maxPoints, 200, storyType));
             }
             DataSingleton.getInstance().setStories(storyList);
         } catch (Error | IOException | JSONException e) {

@@ -110,7 +110,7 @@ public class Action_window extends Fragment {
                     MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic());
                     updateActionImage(actionText, imageView, item);
                 }
-                if (!actionItem.canGainPoints()) {
+                if (!item.canGainPoints()) {
                     DataSingleton.getInstance().getUser().addPoints(400);
                     DataSingleton.getInstance().getUser().addToTotal(400);
 
@@ -123,7 +123,7 @@ public class Action_window extends Fragment {
                     preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
                     preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
                     preferenceEditor.apply();
-                    actionItem.setGainPoints(true);
+                    item.setGainPoints(true);
                 }
                 MQTTController.getInstance().sendRawMessage("B3/OVEN");
             }
@@ -133,7 +133,7 @@ public class Action_window extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTravel.fragmentTravel(-1,marker,subjectStory,getFragmentManager());
+                FragmentTravel.fragmentTravel(-1,marker,subjectStory,getFragmentManager(), storyIndex);
             }
         });
 
@@ -141,7 +141,7 @@ public class Action_window extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!actionItem.canGainPoints()) {
+                if (!item.canGainPoints()) {
                     DataSingleton.getInstance().getUser().addPoints(400);
                     DataSingleton.getInstance().getUser().addToTotal(400);
 
@@ -154,7 +154,7 @@ public class Action_window extends Fragment {
                     preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
                     preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
                     preferenceEditor.apply();
-                    actionItem.setGainPoints(true);
+                    item.setGainPoints(true);
                 }
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
@@ -178,12 +178,12 @@ public class Action_window extends Fragment {
 
             @Override
             public void onSwipeRight() {
-                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
 
             @Override
             public void onSwipeLeft() {
-                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
 

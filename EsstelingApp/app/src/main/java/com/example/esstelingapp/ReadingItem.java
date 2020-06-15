@@ -59,11 +59,6 @@ public class ReadingItem implements StoryPiecesInterface {
     public int getStoryPartFour() {
         return StoryPartFour;
     }
-
-    public void setGainPoints(boolean state){
-        PointsReceived = state;
-    }
-
     @Override
     public int getPoints() {
         return Points;

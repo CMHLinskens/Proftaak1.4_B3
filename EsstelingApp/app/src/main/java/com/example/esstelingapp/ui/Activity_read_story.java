@@ -68,7 +68,7 @@ public class Activity_read_story extends Fragment {
         }
 
         View RootView = inflater.inflate(R.layout.activity_read_story, container, false);
-        final ReadingItem item = (ReadingItem) storyArrayList.get(marker);
+        final ReadingItem item = (ReadingItem) subjectStory.getPieces().get(marker);
         final ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
 
         SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -245,7 +245,7 @@ public class Activity_read_story extends Fragment {
             @Override
             public void onClick(View v) {
                 stopAudio();
-                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
 

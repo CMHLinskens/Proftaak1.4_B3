@@ -19,7 +19,7 @@ public class Story implements Parcelable {
     private int StoryCompletionReward;
         private StoryTypes storyType;
 
-    public Story(String storyName, int storyImageURL, boolean isUnlocked, ArrayList<StoryPiecesInterface> pieces, int pointsOfStory, int storyMaxPoints, int storyCompletionReward) {
+    public Story(String storyName, int storyImageURL, boolean isUnlocked, ArrayList<StoryPiecesInterface> pieces, int pointsOfStory, int storyMaxPoints, int storyCompletionReward, StoryTypes storyType) {
         StoryName = storyName;
         StoryImageURL = storyImageURL;
         this.isUnlocked = isUnlocked;
@@ -27,6 +27,7 @@ public class Story implements Parcelable {
         StoryMaxPoints = storyMaxPoints;
         StoryCompleted = pointsOfStory;
         StoryCompletionReward = storyCompletionReward;
+        this.storyType = storyType;
     }
 
     public String getStoryName() {
