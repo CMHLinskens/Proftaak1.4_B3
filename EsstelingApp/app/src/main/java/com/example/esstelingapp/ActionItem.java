@@ -45,6 +45,11 @@ public class ActionItem implements StoryPiecesInterface {
     }
 
     @Override
+    public void setGainPoints(boolean canGainPoints) {
+        this.gainPoints = canGainPoints;
+    }
+
+    @Override
     public boolean canGainPoints() {
         return gainPoints;
     }

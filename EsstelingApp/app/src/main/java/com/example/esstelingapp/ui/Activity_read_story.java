@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +32,15 @@ import com.example.esstelingapp.games.RiddlePage;
 import java.util.ArrayList;
 
 public class Activity_read_story extends Fragment {
-
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
+    private static final String USER_DATA = "userData";
+    private static final String USER_POINTS = "points";
+    private static final String STORY_COMPLETE = "storyComplete";
+    private static final String PROGRESS = "progress";
 
     private Story subjectStory;
+    private int storyIndex;
     private int marker;
     private boolean TTS1playing;
     private boolean TTS3playing;
@@ -44,11 +49,16 @@ public class Activity_read_story extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         TTS1playing = false;
         Bundle bundle = this.getArguments();
+
+        final SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = preferences.edit();
+
         if (bundle != null) {
             subjectStory = bundle.getParcelable("storyInfo"); // Key
+            this.storyIndex = bundle.getInt("storyIndex");
             try {
                 marker = bundle.getInt("storyMarker");
             } catch (Exception e) {
@@ -56,9 +66,10 @@ public class Activity_read_story extends Fragment {
                 marker = 0;
             }
         }
+
         View RootView = inflater.inflate(R.layout.activity_read_story, container, false);
-        ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
         final ReadingItem item = (ReadingItem) storyArrayList.get(marker);
+        final ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
 
         SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         Boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
@@ -210,11 +221,22 @@ public class Activity_read_story extends Fragment {
             @Override
             public void onClick(View v) {
                 stopAudio();
-                if (item.canGainPoints()) {
-                    subjectStory.addPointsToStory(item.getPoints());
-                    item.setGainPoints(false);
+                if (!item.canGainPoints()) {
+                    DataSingleton.getInstance().getUser().addPoints(200);
+                    DataSingleton.getInstance().getUser().addToTotal(200);
+
+                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+                    float progressPercent = (200.0f / subjectStory.getStoryMaxPoints()) * 100;
+
+                    progress += progressPercent;
+
+                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
+                    editor.putFloat(PROGRESS + storyIndex, progress);
+                    editor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+                    editor.apply();
+                    item.setGainPoints(true);
                 }
-                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
 
@@ -233,13 +255,28 @@ public class Activity_read_story extends Fragment {
 
             @Override
             public void onSwipeRight() {
-                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
                 stopAudio();
             }
 
             @Override
             public void onSwipeLeft() {
-                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                if (!item.canGainPoints()) {
+                    DataSingleton.getInstance().getUser().addPoints(200);
+                    DataSingleton.getInstance().getUser().addToTotal(200);
+
+                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+                    float progressPercent = (200.0f / subjectStory.getStoryMaxPoints()) * 100;
+
+                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
+                    progress += progressPercent;
+
+                    editor.putFloat(PROGRESS + storyIndex, progress);
+                    editor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+                    editor.apply();
+                    item.setGainPoints(true);
+                }
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
                 stopAudio();
             }
         });
@@ -247,13 +284,13 @@ public class Activity_read_story extends Fragment {
         RootView.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
             @Override
             public void onSwipeRight() {
-                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
                 stopAudio();
             }
 
             @Override
             public void onSwipeLeft() {
-                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
                 stopAudio();
             }
         });

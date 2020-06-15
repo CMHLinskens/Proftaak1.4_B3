@@ -24,7 +24,14 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class JSonLoader {
-    private static boolean isColourBlind;
+    private static final String USER_DATA = "userData";
+    private static final String PROGRESS = "progress";
+    private static final String USER_TOTAL_POINTS = "totalPoints";
+    private static final String USER_POINTS = "points";
+    private static final String ACHIEVEMENT_PROGRESS = "achievementProgress";
+    private static final String ACHIEVEMENT_COMPLETED = "achievementCompleted";
+    private static final String UNLOCK = "storyUnlock";
+    private static final String STORY_COMPLETE = "storyComplete";
 
     public static void readAllJsonFiles() {
         Context mainContext = DataSingleton.getInstance().getMainContext();
@@ -104,7 +111,7 @@ public class JSonLoader {
     }
 
     private static void readAchievementsFile(String language) {
-        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
 
         String jsonString = "";
         try (InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("achievements" + language + ".json")) {
@@ -123,8 +130,8 @@ public class JSonLoader {
             for (int i = 0; i < achievementsFile.length(); i++) {
                 JSONObject achievementInFile = achievementsFile.getJSONObject(i);
                 achievements.add(new Achievement(achievementInFile.getString("name"),
-                        preferences.getBoolean("a" + i, false),
-                        preferences.getInt("a" + i, 0)));
+                        preferences.getBoolean(ACHIEVEMENT_COMPLETED + i, false),
+                        preferences.getFloat(ACHIEVEMENT_PROGRESS + i, 0), 2000, 4000));
             }
             DataSingleton.getInstance().setAchievements(achievements);
         } catch (IOException e) {
@@ -135,10 +142,10 @@ public class JSonLoader {
     }
 
     private static void readStoryFile(String language, String colourblind) {
-        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
 
         String jsonParse = "";
-//        boolean isColourBlind = preferences.;
+
         try (InputStream inputStream = DataSingleton.getInstance().getMainContext().getAssets().open("stories" + language + ".json")) {
             Scanner reader = new Scanner(inputStream);
             while (reader.hasNext()) {
@@ -152,10 +159,10 @@ public class JSonLoader {
             for (int i = 0; i < stories.length(); i++) {
                 JSONObject story = stories.getJSONObject(i);
                 String storyName = story.getString("storyName");
-                int storyProgress = preferences.getInt("s" + i, 0);
+                final int maxPoints = story.getInt("maxPoints");
                 String imageResource = story.getString("imageUrl");
                 final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource + colourblind, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
-                boolean storyStatus = preferences.getBoolean("s" + i, false);
+                boolean isUnlocked = preferences.getBoolean(UNLOCK + i, false);
 
                 StoryTypes storyType = StoryTypes.valueOf(story.getString("storyType"));
 
@@ -193,7 +200,7 @@ public class JSonLoader {
                             piecesList.add(piece);
                         }
                 }
-                storyList.add(new Story(storyName, resId, storyStatus, piecesList, 0, 0, 0, 0, storyType));
+                storyList.add(new Story(storyName, resId, isUnlocked, piecesList, 0, maxPoints, 200));
             }
             DataSingleton.getInstance().setStories(storyList);
         } catch (Error | IOException | JSONException e) {

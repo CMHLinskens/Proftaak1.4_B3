@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,21 +24,34 @@ import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.mqtt.MQTTController;
 import com.example.esstelingapp.ui.OnSwipeTouchListener;
 
+import java.util.ArrayList;
+
 public class Action_window extends Fragment {
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
 
     private Story subjectStory;
     private int marker;
+    private int storyIndex;
     private View RootView;
+
+    private static final String USER_DATA = "userData";
+    private static final String USER_POINTS = "points";
+    private static final String USER_TOTAL_POINTS = "totalPoints";
+    private static final String STORY_COMPLETE = "storyComplete";
+    private static final String PROGRESS = "progress";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         RootView = inflater.inflate(R.layout.activity_action_window, container, false);
+        final SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("userData", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor preferenceEditor = preferences.edit();
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             subjectStory = bundle.getParcelable("storyInfo"); // Key
+            this.storyIndex = bundle.getInt("storyIndex");
             try {
                 marker = bundle.getInt("storyMarker");
             } catch (Exception e) {
@@ -95,6 +110,22 @@ public class Action_window extends Fragment {
                     MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic());
                     updateActionImage(actionText, imageView, item);
                 }
+                if (!actionItem.canGainPoints()) {
+                    DataSingleton.getInstance().getUser().addPoints(400);
+                    DataSingleton.getInstance().getUser().addToTotal(400);
+
+                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+                    float progressPercent = (400.0f / subjectStory.getStoryMaxPoints()) * 100;
+                    progress += progressPercent;
+
+                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
+
+                    preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
+                    preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+                    preferenceEditor.apply();
+                    actionItem.setGainPoints(true);
+                }
+                MQTTController.getInstance().sendRawMessage("B3/OVEN");
             }
         });
 
@@ -110,19 +141,34 @@ public class Action_window extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                if (!actionItem.canGainPoints()) {
+                    DataSingleton.getInstance().getUser().addPoints(400);
+                    DataSingleton.getInstance().getUser().addToTotal(400);
+
+                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+                    float progressPercent = (400.0f / subjectStory.getStoryMaxPoints()) * 100;
+                    progress += progressPercent;
+
+                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
+
+                    preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
+                    preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+                    preferenceEditor.apply();
+                    actionItem.setGainPoints(true);
+                }
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
 
         RootView.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
             @Override
             public void onSwipeRight() {
-                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
 
             @Override
             public void onSwipeLeft() {
-                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
 

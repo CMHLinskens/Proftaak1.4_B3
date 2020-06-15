@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +40,7 @@ public class AchievementPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        mAchievementList.add(new Achievement("Piglet home builder",true,0));
-//        mAchievementList.add(new Achievement("Red riding hood",false,0));
-//        mAchievementList.add(new Achievement("follow the breadcrumbs",false,0));
-//        mAchievementList.add(new Achievement("sneaky dragon treasure thief",false,0));
-//        mAchievementList.add(new Achievement("junior story seeker",false,0));
-//        mAchievementList.add(new Achievement("master story seeker",false,0));
+        mAchievementList.addAll(DataSingleton.getInstance().getAchievements());
 
         SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         Boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
@@ -57,7 +53,6 @@ public class AchievementPage extends Fragment {
         for(Achievement a : DataSingleton.getInstance().getAchievements()){
             mAchievementList.add(a);
         }
-
 
         // Create recycler view.
         mRecyclerView = getView().findViewById(R.id.AchievementRecycler);

@@ -3,8 +3,7 @@ package com.example.esstelingapp.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.provider.ContactsContract;
-import android.text.TextDirectionHeuristic;
+import android.util.Log;
 import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.data.ThemeState;
 
 import java.util.LinkedList;
 
@@ -28,6 +26,9 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
     private final LayoutInflater mInflater;
     private static final String PREFS_NAME = "prefs";
     private boolean isColourBlind;
+    private static final String USER_DATA = "userData";
+    private static final String ACHIEVEMENT_PROGRESS = "achievementProgress";
+    private static final String ACHIEVEMENT_COMPLETED = "achievementCompleted";
 
 
     class AchievementViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -128,12 +129,13 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
      */
     @Override
     public void onBindViewHolder(AchievementAdapter.AchievementViewHolder holder, int position) {
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
         Achievement current = mAchievementList.get(position);
         String mCurrent = current.getAchievementName();
         holder.achievementNameItemView.setText(mCurrent);
-        int pCurrent = current.getAchievementProgress();
+        int pCurrent = (int) preferences.getFloat(ACHIEVEMENT_PROGRESS + position, 0);
         holder.achievementProgressItemView.setProgress(pCurrent);
-        boolean bCurrent = current.getAchievementStatus();
+        boolean bCurrent = preferences.getBoolean(ACHIEVEMENT_COMPLETED + position, false);
         if(!this.isColourBlind){
             holder.itemView.setBackgroundResource(R.color.EsstelingRed);
             holder.achievementProgressItemView.setBackgroundResource(R.color.EsstelingBlue);
@@ -143,7 +145,11 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         }
 
         if (bCurrent){
-            holder.achievementStatusItemView.setImageResource(R.drawable.star);
+            if (!this.isColourBlind){
+                holder.achievementStatusItemView.setImageResource(R.drawable.star);
+            } else {
+                holder.achievementStatusItemView.setImageResource(R.drawable.star_cb);
+            }
         }
         else {
             holder.achievementStatusItemView.setImageResource(R.drawable.lock);
@@ -151,9 +157,6 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 //        int iCurrent = current.getAchievementImageURL();
 //
 //        holder.achievementImageItemView.setImageResource(iCurrent);
-
-//
-
     }
 
     /**

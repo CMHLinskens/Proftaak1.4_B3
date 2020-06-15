@@ -1,7 +1,11 @@
 package com.example.esstelingapp;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
+import android.view.DragAndDropPermissions;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -10,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.esstelingapp.data.DataSingleton;
+import com.example.esstelingapp.data.User;
 import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.json.JSonLoader;
 import com.example.esstelingapp.mqtt.MQTTController;
@@ -23,7 +28,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.ExampleDialogListener {
     private static final String PREFS_NAME = "prefs";
+    private static final String USER_DATA = "userData";
+    private static final String PROGRESS = "progress";
+    private static final String USER_TOTAL_POINTS = "totalPoints";
+    private static final String USER_POINTS = "points";
+    private static final String STORY_COMPLETE = "storyComplete";
+    private static final String UNLOCK = "storyUnlock";
     private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
+    private SharedPreferences userPref;
     private int currentTab;
     private BottomNavigationView bottomNav;
 
@@ -31,20 +43,23 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        this.userPref = getSharedPreferences(USER_DATA, MODE_PRIVATE);
         boolean useColourBlindTheme = preferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
         if (useColourBlindTheme) {
             setTheme(R.style.ColourBlindTheme);
         } else {
             setTheme(R.style.EsstelingTheme);
         }
-
+//        clearPrefs();
         // Put the app in the preferred language
-        if(preferences.getBoolean("isDutch", true)){
+        if (preferences.getBoolean("isDutch", true)) {
             SettingsPage.setAppLocale("nl", getResources());
         } else {
             SettingsPage.setAppLocale("en", getResources());
         }
 
+
+        loadData();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.bottomNav = findViewById(R.id.bottomNavigationView);
@@ -56,23 +71,30 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
             Bundle bundle = new Bundle();
             bundle.putParcelable("storyInfo", Tutorial);  // Key, value
             readstoryFragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,readstoryFragment).commit();
-        }else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+        } else {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
         }
 
         currentTab = 0;
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
-        loadData();
-        MQTTController.getInstance().connectToServer(this);
+//        MQTTController.getInstance().connectToServer(this);
     }
 
-    private void loadData(){
-        if(!DataSingleton.getInstance().isMainLoaded()){
+    private void loadData() {
+        if (!DataSingleton.getInstance().isMainLoaded()) {
             DataSingleton.getInstance().setMainContext(this);
+            DataSingleton.getInstance().setUser(new User(0));
+            DataSingleton.getInstance().getUser().setTotalPoints(this.userPref.getInt(USER_TOTAL_POINTS, 0));
             JSonLoader.readAllJsonFiles();
             DataSingleton.getInstance().setMainLoaded(true);
         }
+    }
+
+    private void clearPrefs() {
+        SharedPreferences.Editor editor = this.userPref.edit();
+        editor.clear();
+        editor.apply();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -93,8 +115,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
                     selectedFragment = new StoryPage();
                     if (currentTab != 1 && currentTab > 1) {
                         animationDirection = 1;
-                    }
-                    else if (currentTab != 1 && currentTab < 1) {
+                    } else if (currentTab != 1 && currentTab < 1) {
                         animationDirection = 2;
                     }
                     currentTab = 1;
@@ -103,8 +124,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
                     selectedFragment = new AchievementPage();
                     if (currentTab != 2 && currentTab > 2) {
                         animationDirection = 1;
-                    }
-                    else if (currentTab != 2 && currentTab < 2) {
+                    } else if (currentTab != 2 && currentTab < 2) {
                         animationDirection = 2;
                     }
                     currentTab = 2;
@@ -120,13 +140,11 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
 
             if (animationDirection == 0) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-            }
-            else if (animationDirection == 1) {
+            } else if (animationDirection == 1) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
                 fragmentTransaction.replace(R.id.fragment_container, selectedFragment).commit();
-            }
-            else if (animationDirection == 2){
+            } else if (animationDirection == 2) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
                 fragmentTransaction.replace(R.id.fragment_container, selectedFragment).commit();
@@ -136,12 +154,14 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
     };
 
     @Override
-    public void applyCode(String code, Story story) {
+    public void applyCode(String code, Story story, int position) {
+        SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, MODE_PRIVATE).edit();
         if (code.equals("wachtwoord")) {
             System.out.println("Correct");
-            story.setStoryStatus(true);
-        }
-        else
+            editor.putBoolean(UNLOCK + position, true);
+            editor.apply();
+            story.setUnlocked(true);
+        } else
             System.out.println("Incorrect");
     }
 

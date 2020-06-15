@@ -5,16 +5,20 @@ import java.util.ArrayList;
 public class Achievement {
 
     private String AchievementName;
-    private int AchievementProgress;
+    private float AchievementProgress;
+    private float juniorMax;
+    private float masterMax;
     private ArrayList<String> conditions;
     private int AchievementImageURL;
     private boolean AchievementStatus;
 
-    public Achievement(String achievementName, boolean achievementStatus, int achievementProgress) {
+    public Achievement(String achievementName, boolean achievementStatus, float achievementProgress, float juniorMax, float masterMax) {
         AchievementName = achievementName;
 //        AchievementImageURL = achievementImageURL;
         AchievementStatus = achievementStatus;
         AchievementProgress = achievementProgress;
+        this.juniorMax = juniorMax;
+        this.masterMax = masterMax;
     }
 
     public String getAchievementName() {
@@ -33,7 +37,7 @@ public class Achievement {
         AchievementImageURL = achievementImageURL;
     }
 
-    public int getAchievementProgress() {
+    public float getAchievementProgress() {
         return AchievementProgress;
     }
 
@@ -42,6 +46,22 @@ public class Achievement {
     }
 
     public void setAchievementStatus(boolean status) { this.AchievementStatus = status; }
+
+    public float getJuniorMax() {
+        return juniorMax;
+    }
+
+    public void setJuniorMax(float juniorMax) {
+        this.juniorMax = juniorMax;
+    }
+
+    public float getMasterMax() {
+        return masterMax;
+    }
+
+    public void setMasterMax(float masterMax) {
+        this.masterMax = masterMax;
+    }
 }
 
 

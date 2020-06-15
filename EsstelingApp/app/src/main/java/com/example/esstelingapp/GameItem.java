@@ -23,6 +23,11 @@ public class GameItem implements StoryPiecesInterface {
     }
 
     @Override
+    public void setGainPoints(boolean canGainPoints) {
+        this.pointsReceived = canGainPoints;
+    }
+
+    @Override
     public boolean canGainPoints() {
         return pointsReceived;
     }
