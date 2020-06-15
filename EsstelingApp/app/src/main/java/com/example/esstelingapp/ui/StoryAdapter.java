@@ -156,8 +156,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             holder.storyStatusItemView.setImageResource(R.drawable.lock);
         }
         int iCurrent = mStoryList.get(position).getStoryImageResource();
-//        holder.storyImageItemView.setImageResource(iCurrent);
-        Picasso.get().load(iCurrent).into(holder.storyImageItemView);
+        holder.storyImageItemView.setImageResource(iCurrent);
+//        Picasso.get().load(iCurrent).into(holder.storyImageItemView);
 
 
     }

@@ -176,7 +176,7 @@ public class JSonLoader {
                             String storyAudio1 = storyPiece.getString("storyAudio1");
                             String storyAudio3 = storyPiece.getString("storyAudio3");
                             String storyAudio5 = storyPiece.getString("storyAudio5");
-                            ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, false, storyAudio1, storyAudio3, storyAudio5);
+                            ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, story_2_image, story_4_image, 0, false, storyAudio1, storyAudio3, storyAudio5);
                             piecesList.add(piece);
                         }
                         else if (pieceID==3){

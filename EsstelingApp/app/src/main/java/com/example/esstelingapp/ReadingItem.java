@@ -15,7 +15,7 @@ public class ReadingItem implements StoryPiecesInterface {
     private String audio3;
     private String audio5;
 
-    public ReadingItem(String storyPartOne, String storyPartThree, String storyPartFive, String storyPartTwo, String storyPartFour, int points, boolean pointsReceived, String audio1, String audio3, String audio5) {
+    public ReadingItem(String storyPartOne, String storyPartThree, String storyPartFive, int storyPartTwo, int storyPartFour, int points, boolean pointsReceived, String audio1, String audio3, String audio5) {
         StoryPartOne = storyPartOne;
         StoryPartThree = storyPartThree;
         StoryPartFive = storyPartFive;
