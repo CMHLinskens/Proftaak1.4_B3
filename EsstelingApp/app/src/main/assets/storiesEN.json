@@ -21,9 +21,9 @@
         "storyAudio3" : "tutorial_en_4",
         "storyAudio5" : "" ,
         "storyPartOne": "In the lab of the seekers you see many papers on the floor and many books and gadgets on the tables. The two of them have obviously not been the greatest fans of cleaning. “As a fresh member of the seekers you probably don’t have much experience with the book of stories I suppose.” Pardipsus says. “So, let us help you with that.” They show you their books of stories pardipsus has a vibrant green covered one while Zorna has a grey one. “I have a colour-blind version because I can’t see colours, it helps me with using it. If you need that you can use some of the settings spells in the back, well get to those later.”  ",
-        "storyPartTwo": "",
+        "storyPartTwo": "tutorial1",
         "storyPartThree": "“As you may have been told the evil spirit of the forest has been taking the stories of the Essteling and binding them in the forest.” Pardipsus tells you. “To defeat the evil spirit, you need to unbind the stories and free them. Only with enough magic from the stories are we able to defeat the spirit.” Zorna points in her book. “To free the spirits, we need to use a specific spell. The spell tends to change but it can usually be found close to the place where the stories are kept by the spirit.” Zorna explains to you. “If you use that spell with your book of stories you can start unbinding them. Read through the story and do the tasks that it requires of you. Only then are they freed.” You look at the Pardipsus’ book and see a great number of stories locked away. “This is a list of all stories we know of who have been locked away. There might be more. I have given you a smaller list to begin with. you can find them here.” He says pointing to his book. ",
-        "storyPartFour": "",
+        "storyPartFour": "tutorial2_en",
         "storyPartFive": ""
       },
       {
@@ -32,7 +32,7 @@
         "storyAudio3" : "tutorial_en_6",
         "storyAudio5" : "" ,
         "storyPartOne": "You see a large portion of the book still left and wonder what it is. “That is the achievements section its where you can see how well you're doing at being a seeker.” Pardipsus whispers in your ear “Zorna doesn’t have a single one yet so she might be sour if you get one.” He snickers as Zorna throws him an angry glance. “You’ll get one automatically if your get that far so check there from time to time.” ",
-        "storyPartTwo": "",
+        "storyPartTwo": "tutorial3_en",
         "storyPartThree": "“Let's go on an adventure!” Pardipsus cheers only for him to be held back by Zorna. “Let's first test our new seekers skills.” she says.  ",
         "storyPartFour": "",
         "storyPartFive": ""
