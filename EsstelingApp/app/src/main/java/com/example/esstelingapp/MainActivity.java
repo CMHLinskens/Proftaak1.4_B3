@@ -21,6 +21,8 @@ import com.example.esstelingapp.ui.StoryPage;
 import com.example.esstelingapp.ui.StoryUnlockPopup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.prefs.Preferences;
+
 public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.ExampleDialogListener {
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        preferences.getBoolean("isFirstTime", true);
         boolean useColourBlindTheme = preferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
         if (useColourBlindTheme) {
             setTheme(R.style.ColourBlindTheme);
@@ -57,12 +60,14 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
             bundle.putParcelable("storyInfo", Tutorial);  // Key, value
             readstoryFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,readstoryFragment).commit();
+            SharedPreferences.Editor prefEditor = preferences.edit();
+            prefEditor.putBoolean("isFirstTime", false);
         }else {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
         }
 
         currentTab = 0;
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
         loadData();
         MQTTController.getInstance().connectToServer(this);
     }
