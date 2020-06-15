@@ -49,10 +49,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         } else {
             setTheme(R.style.EsstelingTheme);
         }
-
 //        clearPrefs();
-
-
         // Put the app in the preferred language
         if (preferences.getBoolean("isDutch", true)) {
             SettingsPage.setAppLocale("nl", getResources());
@@ -80,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         currentTab = 0;
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
 //        MQTTController.getInstance().connectToServer(this);
-        Log.d("USER TOTAL POINTS", String.valueOf(DataSingleton.getInstance().getUser().getTotalPoints()));
     }
 
     private void loadData() {

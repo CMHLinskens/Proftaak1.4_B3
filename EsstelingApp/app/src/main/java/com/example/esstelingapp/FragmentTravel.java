@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -25,6 +26,8 @@ public class FragmentTravel {
     private static final String USER_TOTAL_POINTS = "totalPoints";
     private static final String STORY_COMPLETE = "storyComplete";
     private static final String PROGRESS = "progress";
+    private static final String ACHIEVEMENT_PROGRESS = "achievementProgress";
+    private static final String ACHIEVEMENT_COMPLETED = "achievementCompleted";
 
     public static void fragmentTravel(int direction, int marker, Story subjectStory, FragmentManager fragmentManager, int storyIndex) {
         marker += direction;
@@ -73,17 +76,47 @@ public class FragmentTravel {
             float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
             boolean storyStatus = preferences.getBoolean(STORY_COMPLETE + storyIndex, false);
 
-            if (progress == 100.0f && !storyStatus) {
+            if (progress >= 100.0f && !storyStatus) {
                 editor.putBoolean(STORY_COMPLETE + storyIndex, true);
+                editor.putBoolean(ACHIEVEMENT_COMPLETED + storyIndex, true);
+                editor.putFloat(ACHIEVEMENT_PROGRESS + storyIndex, 100.0f);
+                Toast.makeText(DataSingleton.getInstance().getMainContext(),
+                        "Achievement unlocked: " + DataSingleton.getInstance().getAchievements().get(storyIndex).getAchievementName(),
+                        Toast.LENGTH_SHORT).show();
+                DataSingleton.getInstance().getAchievements().get(storyIndex).setAchievementStatus(true);
                 storyStatus = true;
                 DataSingleton.getInstance().getUser().addToTotal(subjectStory.getStoryCompletionReward());
-                Log.d("STORY COMPLETED", "I HAVE REACHED THE IF STATEMENT");
             }
-            Log.d("STORY STATUS", String.valueOf(storyStatus));
+            float masterAchievement;
+            masterAchievement = (DataSingleton.getInstance().getUser().getTotalPoints() /
+                    DataSingleton.getInstance().getAchievements().get((DataSingleton.getInstance().getStories().size() + 1)).getMasterMax()) * 100;
+            float juniorAchievement;
+            juniorAchievement = (DataSingleton.getInstance().getUser().getTotalPoints() /
+                    DataSingleton.getInstance().getAchievements().get((DataSingleton.getInstance().getStories().size())).getJuniorMax()) * 100;
+
+            editor.putFloat(ACHIEVEMENT_PROGRESS + (DataSingleton.getInstance().getStories().size()), juniorAchievement);
+            editor.putFloat(ACHIEVEMENT_PROGRESS + (DataSingleton.getInstance().getStories().size() + 1), masterAchievement);
+
+            boolean achievementStatusJunior = preferences.getBoolean(ACHIEVEMENT_COMPLETED + (DataSingleton.getInstance().getStories().size()), false);
+            boolean achievementStatusMaster = preferences.getBoolean(ACHIEVEMENT_COMPLETED + (DataSingleton.getInstance().getStories().size() + 1), false);
+            if ((juniorAchievement >= 100.0f) && !achievementStatusJunior) {
+                editor.putBoolean(ACHIEVEMENT_COMPLETED + (DataSingleton.getInstance().getStories().size()), true);
+                Toast.makeText(DataSingleton.getInstance().getMainContext(),
+                        "Achievement unlocked: " + DataSingleton.getInstance().getAchievements().get((DataSingleton.getInstance().getStories().size())).getAchievementName(),
+                        Toast.LENGTH_SHORT).show();
+                achievementStatusJunior = true;
+            }
+            if ((masterAchievement >= 100.0f) && !achievementStatusMaster) {
+                editor.putFloat(ACHIEVEMENT_PROGRESS + (DataSingleton.getInstance().getStories().size() + 1), 100.0f);
+                editor.putBoolean(ACHIEVEMENT_COMPLETED + (DataSingleton.getInstance().getStories().size() + 1), true);
+
+                Toast.makeText(DataSingleton.getInstance().getMainContext(),
+                        "Achievement unlocked: " + DataSingleton.getInstance().getAchievements().get((DataSingleton.getInstance().getStories().size() + 1)).getAchievementName(),
+                        Toast.LENGTH_SHORT).show();
+                achievementStatusMaster = true;
+            }
 
             editor.putInt(USER_POINTS, DataSingleton.getInstance().getUser().getPoints());
-
-            Log.d("USER TOTAL POINTS", String.valueOf(DataSingleton.getInstance().getUser().getTotalPoints()));
 
             DataSingleton.getInstance().getUser().setPoints(0);
             editor.putInt(USER_TOTAL_POINTS, DataSingleton.getInstance().getUser().getTotalPoints());

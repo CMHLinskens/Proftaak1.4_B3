@@ -68,6 +68,7 @@ public class Activity_read_story extends Fragment {
         final ReadingItem item = (ReadingItem) storyArrayList.get(marker);
 
 
+
         TextView StoryTitel = (TextView) RootView.findViewById(R.id.ReadStoryTitel);
         StoryTitel.setText(subjectStory.getStoryName());
         TextView partOfStory = (TextView) RootView.findViewById(R.id.PartialStoryProgress);
@@ -202,12 +203,10 @@ public class Activity_read_story extends Fragment {
                     float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
                     float progressPercent = (200.0f / subjectStory.getStoryMaxPoints()) * 100;
 
-                    Log.d("PROGRESS PERCENT ", String.valueOf(progressPercent));
-
                     progress += progressPercent;
 
+                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
                     editor.putFloat(PROGRESS + storyIndex, progress);
-                    Log.d("POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
                     editor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
                     editor.apply();
                     item.setGainPoints(true);
@@ -227,6 +226,21 @@ public class Activity_read_story extends Fragment {
 
             @Override
             public void onSwipeLeft() {
+                if (!item.canGainPoints()) {
+                    DataSingleton.getInstance().getUser().addPoints(200);
+                    DataSingleton.getInstance().getUser().addToTotal(200);
+
+                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+                    float progressPercent = (200.0f / subjectStory.getStoryMaxPoints()) * 100;
+
+                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
+                    progress += progressPercent;
+
+                    editor.putFloat(PROGRESS + storyIndex, progress);
+                    editor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+                    editor.apply();
+                    item.setGainPoints(true);
+                }
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
@@ -239,6 +253,7 @@ public class Activity_read_story extends Fragment {
 
             @Override
             public void onSwipeLeft() {
+
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });

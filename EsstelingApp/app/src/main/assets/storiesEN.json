@@ -73,7 +73,7 @@
   {
     "storyName": "Little red riding hood",
     "imageUrl": "redriding",
-    "maxPoints":  1200,
+    "maxPoints":  600,
     "storyPieces": [
       {
         "pieceID" : 1,

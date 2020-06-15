@@ -27,10 +27,6 @@ public class AchievementPage extends Fragment {
     private final LinkedList<Achievement> mAchievementList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private AchievementAdapter mAdapter;
-    private static final String USER_DATA = "userData";
-    private static final String USER_TOTAL_POINTS = "totalPoints";
-    private static final String STORY_COMPLETE = "storyComplete";
-
 
     @Nullable
     @Override
@@ -41,17 +37,8 @@ public class AchievementPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
-//        mAchievementList.add(new Achievement("Piglet home builder",true,0));
-//        mAchievementList.add(new Achievement("Red riding hood",false,0));
-//        mAchievementList.add(new Achievement("follow the breadcrumbs",false,0));
-//        mAchievementList.add(new Achievement("sneaky dragon treasure thief",false,0));
-//        mAchievementList.add(new Achievement("junior story seeker",false,0));
-//        mAchievementList.add(new Achievement("master story seeker",false,0));
 
-        for(Achievement a : DataSingleton.getInstance().getAchievements()){
-            mAchievementList.add(a);
-        }
+        mAchievementList.addAll(DataSingleton.getInstance().getAchievements());
 
 
         // Create recycler view.

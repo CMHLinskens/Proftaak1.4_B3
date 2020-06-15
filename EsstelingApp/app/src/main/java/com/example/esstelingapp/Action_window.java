@@ -63,8 +63,20 @@ public class Action_window extends Fragment {
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (actionItem.canGainPoints()){
-                    actionItem.setGainPoints(false);
+                if (!actionItem.canGainPoints()) {
+                    DataSingleton.getInstance().getUser().addPoints(400);
+                    DataSingleton.getInstance().getUser().addToTotal(400);
+
+                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+                    float progressPercent = (400.0f / subjectStory.getStoryMaxPoints()) * 100;
+                    progress += progressPercent;
+
+                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
+
+                    preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
+                    preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+                    preferenceEditor.apply();
+                    actionItem.setGainPoints(true);
                 }
                 MQTTController.getInstance().sendRawMessage("B3/OVEN");
             }
@@ -75,14 +87,15 @@ public class Action_window extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!actionItem.canGainPoints()){
+                if (!actionItem.canGainPoints()) {
                     DataSingleton.getInstance().getUser().addPoints(400);
                     DataSingleton.getInstance().getUser().addToTotal(400);
 
                     float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
                     float progressPercent = (400.0f / subjectStory.getStoryMaxPoints()) * 100;
-                    Log.d("PROGRESS PERCENT ", String.valueOf(progressPercent));
                     progress += progressPercent;
+
+                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
 
                     preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
                     preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);

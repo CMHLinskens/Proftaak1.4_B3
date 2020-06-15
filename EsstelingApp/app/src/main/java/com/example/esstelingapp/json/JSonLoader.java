@@ -28,6 +28,8 @@ public class JSonLoader {
     private static final String PROGRESS = "progress";
     private static final String USER_TOTAL_POINTS = "totalPoints";
     private static final String USER_POINTS = "points";
+    private static final String ACHIEVEMENT_PROGRESS = "achievementProgress";
+    private static final String ACHIEVEMENT_COMPLETED = "achievementCompleted";
     private static final String UNLOCK = "storyUnlock";
     private static final String STORY_COMPLETE = "storyComplete";
 
@@ -109,7 +111,7 @@ public class JSonLoader {
     }
 
     private static void readAchievementsFile(String language) {
-        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
 
         String jsonString = "";
         try (InputStream in = DataSingleton.getInstance().getMainContext().getAssets().open("achievements" + language + ".json")) {
@@ -128,8 +130,8 @@ public class JSonLoader {
             for (int i = 0; i < achievementsFile.length(); i++) {
                 JSONObject achievementInFile = achievementsFile.getJSONObject(i);
                 achievements.add(new Achievement(achievementInFile.getString("name"),
-                        preferences.getBoolean("a" + i, false),
-                        preferences.getInt("a" + i, 0)));
+                        preferences.getBoolean(ACHIEVEMENT_COMPLETED + i, false),
+                        preferences.getFloat(ACHIEVEMENT_PROGRESS + i, 0), 2000, 4000));
             }
             DataSingleton.getInstance().setAchievements(achievements);
         } catch (IOException e) {
@@ -172,8 +174,10 @@ public class JSonLoader {
                     if (pieceID == 1) {
                         String storyPartOne = storyPiece.getString("storyPartOne");
                         String storyPartTwo = storyPiece.getString("storyPartTwo");
+
                         String storyPartThree = storyPiece.getString("storyPartThree");
                         String storyPartFour = storyPiece.getString("storyPartFour");
+
                         String storyPartFive = storyPiece.getString("storyPartFive");
                         ReadingItem piece = new ReadingItem(storyPartOne, storyPartThree, storyPartFive, storyPartTwo, storyPartFour, 0, storyPieceProgress);
                         piecesList.add(piece);
@@ -188,9 +192,8 @@ public class JSonLoader {
                         piecesList.add(piece);
                     }
                 }
-
-                storyList.add(new Story(storyName, resId, isUnlocked, piecesList,0, maxPoints, 200));
-        }
+                storyList.add(new Story(storyName, resId, isUnlocked, piecesList, 0, maxPoints, 200));
+            }
             DataSingleton.getInstance().setStories(storyList);
         } catch (Error | IOException | JSONException e) {
             e.printStackTrace();

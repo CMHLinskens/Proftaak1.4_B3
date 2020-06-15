@@ -1,6 +1,7 @@
 package com.example.esstelingapp.games;
 
 import android.app.AlertDialog;
+import android.app.DirectAction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -187,13 +188,14 @@ public class RiddlePage extends Fragment {
 
                 float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
                 float progressPercent = (400.0f/ subjectStory.getStoryMaxPoints()) * 100;
-                Log.d("PROGRESS PERCENT ", String.valueOf(progressPercent));
                 progress += progressPercent;
 
+                Log.d("USER POINTS ", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
                 prefEditor.putFloat(PROGRESS + storyIndex, progress);
                 prefEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
                 prefEditor.apply();
                 this.gameItem.setGainPoints(true);
+                Log.d("GAMEPOINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
             }
             alert.setCancelable(false);
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
@@ -217,6 +219,7 @@ public class RiddlePage extends Fragment {
             System.out.println("Incorrect");
             alert.setMessage("Incorrect \nBetter luck next time");
             alert.setCancelable(false);
+            Log.d("GAMEPOINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

@@ -23,7 +23,7 @@
         <item name="android:colorBackground">@color/colorBlindBackground</item>
         <item name="bottomNavigationStyle">@style/Widget.App.ColourBlindNavView</item>
         <item name="android:textColor">@color/colorBlindPrimary</item>
-        <item name="colorAccent">@color/colorBlindText</item>
+        <item name="colorAccent">@color/colorBlindNavBarBackground</item>
     </style>
 
     <style name="Widget.App.ColourBlindNavView" parent="Widget.Design.BottomNavigationView">
