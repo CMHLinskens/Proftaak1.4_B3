@@ -1,20 +1,23 @@
 [
   {
-    "name" : "Biggetjes huis bouwer"
+    "name": "Het avontuur begint"
   },
   {
-    "name" : "Roodkapje"
+    "name": "Biggetjes huis bouwer"
   },
   {
-    "name" : "Volg de broodkruimels"
+    "name": "Roodkapje"
   },
   {
-    "name" : "Stille drakenschat dief"
+    "name": "Volg de broodkruimels"
   },
   {
-    "name" : "Junior fabel zoeker"
+    "name": "Stille drakenschat dief"
   },
   {
-    "name" : "Meester fabel zoeker"
+    "name": "Junior fabel zoeker"
+  },
+  {
+    "name": "Meester fabel zoeker"
   }
 ]
