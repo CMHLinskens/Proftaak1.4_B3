@@ -18,4 +18,6 @@
     <string name="Apply">APPLY</string>
     <string name="previous">Previous</string>
     <string name="apply">Apply</string>
+    <string name="storyMenu">Story Menu</string>
+    <string name="prestatieMenu">Achievement Menu</string>
 </resources>

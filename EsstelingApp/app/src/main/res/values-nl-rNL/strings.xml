@@ -25,4 +25,6 @@
 
     <string name="Apply">TOEPASSEN</string>
     <string name="previous">Vorige</string>
+    <string name="storyMenu">Fabel Menu</string>
+    <string name="prestatieMenu">Prestatie Menu</string>
 </resources>
