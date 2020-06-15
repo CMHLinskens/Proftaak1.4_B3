@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,readstoryFragment).commit();
             SharedPreferences.Editor prefEditor = preferences.edit();
             prefEditor.putBoolean("isFirstTime", false);
+            prefEditor.apply();
         }else {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
         }
