@@ -181,10 +181,10 @@ public class JSonLoader {
                         }
                         else if (pieceID==3){
                             String preText = storyPiece.getString("preActionText");
-                                String postText = storyPiece.getString("postActionText");
-                                String MQTTTopic = storyPiece.getString("MQTTTopic");
-                                String preImage = storyPiece.getString("preImage");
-                                String postImage = storyPiece.getString("postImage");
+                            String postText = storyPiece.getString("postActionText");
+                            String MQTTTopic = storyPiece.getString("MQTTTopic");
+                            String preImage = storyPiece.getString("preImage") + colourblind;
+                            String postImage = storyPiece.getString("postImage") + colourblind;
                             ActionItem piece = new ActionItem(preText,postText, MQTTTopic, preImage, postImage, 0,false);
                             piecesList.add(piece);
                         }else{
