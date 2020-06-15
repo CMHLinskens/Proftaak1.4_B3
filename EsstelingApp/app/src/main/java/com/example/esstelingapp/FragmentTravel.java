@@ -121,8 +121,11 @@ public class FragmentTravel {
             DataSingleton.getInstance().getUser().setPoints(0);
             editor.putInt(USER_TOTAL_POINTS, DataSingleton.getInstance().getUser().getTotalPoints());
             editor.apply();
-
-            if (subjectStory.getStoryName().equals("Tutorial")/*&&shared preference isFirstTime==true*/) {
+            Log.d("tutorial:", "here");
+            if (subjectStory.getStoryName().equals("Tutorial") && preferences.getBoolean("isFirstTime", true)) {
+                SharedPreferences.Editor prefEditor = preferences.edit();
+                prefEditor.putBoolean("isFirstTime", false);
+                prefEditor.apply();
                 Fragment HomePageFragment = new HomePage();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
@@ -136,7 +139,7 @@ public class FragmentTravel {
         }
     }
 
-    public static void returnHome(BottomNavigationView bottomNav, FragmentManager fragmentManager){
+    public static void returnHome(BottomNavigationView bottomNav, FragmentManager fragmentManager) {
         // Set the bottom nav icon
         int homePageID = 2131230931;
         bottomNav.setSelectedItemId(homePageID);

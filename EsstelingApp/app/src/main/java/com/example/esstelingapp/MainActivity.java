@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
             setTheme(R.style.EsstelingTheme);
         }
         // FOR TESTING
-//        clearPrefs();
+        clearPrefs();
         // ---
         // Put the app in the preferred language
         if (preferences.getBoolean("isDutch", true)) {
@@ -79,9 +79,6 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
             bundle.putInt("storyIndex", 0);
             readstoryFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,readstoryFragment).commit();
-            SharedPreferences.Editor prefEditor = this.userPref.edit();
-            prefEditor.putBoolean("isFirstTime", false);
-            prefEditor.apply();
         }else {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
         }

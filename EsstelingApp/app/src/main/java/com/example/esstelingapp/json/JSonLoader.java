@@ -131,7 +131,7 @@ public class JSonLoader {
                 JSONObject achievementInFile = achievementsFile.getJSONObject(i);
                 achievements.add(new Achievement(achievementInFile.getString("name"),
                         preferences.getBoolean(ACHIEVEMENT_COMPLETED + i, false),
-                        preferences.getFloat(ACHIEVEMENT_PROGRESS + i, 0), 2000, 4000));
+                        preferences.getFloat(ACHIEVEMENT_PROGRESS + i, 0), 3000, 5000));
             }
             DataSingleton.getInstance().setAchievements(achievements);
         } catch (IOException e) {

@@ -4,7 +4,7 @@
     <string name="english" translatable="true">Engels</string>
     <string name="language" translatable="true">Taal</string>
     <string name="colourBlindMode" translatable="true">Kleuren-blind modus</string>
-    <string name="apply">Toepassen</string>
+    <string name="Apply">Toepassen</string>
 
     // Home page strings
     <string name="home_stories_text">Verhalen afgerond</string>
@@ -12,19 +12,22 @@
 
     // Navigation bar strings
     <string name="home">Home</string>
-    <string name="story">fabels</string>
     <string name="achievements">Prestaties</string>
-    <string name="settings">Opties</string>
+    <string name="Settings">Opties</string>
     <string name="Achievements">Prestaties</string>
     <string name="Story">Fabels</string>
-    <string name="Settings">Opties</string>
 
     // Unlock screen popup strings
     <string name="password">Wachtwoord</string>
     <string name="app_name" translatable="false">Essteling\'s fabel speurders</string>
 
-    <string name="Apply">TOEPASSEN</string>
     <string name="previous">Vorige</string>
     <string name="storyMenu">Fabel Menu</string>
     <string name="prestatieMenu">Prestatie Menu</string>
+    <string name="Next">Volgende</string>
+    <string name="achievment_symbol">Prestatie symbool</string>
+    <string name="achievement_status">Prestatie status</string>
+    <string name="story_status">Fabel status</string>
+    <string name="story_image">Fabel plaatje</string>
+    <string name="submit">Antwoorden</string>
 </resources>
