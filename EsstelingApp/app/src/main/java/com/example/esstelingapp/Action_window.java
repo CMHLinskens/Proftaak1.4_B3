@@ -1,6 +1,7 @@
 package com.example.esstelingapp;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,35 +62,24 @@ public class Action_window extends Fragment {
             public void onClick(View v) {
                 if (subjectStory.getStoryName().equals("Draak blaaskaak")||subjectStory.getStoryName().equals("Dragon argonat")){
                     MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic()+"In");
-                    Thread dragon = new Thread(){
+                    Handler dragonHandler = new Handler();
+                    dragonHandler.post(new Thread(){
                         @Override
                         public void run() {
                             boolean isDragonDone = false;
+                            MQTTController.getInstance().readRawMessage("B3/"+item.getMQTTTopic()+"Out");
                             while (!isDragonDone){
-                                MQTTController.getInstance().readRawMessage("B3/"+item.getMQTTTopic()+"Out");
-                                //TODO: read the mqtt and end loop.
-                                isDragonDone = true;
+                                if(!MQTTController.getInstance().waitForMessage("B3/"+item.getMQTTTopic()+"Out").isEmpty()) {
+                                    isDragonDone = true;
+                                }
                             }
+                            updateActionImage(actionText, imageView, item);
                         }
-                    };
-                    dragon.start();
-                    //wait till confirm
+                    });
                 }
                 else{
                     MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic());
-                }
-                //updating image and text after button press
-                actionText.setText(item.getPostActionText());
-                if (!item.getPostImage().isEmpty()) {
-                    imageView.getLayoutParams().height = 850;
-                    imageView.getLayoutParams().width = 850;
-                    int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getPostImage(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
-                    imageView.setImageResource(id);
-                }
-                else {
-                    imageView.setVisibility(View.INVISIBLE);
-                    imageView.getLayoutParams().height = 400;
-                    imageView.getLayoutParams().width = 50;
+                    updateActionImage(actionText, imageView, item);
                 }
             }
         });
@@ -139,6 +129,22 @@ public class Action_window extends Fragment {
 
 
         return RootView;
+    }
+
+    private void updateActionImage(TextView actionText, ImageView imageView, ActionItem item){
+        //updating image and text after button press
+        actionText.setText(item.getPostActionText());
+        if (!item.getPostImage().isEmpty()) {
+            imageView.getLayoutParams().height = 850;
+            imageView.getLayoutParams().width = 850;
+            int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getPostImage(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
+            imageView.setImageResource(id);
+        }
+        else {
+            imageView.setVisibility(View.INVISIBLE);
+            imageView.getLayoutParams().height = 400;
+            imageView.getLayoutParams().width = 50;
+        }
     }
 
     @Override
