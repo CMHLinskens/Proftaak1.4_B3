@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.mqtt.MQTTController;
 import com.example.esstelingapp.ui.Activity_read_story;
@@ -19,6 +22,9 @@ import com.example.esstelingapp.ui.OnSwipeTouchListener;
 import com.example.esstelingapp.ui.StoryPage;
 
 public class Action_window extends Fragment {
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
+
     private Story subjectStory;
     private int marker;
     private View RootView;
@@ -36,6 +42,14 @@ public class Action_window extends Fragment {
                 System.out.println("storymarker was empty");
                 marker = 0;
             }
+        }
+
+        SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        Boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
+        if (isColorBlind){
+            RootView.setBackgroundResource(R.drawable.old_paper_cb);
+        }else {
+            RootView.setBackgroundResource(R.drawable.old_paper);
         }
 
 
