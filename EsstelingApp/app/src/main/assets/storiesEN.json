@@ -156,9 +156,9 @@
         "storyAudio1" :  "",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
-        "storyPartOne": "",
+        "storyPartOne": "There once lived a small girl in a village at the edge of a forest. This girl was quite special as she would always wear her bright red cape when she went out. The town had nicknamed her little red riding hood. Little red riding hood was told by her mother one day that her grandmother was very sick and that she needed to bring her some freshly baked muffins. Little red riding hood grabbed her basket and red hood and started making her way to the forest. Her grandmother had lived for many years in the forest and little red riding hood knew the way as long as she didn’t stray from the path.  ",
         "storyPartTwo": "",
-        "storyPartThree": "",
+        "storyPartThree": "In the forest there were many beasts that lay in waiting for new prey, but none were as mischievous as the wolf. The wolf had not eaten anything lately and was getting very hungry. To his surprise he heard a girl singing and he followed the music. He found a girl in a bright red hood skipping away. He followed her and eventually she stopped and looked at the flowerbed just off the path. “Well, well, little girl what are you doing in the forest?” he asks little red riding hood. “And where are you going with those muffins?” he sticks his nose to the basket. “No wolf, those are not for you. I am going to grannies and give her them because she is sick.” the wolf grins as he likes the idea of an easy prey. “Well then your granny would probably love to get some flowers as well to cheer her up. Why don’t you pick some?” the wolf said with a broad smile. Little red riding smiled and skipped towards the flowerbed “That is a great idea, thank you mister wolf.” she says. The wolf waits for her to turn her back to him and then runs along the path.  ",
         "storyPartFour": "",
         "storyPartFive": ""
       },
@@ -167,16 +167,16 @@
         "storyAudio1" :  "",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
-        "storyPartOne": "",
+        "storyPartOne": "After little red riding hood was done picking flowers, she put them in her basket. She didn’t see the wolf anymore but didn’t pay that much attention to its disappearance.  As she followed the path once again, she saw a big man cutting wood. “Hello mister woodcutter” she says cheerful. “Hello little red riding hood, are you going to your grandmother?” she nods. “She is sick, and I am bringing her some muffins to make her feel better.” the woodcutter smiles. “You're such a sweet girl, you even brought flowers.” “It was mister wolfs idea.” she says honestly. The woodcutters smile faded as he became worried of the wolf that was apparently around. “Be careful around wolves they can be quite the tricksters.” little red riding hood nods. “I will” ",
         "storyPartTwo": "",
-        "storyPartThree": "",
+        "storyPartThree": "As she came closer to grandmother's house, she saw the door was closed. To have it open she needed to ring the bell to get her attention. Grandmother was too old for a simple nock on the door.   ",
         "storyPartFour": "",
         "storyPartFive": ""
       },
       {
         "pieceID": 3,
-        "preActionText": "",
-        "postActionText": "",
+        "preActionText": "You need to ring the bell, so grandmother isn't surprised to see little red riding hood inside her house.  ",
+        "postActionText": "Little red riding hood can now enter the house.",
         "MQTTTopic": "DOORBELL",
         "preImage": "roodkapje_aanbellen",
         "postImage": "verklede_wolf"
@@ -186,9 +186,9 @@
         "storyAudio1" :  "",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
-        "storyPartOne": "",
+        "storyPartOne": "Little red riding hood entered and saw grandmother in her bed. “Hello grandmother I brought you some muffins and flowers to make you feel better.” she says, “How sweet of you dear, do come closer so I may see you better.” grandmother says. Little red riding hood steps a bit forward and sees grandmothers' ears stick out from beneath the sheets. “Grandmother, what big ears you have” she says. “That is so I may hear you better.” Little red riding hood stepped forward again and saw grandmothers' eyes. “Grandmother, what big eyes you have” she says. “That is so I may see you better.” little red riding hood took another step forward now standing next to the bed. “Grandmother what big teeth you have.” she says. “That is so I may eat you better.” said the wolf as he took a big bite and swallowed her whole.  ",
         "storyPartTwo": "",
-        "storyPartThree": "",
+        "storyPartThree": "The woodcutter had followed little red riding hood because he was worried about her. He arrived at grandmother's house and looked through the window. Inside he saw the wolf laying on the bed asleep with a large belly. The woodcutter knew what he needed to do, and he sneaked into the house and opened the wolfs belly. Inside he found little red riding hood and her grandmother. They jumped out and gave him a big hug as thanks for saving them. That day little red riding hood, grandmother and the woodcutter enjoyed some freshly baked muffins and grandmother had some new flowers and a new rug.",
         "storyPartFour": "",
         "storyPartFive": ""
       }

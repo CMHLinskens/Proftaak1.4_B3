@@ -156,9 +156,9 @@
         "storyAudio1" :  "",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
-        "storyPartOne": "",
+        "storyPartOne": "Er leefde eens een klein meisje in een dorp aan de rand van een bos. Dit meisje was speciaal omdat ze altijd haar felrode cape om had als ze naar buiten ging. Het dorpje had haar de bijnaam gegeven van roodkapje. Roodkapje hoorde van haar moeder op ene dag dat oma ziek was geworden en dat zij haar versgebakken muffins moest brengen. Roodkapje pakte haar cape en ging op pad naar het bos. Haar oma woonde al vele jaren in het bos en roodkapje wist de route zolang ze niet van het pad dwaalde.  ",
         "storyPartTwo": "",
-        "storyPartThree": "",
+        "storyPartThree": "In het bos waren vele beesten die wachtten op een verse prooi, maar geen van hen was zo geniepig als de wolf. De wolf had al lang niet meer gegeten en was zeer hongerig. Tot zijn verbazing hoorde hij een meisje zingen en hij besloot de muziek te volgen. Hij vond een meisje door het bos huppelen in een felrode cape. Hij volgde haar en uiteindelijk stopte ze om te kijken naar een bloemenveld net van het pad af. “Nou, nou klein meisje wat doe je in het bos?” vraagt hij aan roodkapje. “En waar ga je heen met die muffins?” hij steekt zijn neus uit naar het mandje. “Nee wolf, die zijn niet voor jou. Ik ga naar oma toe en geef ze aan haar omdat ze ziek is.” de wolf begint te grijnzen, hij heeft een idee gekregen voor een makkelijke prooi. “Nou dan, je oma zou het geweldig vinden om bloemen te krijgen om haar op te vrolijken. Waarom ga je ze niet even plukken?” zei de wolf met een brede glimlach. Roodkapje huppelt vrolijk naar het bloemenveld. “Dat is een goed idee meneer wolf, dank je” zegt ze. De wolf wacht tot ze haar rug naar hem heeft en sprint het pad af. ",
         "storyPartFour": "",
         "storyPartFive": ""
       },
@@ -167,16 +167,16 @@
         "storyAudio1" :  "",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
-        "storyPartOne": "",
+        "storyPartOne": "Nadat roodkapje klaar is met de bloemen plukken doet ze deze in haar mandje. Ze had de wolf niet meer gezien maar spendeerde er geen aandacht aan. Ze volgde het pad nogmaals en kwam onderweg een grote man tegen die hout aan het hakken was. “Hallo meneer de houthakker” zegt ze vrolijk. “Hallo roodkapje, ga je naar je oma toe?” ze knikt. “Ze is ziek en ik ga haar muffins brengen om haar beter te laten voelen.” de houthakker glimlacht. “Je bent een lief meisje, je hebt zelfs bloemen meegenomen” “het was het idee van meneer wolf.” Zegt ze eerlijk. De houthakker wordt heel serieus zodra hij hoort dat er een wolf in de beurt is. “Wees voorzichtig om wolven heen, ze kunnen vrij geniepig zijn.” Roodkapje knikt en zegt “zal ik doen” ",
         "storyPartTwo": "",
-        "storyPartThree": "",
+        "storyPartThree": "Als ze aankomt bij oma’s huisje, ziet ze dat de deur dicht is. Om hem open te doen moet ze de bel gebruiken om de aandacht van oma te trekken. Oma is vrij oud dus een klop op de deur voldoet niet.  ",
         "storyPartFour": "",
         "storyPartFive": ""
       },
       {
         "pieceID": 3,
-        "preActionText": "",
-        "postActionText": "",
+        "preActionText": "Je moet de bel indrukken, om oma niet te laten schrikken als ze roodkapje binnen ziet. ",
+        "postActionText": "Roodkapje kan nu naar binnen.",
         "MQTTTopic": "DOORBELL",
         "preImage": "roodkapje_aanbellen",
         "postImage": "verklede_wolf"
@@ -186,9 +186,9 @@
         "storyAudio1" :  "",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
-        "storyPartOne": "",
+        "storyPartOne": "Roodkapje komt naar binnen en ziet oma in bed. “Hallo oma, ik heb je een paar muffins en bloemen gebracht om je beter te laten voelen.” zegt roodkapje. “Dat is heel lief van je schat, kom dichterbij zodat ik je beter kan zien.” zegt oma. Roodkapje doet een stap vooruit en ziet oma's oren boven de lakens uitsteken. “Oma wat heeft u grote oren.” zegt roodkapje. “dat is zodat ik je beter kan horen.” antwoord oma. Roodkapje doet nog een stap vooruit en ziet oma's ogen. “Oma wat heeft u grote ogen.” zegt roodkapje. “Dat is zodat ik je beter kan zien.” zegt ze. Roodkapje doet nog een stap vooruit en ziet oma's tanden. “Oma wat heeft u grote tanden. ” zegt roodkapje. “Dat ik zodat ik je beter kan opeten. “Zegt de wolf en hij eet Roodkapje in een keer op. ",
         "storyPartTwo": "",
-        "storyPartThree": "",
+        "storyPartThree": "De houthakker had Roodkapje gevolgd omdat hij zich zorgen maakte over haar. Hij kwam aan bij het huisje van oma en keek door het raampje. Binnen zag de hij de wolf slapen op het bed met een dikke buik. De houthakker wist wat hij moest doen en kroop naar binnen. Hij maakte de wolf zijn buik open in daarin vond hij roodkapje en oma. Beide sprongen uit de wolf en gaven hem een grote knuffel om hem te bedanken voor hun redding. Die dag aten Roodkapje, oma en de houthakker van de verse muffins en had oma nieuwe bloemen en een nieuw tapijt. ",
         "storyPartFour": "",
         "storyPartFive": ""
       }
