@@ -84,6 +84,7 @@ public class Activity_read_story extends Fragment {
                         storyPartOneButton.setBackgroundResource(R.drawable.sound_on);
                         storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
                         storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+                        stopAudio();
                         int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getAudio1(), "raw", DataSingleton.getInstance().getMainContext().getPackageName());
                         playAudio(id);
                     } else {
@@ -106,6 +107,7 @@ public class Activity_read_story extends Fragment {
                         storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
                         storyPartThreeButton.setBackgroundResource(R.drawable.sound_on);
                         storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+                        stopAudio();
                         int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getAudio3(), "raw", DataSingleton.getInstance().getMainContext().getPackageName());
                         playAudio(id);
                     } else {
@@ -129,6 +131,7 @@ public class Activity_read_story extends Fragment {
                         storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
                         storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
                         storyPartFiveButton.setBackgroundResource(R.drawable.sound_on);
+                        stopAudio();
                         int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getAudio5(), "raw", DataSingleton.getInstance().getMainContext().getPackageName());
                         playAudio(id);
                     } else {
@@ -194,7 +197,8 @@ public class Activity_read_story extends Fragment {
         nextStoryPiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (item.canGainPoints()){
+                stopAudio();
+                if (item.canGainPoints()) {
                     subjectStory.addPointsToStory(item.getPoints());
                     item.setGainPoints(false);
                 }
@@ -206,6 +210,7 @@ public class Activity_read_story extends Fragment {
         backStoryPiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stopAudio();
                 FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
             }
         });
@@ -217,11 +222,13 @@ public class Activity_read_story extends Fragment {
             @Override
             public void onSwipeRight() {
                 FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+                stopAudio();
             }
 
             @Override
             public void onSwipeLeft() {
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                stopAudio();
             }
         });
 
@@ -229,34 +236,35 @@ public class Activity_read_story extends Fragment {
             @Override
             public void onSwipeRight() {
                 FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager());
+                stopAudio();
             }
 
             @Override
             public void onSwipeLeft() {
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager());
+                stopAudio();
             }
         });
-
         return RootView;
     }
 
-    public void playAudio(int id){
-        if(mediaPlayer == null)
+    public void playAudio(int id) {
+        if (mediaPlayer == null)
             mediaPlayer = MediaPlayer.create(this.getContext(), id);
         mediaPlayer.start();
         System.out.println(mediaPlayer.isPlaying());
-        System.out.println("Started");
     }
 
-    public void stopAudio(){
-        System.out.println("Stopping...");
-        mediaPlayer.release();
+    public void stopAudio() {
+        if (mediaPlayer != null)
+            mediaPlayer.release();
         mediaPlayer = null;
     }
 
     public int getMarker() {
         return marker;
     }
+
     public Story getSubjectStory() {
         return subjectStory;
     }

@@ -6,8 +6,8 @@
     "storyPieces": [
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
-        "storyAudio3" : "",
+        "storyAudio1" :  "tutorial_nl_1",
+        "storyAudio3" : "tutorial_nl_2",
         "storyAudio5" : "" ,
         "storyPartOne": "“Hey, jij daar!” je hoort iemand naar je roepen. Een slanke man loopt op je af. “Ik heb jou nog nooit eerder gezien. Ben je nieuw in het koninkrijk van de Essteling?” jij knikt, ja dat was je, je was pas net aangekomen. “Nou het is fijn om een nieuw gezicht hier te zien, het koninkrijk is heel stil geworden de laatste tijd. Mijn naam is Scribe, ik ben de koninkrijk ’s bibliothecaris “de man kijkt naar je met vragende ogen. “Zeg, ben jij toevallig niet de nieuwe speurder?” jij knikt weer. “Dat is geweldig, het koninkrijk kan goed gebruik maken van je hulp.” zei hij vrolijk. “Laat ik je naar het kasteel leiden, ze willen je waarschijnlijk zo snel mogelijk zien.” je volgt Scribe naar het kasteel door de lege straten. “Zoals je misschien al weet zijn de fabels weggenomen en opgesloten door de boze geest. Nu komen er niet zoveel mensen meer naar dit gedeelte van rijk.” Scribe zucht. “Maar nu ben jij hier en kan je ons helpen om ze terug te krijgen.” de bibliothecaris brengt je de hele weg naar het kasteel en zwaait vaarwel voor hij weer teruggaat naar het dorp. ",
         "storyPartTwo": "tutorial_kasteel",
@@ -17,8 +17,8 @@
       },
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
-        "storyAudio3" : "",
+        "storyAudio1" :  "tutorial_nl_3",
+        "storyAudio3" : "tutorial_nl_4",
         "storyAudio5" : "" ,
         "storyPartOne": "In het lab van de speurders zie je vele papieren op de grond en boeken en apparaatjes op de tafels. Deze twee waren overduidelijk niet de grootste fans van schoonmaken. “Als een verse speurder heb je waarschijnlijk niet veel ervaring met het boek van fabels denk ik.” zegt Pardipsus. “Wij zullen je laten zien hoe het werkt” ze laten ieder hun eigen boek van fabels zien, Pardipsus heeft een levendig groen boek terwijl Zorna een grijze heeft. “Ik heb een kleurenblinde versie omdat ik geen kleuren kan zien. Het helpt me met het lezen. Als je dat ook nodig hebt kan je dat met optie spreuken aanpassen, deze vind je achter in het boek. “ ",
         "storyPartTwo": "",
@@ -28,7 +28,7 @@
       },
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
+        "storyAudio1" :  "tutorial_nl_5",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
         "storyPartOne": "Je ziet een groot gedeelte van het boek dat nog niet besproken is en vraagt je af wat het is. “Dat is de prestatie deel van het boek, hier kan je zien hoe goed je het doet als speurder.” Pardipsus fluistert in je oor. ” Zorna heeft nog geen enkele dus ze kan een beetje zuur zijn als je er ene krijgt.” hij grinnikt tot hij Zorna’s blik ziet. “Je krijgt deze automatisch tijdens je avonturen dus kijk er over tijd naar.”  ",
@@ -201,8 +201,8 @@
     "storyPieces": [
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
-        "storyAudio3" : "",
+        "storyAudio1" :  "draak_nl_1",
+        "storyAudio3" : "draak_nl_2",
         "storyAudio5" : "" ,
         "storyPartOne": "Diep in het duisterste gedeelte van het fabel woud leefde er een draak die de ontelbare schatten had verzameld van koninkrijken. Dit was de grote groene draak Argonant. Argonant was een arrogante draak die beweerde dat geen mens zijn schatten kon stelen zolang hij er zat. Velen ridders en prinsen hebben een poging gedaan tot het stelen van de schatten om rijk te worden maar allen zaten op blaren voor een jaar lang. De koning loofde een beloning uit voor wie van de draak een schat kon stelen. Hij zou die persoon tot ridder eren. Vele probeerde van Argonant te stelen maar allen kwamen terug met lege handen. ",
         "storyPartTwo": "",
@@ -220,7 +220,7 @@
       },
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
+        "storyAudio1" :  "draak_nl_3",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
         "storyPartOne": "De jongen sloop weer achteruit. “Ow grote draak, je waakt zo goed over je schat maar, ik moet nu naar huis” zei de jongen. “Mag ik nog eens langs komen?” vroeg hij. “Dat mag zeker, je mag mij en mijn schitterende schat iedere dag komen bewonderen als je dat wilt.” Zei hij trots. De jongen beloofde de volgende dag terug te komen en ging naar huis. Daar verstopte hij de schat in zijn slaapkamer. De stad lachte hem uit toen hij naar ze terug was gekomen maar de jongen wist beter. En zo ging de jongen iedere dag terug om een ding mee te nemen tot de kist leeg was. Toen hij het laatste bij had vertelde hij tegen de draak dat hij niet meer terug mocht komen en de draak vond dat zeer jammer hij genoot wel van bezoek dat niet zijn schatten probeerde te stelen. De jongen pakte thuis een zak en deed daar alle schatten in. Hij liep naar de koning toe en legde de zak aan zijn voeten neer. De koning keek verbaast naar de jongen en moest lachen. “Goed gedaan nu zal ik je benoemen naar ridder …” “Johan” zei de jongen. De jongen werd tot ridder benoemt maar wist ook iets over de koning ook die had slechte ogen en daar haalde hij hetzelfde trucje uit hij stal iedere dag een schat tot niks over was. En zo leefde ridder Johan een rijk leven en de arrogante koning en draak Argonant hadden zonder dat ze het wiste geen schat meer over. ",

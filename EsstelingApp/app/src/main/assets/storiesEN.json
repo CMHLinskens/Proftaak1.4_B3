@@ -6,8 +6,8 @@
     "storyPieces": [
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
-        "storyAudio3" : "",
+        "storyAudio1" :  "tutorial_en_1",
+        "storyAudio3" : "tutorial_en_2",
         "storyAudio5" : "" ,
         "storyPartOne": "“Hey, you there!” you hear someone call out to you. A lean man comes walking up to you. “I haven’t seen you before. Are you new to the kingdom of the Essteling?” you nod in response; you had just arrived. “Well it's nice to see a fresh face around, the kingdom has become quiet empty lately. The names Scribe, I’m the kingdoms librarian.” the man looked at you with a puzzled stare. “Are you by any chance the new seeker?” again you nod in response. “That’s great, the kingdom could use some help.” He said cheerful. “Let me bring you to the castle, they probably want to see you as soon as possible.” You follow Scribe to the castle through the empty streets. “As you probably know the evil spirit has been taking away the stories and locking them up so not many people visit this part anymore.” Scribe sighs. “But now you’re here and can help us get them back.” The librarian brings you to the gate of the castle and goes back to the town.  ",
         "storyPartTwo": "tutorial_kasteel",
@@ -17,8 +17,8 @@
       },
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
-        "storyAudio3" : "",
+        "storyAudio1" :  "tutorial_en_3",
+        "storyAudio3" : "tutorial_en_4",
         "storyAudio5" : "" ,
         "storyPartOne": "In the lab of the seekers you see many papers on the floor and many books and gadgets on the tables. The two of them have obviously not been the greatest fans of cleaning. “As a fresh member of the seekers you probably don’t have much experience with the book of stories I suppose.” Pardipsus says. “So, let us help you with that.” They show you their books of stories pardipsus has a vibrant green covered one while Zorna has a grey one. “I have a colour-blind version because I can’t see colours, it helps me with using it. If you need that you can use some of the settings spells in the back, well get to those later.”  ",
         "storyPartTwo": "",
@@ -28,7 +28,7 @@
       },
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
+        "storyAudio1" :  "tutorial_en_5",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
         "storyPartOne": "You see a large portion of the book still left and wonder what it is. “That is the achievements section its where you can see how well you're doing at being a seeker.” Pardipsus whispers in your ear “Zorna doesn’t have a single one yet so she might be sour if you get one.” He snickers as Zorna throws him an angry glance. “You’ll get one automatically if your get that far so check there from time to time.” ",
@@ -201,8 +201,8 @@
     "storyPieces": [
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
-        "storyAudio3" : "",
+        "storyAudio1" :  "draak_en_1",
+        "storyAudio3" : "draak_en_2",
         "storyAudio5" : "" ,
         "storyPartOne": "Deep in the darkest parts of the forest there lives a dragon with countless treasures that it has collected over the years. This dragon was the great green dragon Argonant. Argonant was an arrogant dragon who claimed that no human can steel his treasure from him for as long as he guarded it. Many knights and princes tried but all came back with burned behinds. The king put up a bounty for any who could steal from that arrogant dragon would be knighted by him. So many again went and tried to steal from the dragon Argonant. All came back with empty hands. ",
         "storyPartTwo": "",
@@ -220,10 +220,10 @@
       },
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
+        "storyAudio1" :  "draak_en_3",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
-        "storyPartOne": "The boy crept back. “ow great dragon, you watch over your treasure so well, but I have to go back home now said the boy. “may I come by again?” he asked. “you may, you may come and admire me and my treasure every day if you wish.” he said with a proud smile on him. The boy promised to come by the next day en went home. At home he hid the treasure in his bedroom. The city laughed at him when he returned to them with empty hands, the boy knew better though. And so, the boy went back to steel one treasure each day until the chest was empty. When he took the last treasure, he told the dragon he wasn’t allow to come back again and the was sad about that. He enjoyed the company that wouldn’t try to steal his treasures. The boy grabbed the bag where he hid the treasures in. He approached the king and placed the bag of treasures in front of the king. The king was surprised, and his eyes went wide. “well done, now I will knight you to knight …\" “Johan” the boy said. Johan was named knight but knew something about the king not many knew. The king too had bad eyesight and Johan used the same trick on him.  And so, knight Johan stole a treasure from the king every day until he had them all back. In the end he would live a rich life leaving the arrogant king and the dragon Argonant none the wiser of their stolen treasure.",
+        "storyPartOne": "The boy crept back. “ow great dragon, you watch over your treasure so well, but I have to go back home now said the boy. “may I come by again?” he asked. “you may, you may come and admire me and my treasure every day if you wish.” he said with a proud smile on him. The boy promised to come by the next day and went home. At home he hid the treasure in his bedroom. The city laughed at him when he returned to them with empty hands, the boy knew better though. And so, the boy went back to steal one treasure each day until the chest was empty. When he took the last treasure, he told the dragon he wasn’t allowed to come back again and he was sad about that. He enjoyed the company that wouldn’t try to steal his treasures. The boy grabbed the bag where he hid the treasures in. He approached the king and placed the bag of treasures in front of the king. The king was surprised, and his eyes went wide. “well done, now I will knight you to knight …\" “Johan” the boy said. Johan was named knight but knew something about the king not many knew. The king too had bad eyesight and Johan used the same trick on him.  And so, knight Johan stole a treasure from the king every day until he had them all back. In the end he would live a rich life leaving the arrogant king and the dragon Argonant none the wiser of their stolen treasure.",
         "storyPartTwo": "",
         "storyPartThree": "",
         "storyPartFour": "",
