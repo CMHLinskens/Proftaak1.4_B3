@@ -46,14 +46,15 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         this.userPref = getSharedPreferences(USER_DATA, MODE_PRIVATE);
-        preferences.getBoolean("isFirstTime", true);
         boolean useColourBlindTheme = preferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
         if (useColourBlindTheme) {
             setTheme(R.style.ColourBlindTheme);
         } else {
             setTheme(R.style.EsstelingTheme);
         }
-        clearPrefs();
+        // FOR TESTING
+//        clearPrefs();
+        // ---
         // Put the app in the preferred language
         if (preferences.getBoolean("isDutch", true)) {
             SettingsPage.setAppLocale("nl", getResources());
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         setContentView(R.layout.activity_main);
         this.bottomNav = findViewById(R.id.bottomNavigationView);
         this.bottomNav.setOnNavigationItemSelectedListener(navListener);
-        if (preferences.getBoolean("isFirstTime", true)){
+        if (this.userPref.getBoolean("isFirstTime", true)){
             Story Tutorial = DataSingleton.getInstance().getStories().get(0);
             Fragment readstoryFragment = new Activity_read_story();
             Bundle bundle = new Bundle();
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
             bundle.putInt("storyIndex", 0);
             readstoryFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,readstoryFragment).commit();
-            SharedPreferences.Editor prefEditor = preferences.edit();
+            SharedPreferences.Editor prefEditor = this.userPref.edit();
             prefEditor.putBoolean("isFirstTime", false);
             prefEditor.apply();
         }else {
@@ -86,8 +87,6 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         }
 
         currentTab = 0;
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePage()).commit();
-        loadData();
         MQTTController.getInstance().connectToServer(this);
     }
 
