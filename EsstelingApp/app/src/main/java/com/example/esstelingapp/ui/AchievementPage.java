@@ -43,15 +43,11 @@ public class AchievementPage extends Fragment {
         mAchievementList.addAll(DataSingleton.getInstance().getAchievements());
 
         SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        Boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
+        boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
         if (isColorBlind){
             getView().setBackgroundResource(R.drawable.old_paper_cb);
         }else {
             getView().setBackgroundResource(R.drawable.old_paper);
-        }
-
-        for(Achievement a : DataSingleton.getInstance().getAchievements()){
-            mAchievementList.add(a);
         }
 
         // Create recycler view.
