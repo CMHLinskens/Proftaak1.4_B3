@@ -157,9 +157,9 @@
         "storyAudio3" : "",
         "storyAudio5" : "" ,
         "storyPartOne": "",
-        "storyPartTwo": "",
+        "storyPartTwo": "roodkapje_bos",
         "storyPartThree": "",
-        "storyPartFour": "",
+        "storyPartFour": "roodkapje_bloemen",
         "storyPartFive": ""
       },
       {
@@ -168,7 +168,7 @@
         "storyAudio3" : "",
         "storyAudio5" : "" ,
         "storyPartOne": "",
-        "storyPartTwo": "",
+        "storyPartTwo": "roodkapje_huis",
         "storyPartThree": "",
         "storyPartFour": "",
         "storyPartFive": ""
@@ -187,9 +187,9 @@
         "storyAudio3" : "",
         "storyAudio5" : "" ,
         "storyPartOne": "",
-        "storyPartTwo": "",
+        "storyPartTwo": "roodkapje_wolf_in_bed",
         "storyPartThree": "",
-        "storyPartFour": "",
+        "storyPartFour": "roodkapje_dode_wolf",
         "storyPartFive": ""
       }
     ]
