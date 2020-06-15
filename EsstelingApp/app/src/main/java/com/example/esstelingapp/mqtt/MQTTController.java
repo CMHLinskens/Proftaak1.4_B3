@@ -6,6 +6,7 @@ import android.util.Log;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -19,6 +20,7 @@ import static android.content.ContentValues.TAG;
 public class MQTTController {
     private static MQTTController INSTANCE;
     private MqttAndroidClient client;
+    private String received;
 
     public MQTTController() {
     }
@@ -65,8 +67,32 @@ public class MQTTController {
             e.printStackTrace();
         }
     }
+
     public void readRawMessage(String topic){
-        //something here dunno
-        //TODO: we need to read rawmessage for success or not or end
+        try {
+            received = "";
+            client.subscribe(topic, 2, new IMqttMessageListener() {
+                @Override
+                public void messageArrived(String topic, MqttMessage message) throws Exception {
+                    received = message.toString();
+                }
+            });
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String waitForMessage(String topic){
+        if(!received.isEmpty()){
+            try {
+                client.unsubscribe(topic);
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
+            String message = received;
+            received = "";
+            return message;
+        }
+        return received;
     }
 }
