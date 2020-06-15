@@ -1,5 +1,7 @@
 package com.example.esstelingapp.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,10 @@ import com.example.esstelingapp.games.RiddlePage;
 import java.util.ArrayList;
 
 public class Activity_read_story extends Fragment {
+
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
+
     private Story subjectStory;
     private int marker;
     private boolean TTS1playing;
@@ -51,6 +57,14 @@ public class Activity_read_story extends Fragment {
         View RootView = inflater.inflate(R.layout.activity_read_story, container, false);
         ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
         ReadingItem item = (ReadingItem) storyArrayList.get(marker);
+
+        SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        Boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
+        if (isColorBlind){
+            RootView.setBackgroundResource(R.drawable.old_paper_cb);
+        }else {
+            RootView.setBackgroundResource(R.drawable.old_paper);
+        }
 
         TextView StoryTitel = (TextView) RootView.findViewById(R.id.ReadStoryTitel);
         StoryTitel.setText(subjectStory.getStoryName());

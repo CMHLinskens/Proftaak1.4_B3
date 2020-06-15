@@ -1,5 +1,6 @@
 package com.example.esstelingapp.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -50,6 +51,14 @@ public class SettingsPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        Boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
+        if (isColorBlind){
+            getView().setBackgroundResource(R.drawable.old_paper_cb);
+        }else {
+            getView().setBackgroundResource(R.drawable.old_paper);
+        }
 
         this.toggleButton = getView().findViewById(R.id.settings_colour_blind_button);
         this.group = getView().findViewById(R.id.settings_radio_buttons);

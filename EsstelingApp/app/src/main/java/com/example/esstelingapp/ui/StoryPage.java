@@ -1,6 +1,8 @@
 package com.example.esstelingapp.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,9 @@ import java.util.LinkedList;
 
 
 public class StoryPage extends Fragment {
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
+
     private final LinkedList<Story> mStoryList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private StoryAdapter mAdapter;
@@ -44,7 +49,13 @@ public class StoryPage extends Fragment {
 //        mStoryList.add(new Story("Draak blaaskaak", R.drawable.blaaskaak,true,new ArrayList<StoryPiecesInterface>(),0, 0,0 ,0 ));
 //        mStoryList.add(new Story("Tutorial",R.drawable.tutorial,true,new ArrayList<StoryPiecesInterface>(), 100,0,0,0));
 
-
+        SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        Boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
+        if (isColorBlind){
+            getView().setBackgroundResource(R.drawable.old_paper_cb);
+        }else {
+            getView().setBackgroundResource(R.drawable.old_paper);
+        }
 
 
         // Create recycler view.
