@@ -6,6 +6,7 @@
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
         <item name="colorAccent">@color/EsstelingBlue</item>
         <item name="android:textColor">@color/colorBlindPrimary</item>
+        <item name="android:fontFamily">@font/amarante</item>
     </style>
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
@@ -24,6 +25,7 @@
         <item name="bottomNavigationStyle">@style/Widget.App.ColourBlindNavView</item>
         <item name="android:textColor">@color/colorBlindPrimary</item>
         <item name="colorAccent">@color/colorBlindText</item>
+        <item name="android:fontFamily">@font/amarante</item>
     </style>
 
     <style name="Widget.App.ColourBlindNavView" parent="Widget.Design.BottomNavigationView">

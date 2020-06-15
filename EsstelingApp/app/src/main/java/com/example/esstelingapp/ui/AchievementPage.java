@@ -1,5 +1,7 @@
 package com.example.esstelingapp.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -20,6 +22,8 @@ import com.example.esstelingapp.mqtt.MQTTController;
 import java.util.LinkedList;
 
 public class AchievementPage extends Fragment {
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
 
     private final LinkedList<Achievement> mAchievementList = new LinkedList<>();
     private RecyclerView mRecyclerView;
@@ -41,6 +45,14 @@ public class AchievementPage extends Fragment {
 //        mAchievementList.add(new Achievement("sneaky dragon treasure thief",false,0));
 //        mAchievementList.add(new Achievement("junior story seeker",false,0));
 //        mAchievementList.add(new Achievement("master story seeker",false,0));
+
+        SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        Boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
+        if (isColorBlind){
+            getView().setBackgroundResource(R.drawable.old_paper_cb);
+        }else {
+            getView().setBackgroundResource(R.drawable.old_paper);
+        }
 
         for(Achievement a : DataSingleton.getInstance().getAchievements()){
             mAchievementList.add(a);

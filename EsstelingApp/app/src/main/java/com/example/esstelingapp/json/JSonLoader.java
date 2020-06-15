@@ -168,8 +168,10 @@ public class JSonLoader {
                         if (pieceID==1) {
                             String storyPartOne = storyPiece.getString("storyPartOne");
                             String storyPartTwo = storyPiece.getString("storyPartTwo");
+                            final int story_2_image = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(storyPartTwo + colourblind, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
                             String storyPartThree = storyPiece.getString("storyPartThree");
                             String storyPartFour = storyPiece.getString("storyPartFour");
+                            final int story_4_image = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(storyPartFour + colourblind, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
                             String storyPartFive = storyPiece.getString("storyPartFive");
                             String storyAudio1 = storyPiece.getString("storyAudio1");
                             String storyAudio3 = storyPiece.getString("storyAudio3");
