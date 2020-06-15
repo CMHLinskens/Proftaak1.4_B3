@@ -151,11 +151,10 @@ public class Activity_read_story extends Fragment {
             storyPartOneButton.setHeight(0);
             storyPartOneButton.setVisibility(View.INVISIBLE);
         }
-        if (!item.getStoryPartTwo().isEmpty()) {
+        if (item.getStoryPartTwo() != 0) {
             storyPartTwoView.getLayoutParams().height = 850;
             storyPartTwoView.getLayoutParams().width = 850;
-            int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getStoryPartTwo(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
-            storyPartTwoView.setImageResource(id);
+            storyPartTwoView.setImageResource(item.getStoryPartTwo());
         } else {
             storyPartTwoView.setVisibility(View.INVISIBLE);
             storyPartTwoView.getLayoutParams().height = 50;
@@ -170,11 +169,10 @@ public class Activity_read_story extends Fragment {
             storyPartThreeButton.setHeight(0);
             storyPartThreeButton.setVisibility(View.INVISIBLE);
         }
-        if (!item.getStoryPartFour().isEmpty()) {
+        if (item.getStoryPartFour() != 0) {
             storyPartFourView.getLayoutParams().height = 850;
             storyPartFourView.getLayoutParams().width = 850;
-            int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getStoryPartFour(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
-            storyPartFourView.setImageResource(id);
+            storyPartFourView.setImageResource(item.getStoryPartFour());
         } else {
             storyPartFourView.setVisibility(View.INVISIBLE);
             storyPartFourView.getLayoutParams().height = 50;

@@ -7,12 +7,12 @@ public class ReadingItem implements StoryPiecesInterface {
     private String StoryPartOne;
     private String StoryPartThree;
     private String StoryPartFive;
-    private String StoryPartTwo;
-    private String StoryPartFour;
+    private int StoryPartTwo;
+    private int StoryPartFour;
     private int Points;
     private boolean PointsReceived;
 
-    public ReadingItem(String storyPartOne, String storyPartThree, String storyPartFive, String storyPartTwo, String storyPartFour, int points, boolean pointsReceived) {
+    public ReadingItem(String storyPartOne, String storyPartThree, String storyPartFive, int storyPartTwo, int storyPartFour, int points, boolean pointsReceived) {
         StoryPartOne = storyPartOne;
         StoryPartThree = storyPartThree;
         StoryPartFive = storyPartFive;
@@ -36,11 +36,11 @@ public class ReadingItem implements StoryPiecesInterface {
         return StoryPartFive;
     }
 
-    public String getStoryPartTwo() {
+    public int getStoryPartTwo() {
         return StoryPartTwo;
     }
 
-    public String getStoryPartFour() {
+    public int getStoryPartFour() {
         return StoryPartFour;
     }
 
