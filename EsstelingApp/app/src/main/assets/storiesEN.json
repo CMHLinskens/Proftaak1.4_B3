@@ -29,7 +29,7 @@
       {
         "pieceID" : 1,
         "storyAudio1" :  "tutorial_en_5",
-        "storyAudio3" : "",
+        "storyAudio3" : "tutorial_en_6",
         "storyAudio5" : "" ,
         "storyPartOne": "You see a large portion of the book still left and wonder what it is. “That is the achievements section its where you can see how well you're doing at being a seeker.” Pardipsus whispers in your ear “Zorna doesn’t have a single one yet so she might be sour if you get one.” He snickers as Zorna throws him an angry glance. “You’ll get one automatically if your get that far so check there from time to time.” ",
         "storyPartTwo": "",
@@ -43,7 +43,7 @@
       },
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
+        "storyAudio1" :  "tutorial_en_7",
         "storyAudio3" : "",
         "storyAudio5" : "" ,
         "storyPartOne": "“You seem to now know all you need to make a great seeker. Let's start this adventure to save the kingdom!” Pardipsus cheers. “Yes, now it is time.” she nods. The three of you make your way to the forest and there Zorna sighs. “Here we split up. Pardipsus stays here helping the village and the castle while I head to the south side to find the more information on the situation. You will have to go into the forest and look for the stories. Good luck seeker!” she says before the three of you part ways. Here you stand, a new seeker, ready to embark on an adventure to learn all the stories the forest holds secret. Good luck and have fun in the Fabelwoud! ",
@@ -153,8 +153,8 @@
     "storyPieces": [
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
-        "storyAudio3" : "",
+        "storyAudio1" :  "red_en_1",
+        "storyAudio3" : "red_en_2",
         "storyAudio5" : "" ,
         "storyPartOne": "There once lived a small girl in a village at the edge of a forest. This girl was quite special as she would always wear her bright red cape when she went out. The town had nicknamed her little red riding hood. Little red riding hood was told by her mother one day that her grandmother was very sick and that she needed to bring her some freshly baked muffins. Little red riding hood grabbed her basket and red hood and started making her way to the forest. Her grandmother had lived for many years in the forest and little red riding hood knew the way as long as she didn’t stray from the path.  ",
         "storyPartTwo": "",
@@ -164,8 +164,8 @@
       },
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
-        "storyAudio3" : "",
+        "storyAudio1" :  "red_en_3",
+        "storyAudio3" : "red_en_4",
         "storyAudio5" : "" ,
         "storyPartOne": "After little red riding hood was done picking flowers, she put them in her basket. She didn’t see the wolf anymore but didn’t pay that much attention to its disappearance.  As she followed the path once again, she saw a big man cutting wood. “Hello mister woodcutter” she says cheerful. “Hello little red riding hood, are you going to your grandmother?” she nods. “She is sick, and I am bringing her some muffins to make her feel better.” the woodcutter smiles. “You're such a sweet girl, you even brought flowers.” “It was mister wolfs idea.” she says honestly. The woodcutters smile faded as he became worried of the wolf that was apparently around. “Be careful around wolves they can be quite the tricksters.” little red riding hood nods. “I will” ",
         "storyPartTwo": "",
@@ -183,8 +183,8 @@
       },
       {
         "pieceID" : 1,
-        "storyAudio1" :  "",
-        "storyAudio3" : "",
+        "storyAudio1" :  "red_en_5",
+        "storyAudio3" : "red_en_6",
         "storyAudio5" : "" ,
         "storyPartOne": "Little red riding hood entered and saw grandmother in her bed. “Hello grandmother I brought you some muffins and flowers to make you feel better.” she says, “How sweet of you dear, do come closer so I may see you better.” grandmother says. Little red riding hood steps a bit forward and sees grandmothers' ears stick out from beneath the sheets. “Grandmother, what big ears you have” she says. “That is so I may hear you better.” Little red riding hood stepped forward again and saw grandmothers' eyes. “Grandmother, what big eyes you have” she says. “That is so I may see you better.” little red riding hood took another step forward now standing next to the bed. “Grandmother what big teeth you have.” she says. “That is so I may eat you better.” said the wolf as he took a big bite and swallowed her whole.  ",
         "storyPartTwo": "",
