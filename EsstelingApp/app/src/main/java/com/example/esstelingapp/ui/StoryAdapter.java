@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -143,11 +145,12 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
         int pCurrent = (int)preferences.getFloat(PROGRESS + position, 0);
         holder.storyProgressItemView.setProgress(pCurrent);
         boolean bCurrent = mStoryList.get(position).isUnlocked();
+        CardView cardView = (CardView) holder.itemView.findViewById(R.id.storyCardView);
         if (!this.isColourBlind) {
-            holder.itemView.setBackgroundResource(R.color.EsstelingRed);
+            cardView.setCardBackgroundColor(ContextCompat.getColor(DataSingleton.getInstance().getMainContext(), R.color.EsstelingRed));
             holder.storyProgressItemView.setBackgroundResource(R.color.EsstelingBlue);
         } else {
-            holder.itemView.setBackgroundResource(R.color.colorBlindText);
+            cardView.setCardBackgroundColor(ContextCompat.getColor(DataSingleton.getInstance().getMainContext(), R.color.colorBlindText));
             holder.storyProgressItemView.setBackgroundResource(R.color.colorBlindBackground);
         }
         if (bCurrent) {

@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.Achievement;
@@ -107,11 +109,12 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         int pCurrent = (int) preferences.getFloat(ACHIEVEMENT_PROGRESS + position, 0);
         holder.achievementProgressItemView.setProgress(pCurrent);
         boolean bCurrent = preferences.getBoolean(ACHIEVEMENT_COMPLETED + position, false);
+        CardView cardView = holder.itemView.findViewById(R.id.achievementCardView);
         if(!this.isColourBlind){
-            holder.itemView.setBackgroundResource(R.color.EsstelingRed);
+            cardView.setCardBackgroundColor(ContextCompat.getColor(DataSingleton.getInstance().getMainContext(), R.color.EsstelingRed));
             holder.achievementProgressItemView.setBackgroundResource(R.color.EsstelingBlue);
         } else {
-            holder.itemView.setBackgroundResource(R.color.colorBlindText);
+            cardView.setCardBackgroundColor(ContextCompat.getColor(DataSingleton.getInstance().getMainContext(), R.color.colorBlindText));
             holder.achievementProgressItemView.setBackgroundResource(R.color.colorBlindBackground);
         }
 
