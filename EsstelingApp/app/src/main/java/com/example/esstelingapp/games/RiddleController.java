@@ -10,11 +10,18 @@ public class RiddleController {
     private StoryTypes storyType;
     private List<Question> questions;
 
+    /**
+     * @param storyType Defines what the story is and what questions are relevant
+     */
     public RiddleController(StoryTypes storyType) {
         this.storyType = storyType;
         getData(storyType);
     }
 
+    /**
+     * Gets all relevant questions and adds them to the list
+     * @param storyType Defines what the story is and what questions are relevant
+     */
     private void getData(StoryTypes storyType) {
         questions = new ArrayList<>();
         HashMap<String, HashMap<Integer, Question>> questionData = DataSingleton.getInstance().getQuizQuestions();
@@ -27,6 +34,10 @@ public class RiddleController {
         }
     }
 
+    /**
+     * Chooses a random question and deletes it from the list
+     * @return a new question
+     */
     public Question getNewQuestion() {
         int random = (int)(Math.random() * questions.size());
         Question question = questions.get(random);

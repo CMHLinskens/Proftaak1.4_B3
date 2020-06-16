@@ -82,18 +82,12 @@ public class RiddlePage extends Fragment {
         this.storyType = subjectStory.getStoryType();
         ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
         this.gameItem = (GameItem) storyArrayList.get(marker);
-
-        TextView title = getView().findViewById(R.id.storyTitle);
-        title.setText(subjectStory.getStoryName());
-        TextView partOfStory = getView().findViewById(R.id.partOfStory);
-        String text = getString(R.string.partText) + " " + (marker + 1) + " " + getString(R.string.partText2) + " " + subjectStory.getPieces().size();
-        partOfStory.setText(text);
-        TextView tieInText = getView().findViewById(R.id.tieInText);
-        tieInText.setText(this.gameItem.getTieInText());
-
-        //initializing all components
         controller = new RiddleController(storyType);
 
+        //initializing all components
+        TextView title = getView().findViewById(R.id.storyTitle);
+        TextView partOfStory = getView().findViewById(R.id.partOfStory);
+        TextView tieInText = getView().findViewById(R.id.tieInText);
         question = getView().findViewById(R.id.question);
         final Button skipButton = getView().findViewById(R.id.skipButton);
         skipButton.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +101,13 @@ public class RiddlePage extends Fragment {
         answerC = getView().findViewById(R.id.answerC);
         answerD = getView().findViewById(R.id.answerD);
 
+        //entering all the story data
+        title.setText(subjectStory.getStoryName());
+        String text = getString(R.string.partText) + " " + (marker + 1) + " " + getString(R.string.partText2) + " " + subjectStory.getPieces().size();
+        partOfStory.setText(text);
+        tieInText.setText(this.gameItem.getTieInText());
+
+        //button listeners
         final Button submitButton = getView().findViewById(R.id.submitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,9 +124,9 @@ public class RiddlePage extends Fragment {
             }
         });
 
-
         showNewQuestion();
 
+        //swipe listeners
         view.setOnTouchListener(new OnSwipeTouchListener(view.getContext()) {
 
             @Override
@@ -143,14 +144,19 @@ public class RiddlePage extends Fragment {
     public void showNewQuestion() {
         timesTried++;
 
+        //Get a new question object
         Question question = controller.getNewQuestion();
+
+        //resetting the radio buttons
         answerA.setChecked(false);
         answerB.setChecked(false);
         answerC.setChecked(false);
         answerD.setChecked(false);
 
+        //entering the question text
         this.question.setText(question.getQuestion());
 
+        //randomizing the answer order
         List<Integer> randomOrder = new ArrayList<>();
         randomOrder.add(0);
         randomOrder.add(1);
@@ -158,11 +164,13 @@ public class RiddlePage extends Fragment {
         randomOrder.add(3);
         Collections.shuffle(randomOrder);
 
+        //entering the answers texts
         answerA.setText(question.getAnswers()[randomOrder.get(0)]);
         answerB.setText(question.getAnswers()[randomOrder.get(1)]);
         answerC.setText(question.getAnswers()[randomOrder.get(2)]);
         answerD.setText(question.getAnswers()[randomOrder.get(3)]);
 
+        //remembering the correct answer
         switch (randomOrder.indexOf(0)) {
             case 0:
                 correctAnswer = answerA;
@@ -182,19 +190,21 @@ public class RiddlePage extends Fragment {
     public void submitAnswer(View v) {
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = preferences.edit();
+
+        //checking if a answer is given
         if (!answerA.isChecked() && !answerB.isChecked() && !answerC.isChecked() && !answerD.isChecked()) {
             return;
         }
 
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
 
+        //checking if the given answer is correct
         if (answerA.isChecked() && answerA == correctAnswer ||
                 answerB.isChecked() && answerB == correctAnswer ||
                 answerC.isChecked() && answerC == correctAnswer ||
                 answerD.isChecked() && answerD == correctAnswer) {
 
-            System.out.println("Correct");
-            alert.setMessage("Correct");
+            //awarding the correct amount of points if the user hasn't already
             if(!this.gameItem.canGainPoints()){
                 DataSingleton.getInstance().getUser().addPoints(400);
                 DataSingleton.getInstance().getUser().addToTotal(400);
@@ -210,6 +220,9 @@ public class RiddlePage extends Fragment {
                 this.gameItem.setGainPoints(true);
                 Log.d("GAMEPOINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
             }
+
+            //setting the pop-up text and showing it
+            alert.setMessage("Correct");
             alert.setCancelable(false);
             alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override
@@ -218,8 +231,7 @@ public class RiddlePage extends Fragment {
                 }
             }).show();
 
-        } else if (timesTried < 3) {
-            System.out.println("Incorrect");
+        } else if (timesTried < 3) { // wrong but you can try again
             alert.setMessage("Incorrect");
             alert.setCancelable(false);
             alert.setPositiveButton("Try again", new DialogInterface.OnClickListener() {
@@ -228,8 +240,7 @@ public class RiddlePage extends Fragment {
                     showNewQuestion();
                 }
             }).show();
-        } else {
-            System.out.println("Incorrect");
+        } else { // wrong, can't try again
             alert.setMessage("Incorrect \nBetter luck next time");
             alert.setCancelable(false);
             Log.d("GAMEPOINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
@@ -242,7 +253,9 @@ public class RiddlePage extends Fragment {
         }
     }
 
-
+    /**
+     *  skips the riddle game without awarding points
+     */
     public void skipQuestion(View v) {
         FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
     }
