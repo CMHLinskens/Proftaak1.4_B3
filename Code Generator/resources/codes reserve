@@ -1,0 +1,26 @@
+{
+  "DateTimeStamp": "2020/05/29 22:52",
+  "GenerateRandomly": true,
+  "Codes": [
+    {
+      "Name": "Roodkapje",
+      "StoryID": 1,
+      "Code": "rood"
+    },
+    {
+      "Name": "3biggetjes",
+      "StoryID": 2,
+      "Code": "knor"
+    },
+    {
+      "Name": "Draak Blaaskaak",
+      "StoryID": 3,
+      "Code": "draak"
+    },
+    {
+      "Name": "hans en grietje",
+      "StoryID": 4,
+      "Code": "snoep"
+    }
+  ]
+}

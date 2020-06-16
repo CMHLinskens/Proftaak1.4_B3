@@ -18,6 +18,7 @@ public class Story implements Parcelable {
     private int StoryMaxPoints;
     private int StoryCompletionReward;
         private StoryTypes storyType;
+        private String mqttTopic;
 
     public Story(String storyName, int storyImageURL, boolean isUnlocked, ArrayList<StoryPiecesInterface> pieces, int pointsOfStory, int storyMaxPoints, int storyCompletionReward, StoryTypes storyType) {
         StoryName = storyName;
@@ -66,6 +67,7 @@ public class Story implements Parcelable {
         isUnlocked = unlocked;
     }
 
+        public String getMqttTopic() { return mqttTopic; }
     public StoryTypes getStoryType() {
         return storyType;
     }

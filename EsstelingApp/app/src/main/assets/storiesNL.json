@@ -60,6 +60,7 @@
     "imageUrl": "threepigs",
     "storyType": "BIGGETJES",
     "maxPoints": 1000,
+    "topic": "DrieBiggetjes",
     "storyPieces": [
     {
       "pieceID" : 1,
@@ -105,6 +106,7 @@
     "imageUrl": "hansgretel",
     "storyType": "HANS_EN_GRIETJE",
     "maxPoints": 1000,
+    "topic": "HansEnGrietje",
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -154,6 +156,7 @@
     "imageUrl": "redriding",
     "storyType": "ROODKAPJE",
     "maxPoints":  600,
+    "topic": "Roodkapje",
     "storyPieces": [
       {
         "pieceID" : 1,
@@ -203,6 +206,7 @@
     "imageUrl": "blaaskaak",
     "storyType": "DRAAK",
     "maxPoints": 600,
+    "topic": "DraakBlaaskaak",
     "storyPieces": [
       {
         "pieceID" : 1,

@@ -162,6 +162,7 @@ public class JSonLoader {
                 final int maxPoints = story.getInt("maxPoints");
                 String imageResource = story.getString("imageUrl");
                 final int resId = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(imageResource + colourblind, "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
+                String mqttTopic = story.getString("topic");
                 boolean isUnlocked = preferences.getBoolean(UNLOCK + i, false);
 
                 StoryTypes storyType = StoryTypes.valueOf(story.getString("storyType"));
