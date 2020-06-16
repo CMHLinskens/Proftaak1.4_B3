@@ -2,6 +2,7 @@ package com.example.esstelingapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,11 +24,17 @@ import com.example.esstelingapp.data.DataSingleton;
 import java.util.LinkedList;
 
 public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHolder> {
-
     private final LinkedList<Story> mStoryList;
     private final LayoutInflater mInflater;
     private Fragment storyMenuFragment;
+    private static final String PREFS_NAME = "prefs";
+    private boolean isColourBlind;
 
+    private static final String USER_DATA = "userData";
+    private static final String USER_POINTS = "points";
+    private static final String USER_TOTAL_POINTS = "totalPoints";
+    private static final String STORY_COMPLETE = "storyComplete";
+    private static final String PROGRESS = "progress";
 
     class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView storyNameItemView;
@@ -40,12 +49,12 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
          * the RecyclerView.
          *
          * @param itemView The view in which to display the data.
-         * @param adapter The adapter that manages the the data and views
-         *                for the RecyclerView.
+         * @param adapter  The adapter that manages the the data and views
+         *                 for the RecyclerView.
          */
         public StoryViewHolder(View itemView, StoryAdapter adapter) {
             super(itemView);
-            context= itemView.getContext();
+            context = itemView.getContext();
             storyNameItemView = itemView.findViewById(R.id.StoryTitelView);
             storyStatusItemView = itemView.findViewById(R.id.StoryStatusImage);
             storyProgressItemView = itemView.findViewById(R.id.storyProgressBar);
@@ -60,26 +69,23 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             int mPosition = getLayoutPosition();
             Story element = mStoryList.get(mPosition);
             if (element!=null){
-                if(!element.getStoryStatus()) {
-                    openUnlockPopUp(element);
+                if(!element.isUnlocked()) {
+                    openUnlockPopUp(element, mPosition);
                 }
                 else{
                     Fragment readstoryFragment = new Activity_read_story();
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable("storyInfo", element);  // Key, value
+                    bundle.putParcelable("storyInfo", element); // Key, value
+                    bundle.putInt("storyIndex", mPosition);
                     readstoryFragment.setArguments(bundle);
-                    ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
+                    ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
                 }
             }
-            else{
-//                intent =  new Intent(context, Detail.class);
-            }
-//            context.startActivity(intent);
         }
 
-        private void openUnlockPopUp(Story element){
+        private void openUnlockPopUp(Story element, int storyPosition){
             StoryUnlockPopup storyUnlockPopup = new StoryUnlockPopup();
-            storyUnlockPopup.setStory(element);
+            storyUnlockPopup.setStory(element, storyPosition);
             storyUnlockPopup.show(DataSingleton.getInstance().getStoryFragmentManager(), "Unlock Code");
         }
     }
@@ -88,17 +94,18 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
         this.storyMenuFragment = storymenuFragment;
         mInflater = LayoutInflater.from(context);
         this.mStoryList = projectList;
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        this.isColourBlind = preferences.getBoolean("colour_blind_theme", false);
     }
-
 
     /**
      * Called when RecyclerView needs a new ViewHolder of the given type to
      * represent an item.
-     *
+     * <p>
      * This new ViewHolder should be constructed with a new View that can
      * represent the items of the given type. You can either create a new View
      * manually or inflate it from an XML layout file.
-     *
+     * <p>
      * The new ViewHolder will be used to display items of the adapter using
      * onBindViewHolder(ViewHolder, int, List). Since it will be reused to
      * display different items in the data set, it is a good idea to cache
@@ -112,10 +119,11 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
      */
     @Override
     public StoryAdapter.StoryViewHolder onCreateViewHolder(ViewGroup parent,
-                                                               int viewType) {
+                                                           int viewType) {
         // Inflate an item view.
         View mItemView = mInflater.inflate(
                 R.layout.story_item, parent, false);
+
         return new StoryViewHolder(mItemView, this);
     }
 
@@ -131,22 +139,27 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
      */
     @Override
     public void onBindViewHolder(StoryAdapter.StoryViewHolder holder, int position) {
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
         String mCurrent = mStoryList.get(position).getStoryName();
         holder.storyNameItemView.setText(mCurrent);
-        int pCurrent = mStoryList.get(position).getStoryProgress();
+        int pCurrent = (int)preferences.getFloat(PROGRESS + position, 0);
         holder.storyProgressItemView.setProgress(pCurrent);
-        Boolean bCurrent = mStoryList.get(position).getStoryStatus();
-        if (bCurrent){
-           holder.storyStatusItemView.setImageResource(R.drawable.arrow);
+        boolean bCurrent = mStoryList.get(position).isUnlocked();
+        CardView cardView = (CardView) holder.itemView.findViewById(R.id.storyCardView);
+        if (!this.isColourBlind) {
+            cardView.setCardBackgroundColor(ContextCompat.getColor(DataSingleton.getInstance().getMainContext(), R.color.EsstelingRed));
+            holder.storyProgressItemView.setBackgroundResource(R.color.EsstelingBlue);
+        } else {
+            cardView.setCardBackgroundColor(ContextCompat.getColor(DataSingleton.getInstance().getMainContext(), R.color.colorBlindText));
+            holder.storyProgressItemView.setBackgroundResource(R.color.colorBlindBackground);
         }
-        else {
- holder.storyStatusItemView.setImageResource(R.drawable.lock);
+        if (bCurrent) {
+            holder.storyStatusItemView.setImageResource(R.drawable.arrow);
+        } else {
+            holder.storyStatusItemView.setImageResource(R.drawable.lock);
         }
         int iCurrent = mStoryList.get(position).getStoryImageResource();
-            holder.storyImageItemView.setImageResource(iCurrent);
-
-//
-
+        holder.storyImageItemView.setImageResource(iCurrent);
     }
 
     /**

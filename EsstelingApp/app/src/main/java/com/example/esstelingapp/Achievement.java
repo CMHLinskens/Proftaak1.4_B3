@@ -1,47 +1,32 @@
 package com.example.esstelingapp;
 
-import java.util.ArrayList;
-
 public class Achievement {
 
     private String AchievementName;
-    private int AchievementProgress;
-    private ArrayList<String> conditions;
-    private int AchievementImageURL;
+    private float juniorMax;
+    private float masterMax;
     private boolean AchievementStatus;
 
-    public Achievement(String achievementName, boolean achievementStatus, int achievementProgress) {
+    public Achievement(String achievementName, boolean achievementStatus, float juniorMax, float masterMax) {
         AchievementName = achievementName;
-//        AchievementImageURL = achievementImageURL;
         AchievementStatus = achievementStatus;
-        AchievementProgress = achievementProgress;
+        this.juniorMax = juniorMax;
+        this.masterMax = masterMax;
     }
 
     public String getAchievementName() {
         return AchievementName;
     }
 
-    public void setAchievementName(String achievementName) {
-        AchievementName = achievementName;
-    }
-
-    public int getAchievementImageURL() {
-        return AchievementImageURL;
-    }
-
-    public void setAchievementImageURL(int achievementImageURL) {
-        AchievementImageURL = achievementImageURL;
-    }
-
-    public int getAchievementProgress() {
-        return AchievementProgress;
-    }
-
-    public boolean getAchievementStatus(){
-        return AchievementStatus;
-    }
-
     public void setAchievementStatus(boolean status) { this.AchievementStatus = status; }
+
+    public float getJuniorMax() {
+        return juniorMax;
+    }
+
+    public float getMasterMax() {
+        return masterMax;
+    }
 }
 
 

@@ -7,16 +7,35 @@
 
     // Navigation bar strings
     <string name="home">Home</string>
-    <string name="story">fabels</string>
-    <string name="achievements">Prestaties</string>
-    <string name="settings">Opties</string>
     <string name="Achievements">Prestaties</string>
-    <string name="Story">Fabels</string>
     <string name="Settings">Opties</string>
+    <string name="Story">Fabels</string>
 
     // Unlock screen popup strings
     <string name="password">Wachtwoord</string>
+    <string name="Apply">Toepassen</string>
 
-    <string name="Apply">TOEPASSEN</string>
+    <string name="previous">Vorige</string>
+    <string name="storyMenu">Fabel Menu</string>
+    <string name="prestatieMenu">Prestatie Menu</string>
+    <string name="Next">Volgende</string>
+    <string name="storytitel" translatable="false">StoryTitel</string>
+    <string name="placeholder" translatable="false">Placeholder</string>
+    <string name="achievement_title" translatable="false">Achievement Title</string>
+    <string name="achievment_symbol">Prestatie symbool</string>
+    <string name="achievement_status">Prestatie status</string>
+    <string name="part" translatable="false">part?</string>
+    <string name="story_status">Fabel status</string>
+    <string name="story_image">Fabel plaatje</string>
+    <string name="question_placeholder" translatable="false">Question placeholder</string>
+    <string name="answer_placeholder" translatable="false">answer placeholder</string>
+    <string name="skip" translatable="false">Skip</string>
+    <string name="submit">Antwoorden</string>
+    <string name="achievements">Prestaties</string>
+
+    <string name="toastWaitText">U kunt de actie weer uitvoeren om: </string>
+
+    <string name="partText">"Deel "</string>
+    <string name="partText2">" van "</string>
 
 </resources>

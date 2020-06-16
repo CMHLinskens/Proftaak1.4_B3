@@ -2,6 +2,7 @@ package com.example.esstelingapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.R;
+import com.example.esstelingapp.data.DataSingleton;
 
 import java.util.LinkedList;
 
@@ -20,13 +24,17 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 
     private final LinkedList<Achievement> mAchievementList;
     private final LayoutInflater mInflater;
+    private static final String PREFS_NAME = "prefs";
+    private boolean isColourBlind;
+    private static final String USER_DATA = "userData";
+    private static final String ACHIEVEMENT_PROGRESS = "achievementProgress";
+    private static final String ACHIEVEMENT_COMPLETED = "achievementCompleted";
 
 
-    class AchievementViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class AchievementViewHolder extends RecyclerView.ViewHolder {
         public final TextView achievementNameItemView;
         public final ImageView achievementStatusItemView;
         public final ProgressBar achievementProgressItemView;
-//        public final ImageView achievementImageItemView;
         private final Context context;
         final AchievementAdapter mAdapter;
 
@@ -44,39 +52,16 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
             achievementNameItemView = itemView.findViewById(R.id.AchievementNameView);
             achievementStatusItemView = itemView.findViewById(R.id.achievmentStatusView);
             achievementProgressItemView = itemView.findViewById(R.id.AchievementProgressBar);
-//            achievementImageItemView = itemView.findViewById(R.id.StoryImageView);
             this.mAdapter = adapter;
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            final Intent intent;
-            int mPosition = getLayoutPosition();
-            Achievement element = mAchievementList.get(mPosition);
-            if (element!=null){
-                if(!element.getAchievementStatus()) {
-                    // TODO open pop-up
-                }
-//                intent =  new Intent(context, Detail.class);
-//                intent.putExtra("Project_Name_Key", element.getProjectName());
-//                intent.putExtra("Project_Year_Key", element.getProjectYear());
-//                intent.putExtra("Project_Desc_Key", element.getProjectFullDescription());
-//                intent.putExtra("Project_Addition_Key", element.getAdditionToProject());
-//                intent.putExtra("Project_Image_Key", element.getProjectImageURL());
-            }
-            else{
-//                intent =  new Intent(context, Detail.class);
-            }
-//            context.startActivity(intent);
         }
     }
 
     public AchievementAdapter(Context context, LinkedList<Achievement> projectList) {
         mInflater = LayoutInflater.from(context);
         this.mAchievementList = projectList;
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        this.isColourBlind = preferences.getBoolean("colour_blind_theme", false);
     }
-
 
     /**
      * Called when RecyclerView needs a new ViewHolder of the given type to
@@ -98,8 +83,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
      *                 that holds a View of the given view type.
      */
     @Override
-    public AchievementAdapter.AchievementViewHolder onCreateViewHolder(ViewGroup parent,
-                                                           int viewType) {
+    public AchievementAdapter.AchievementViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Inflate an item view.
         View mItemView = mInflater.inflate(
                 R.layout.achievement_item, parent, false);
@@ -118,24 +102,32 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
      */
     @Override
     public void onBindViewHolder(AchievementAdapter.AchievementViewHolder holder, int position) {
+        SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
         Achievement current = mAchievementList.get(position);
         String mCurrent = current.getAchievementName();
         holder.achievementNameItemView.setText(mCurrent);
-        int pCurrent = current.getAchievementProgress();
+        int pCurrent = (int) preferences.getFloat(ACHIEVEMENT_PROGRESS + position, 0);
         holder.achievementProgressItemView.setProgress(pCurrent);
-        boolean bCurrent = current.getAchievementStatus();
+        boolean bCurrent = preferences.getBoolean(ACHIEVEMENT_COMPLETED + position, false);
+        CardView cardView = holder.itemView.findViewById(R.id.achievementCardView);
+        if(!this.isColourBlind){
+            cardView.setCardBackgroundColor(ContextCompat.getColor(DataSingleton.getInstance().getMainContext(), R.color.EsstelingRed));
+            holder.achievementProgressItemView.setBackgroundResource(R.color.EsstelingBlue);
+        } else {
+            cardView.setCardBackgroundColor(ContextCompat.getColor(DataSingleton.getInstance().getMainContext(), R.color.colorBlindText));
+            holder.achievementProgressItemView.setBackgroundResource(R.color.colorBlindBackground);
+        }
+
         if (bCurrent){
-            holder.achievementStatusItemView.setImageResource(R.drawable.star);
+            if (!this.isColourBlind){
+                holder.achievementStatusItemView.setImageResource(R.drawable.star);
+            } else {
+                holder.achievementStatusItemView.setImageResource(R.drawable.star_cb);
+            }
         }
         else {
             holder.achievementStatusItemView.setImageResource(R.drawable.lock);
         }
-//        int iCurrent = current.getAchievementImageURL();
-//
-//        holder.achievementImageItemView.setImageResource(iCurrent);
-
-//
-
     }
 
     /**

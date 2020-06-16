@@ -1,19 +1,10 @@
 package com.example.esstelingapp.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MotionEventCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.drm.DrmStore;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,32 +17,43 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.esstelingapp.ActionItem;
-import com.example.esstelingapp.Action_window;
-import com.example.esstelingapp.GameItem;
+import com.example.esstelingapp.FragmentTravel;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.ReadingItem;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.StoryPiecesInterface;
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.games.RiddlePage;
 
 import java.util.ArrayList;
 
 public class Activity_read_story extends Fragment {
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
+    private static final String USER_DATA = "userData";
+    private static final String USER_POINTS = "points";
+    private static final String STORY_COMPLETE = "storyComplete";
+    private static final String PROGRESS = "progress";
+
     private Story subjectStory;
+    private int storyIndex;
     private int marker;
     private boolean TTS1playing;
     private boolean TTS3playing;
     private boolean TTS5playing;
+    private MediaPlayer mediaPlayer;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         TTS1playing = false;
         Bundle bundle = this.getArguments();
+
+        final SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = preferences.edit();
+
         if (bundle != null) {
             subjectStory = bundle.getParcelable("storyInfo"); // Key
+            this.storyIndex = bundle.getInt("storyIndex");
             try {
                 marker = bundle.getInt("storyMarker");
             } catch (Exception e) {
@@ -59,14 +61,23 @@ public class Activity_read_story extends Fragment {
                 marker = 0;
             }
         }
+
         View RootView = inflater.inflate(R.layout.activity_read_story, container, false);
-        ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
-        ReadingItem item = (ReadingItem) storyArrayList.get(marker);
+        final ReadingItem item = (ReadingItem) subjectStory.getPieces().get(marker);
+        final ArrayList<StoryPiecesInterface> storyArrayList = subjectStory.getPieces();
+
+        SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        Boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
+        if (isColorBlind){
+            RootView.setBackgroundResource(R.drawable.old_paper_cb);
+        }else {
+            RootView.setBackgroundResource(R.drawable.old_paper);
+        }
 
         TextView StoryTitel = (TextView) RootView.findViewById(R.id.ReadStoryTitel);
         StoryTitel.setText(subjectStory.getStoryName());
         TextView partOfStory = (TextView) RootView.findViewById(R.id.PartialStoryProgress);
-        String text = "part " + (marker + 1) + " of " + subjectStory.getPieces().size();
+        String text = getString(R.string.partText) + " " + (marker + 1) + " " + getString(R.string.partText2) + " " + subjectStory.getPieces().size();
         partOfStory.setText(text);
 
         TextView storyPartOneView = (TextView) RootView.findViewById(R.id.StoryPartOneView);
@@ -87,55 +98,71 @@ public class Activity_read_story extends Fragment {
         storyPartOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storyPartOneButton.setSelected(!storyPartOneButton.isSelected());
-
-                if (storyPartOneButton.isSelected()){
-                    storyPartOneButton.setBackgroundResource(R.drawable.sound_on);
-                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
-                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
-                }else {
-                    storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+                if (!item.getAudio1().isEmpty()) {
+                    storyPartOneButton.setSelected(!storyPartOneButton.isSelected());
+                    if (storyPartOneButton.isSelected()) {
+                        storyPartOneButton.setBackgroundResource(R.drawable.sound_on);
+                        storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
+                        storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+                        stopAudio();
+                        int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getAudio1(), "raw", DataSingleton.getInstance().getMainContext().getPackageName());
+                        playAudio(id);
+                    } else {
+                        storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+                        stopAudio();
+                    }
+                    TTS1playing = !TTS1playing;
+                    TTS3playing = false;
+                    TTS5playing = false;
                 }
-
-                TTS1playing = !TTS1playing;
-                TTS3playing = false;
-                TTS5playing = false;
             }
         });
 
         storyPartThreeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storyPartThreeButton.setSelected(!storyPartThreeButton.isSelected());
-                if (storyPartThreeButton.isSelected()){
-                    storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
-                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_on);
-                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
-                }else {
-                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
-                }
+                if (!item.getAudio1().isEmpty()) {
+                    storyPartThreeButton.setSelected(!storyPartThreeButton.isSelected());
+                    if (storyPartThreeButton.isSelected()) {
+                        storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+                        storyPartThreeButton.setBackgroundResource(R.drawable.sound_on);
+                        storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+                        stopAudio();
+                        int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getAudio3(), "raw", DataSingleton.getInstance().getMainContext().getPackageName());
+                        playAudio(id);
+                    } else {
+                        storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
+                        stopAudio();
+                    }
 
-                TTS1playing = false;
-                TTS3playing = !TTS3playing;
-                TTS5playing = false;
+                    TTS1playing = false;
+                    TTS3playing = !TTS3playing;
+                    TTS5playing = false;
+                }
             }
         });
 
         storyPartFiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storyPartFiveButton.setSelected(!storyPartFiveButton.isSelected());
-                if (storyPartFiveButton.isSelected()){
-                    storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
-                    storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
-                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_on);
-                }else {
-                    storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
-                }
+                if (!item.getAudio1().isEmpty()) {
+                    storyPartFiveButton.setSelected(!storyPartFiveButton.isSelected());
+                    if (storyPartFiveButton.isSelected()) {
+                        storyPartOneButton.setBackgroundResource(R.drawable.sound_off);
+                        storyPartThreeButton.setBackgroundResource(R.drawable.sound_off);
+                        storyPartFiveButton.setBackgroundResource(R.drawable.sound_on);
+                        stopAudio();
+                        int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getAudio5(), "raw", DataSingleton.getInstance().getMainContext().getPackageName());
+                        playAudio(id);
+                    } else {
+                        storyPartFiveButton.setBackgroundResource(R.drawable.sound_off);
+                        stopAudio();
+                    }
 
-                TTS1playing = false;
-                TTS3playing = false;
-                TTS5playing = !TTS5playing;
+                    TTS1playing = false;
+                    TTS3playing = false;
+                    TTS5playing = !TTS5playing;
+                }
             }
         });
 
@@ -148,11 +175,10 @@ public class Activity_read_story extends Fragment {
             storyPartOneButton.setHeight(0);
             storyPartOneButton.setVisibility(View.INVISIBLE);
         }
-        if (!item.getStoryPartTwo().isEmpty()) {
+        if (item.getStoryPartTwo() != 0) {
             storyPartTwoView.getLayoutParams().height = 850;
             storyPartTwoView.getLayoutParams().width = 850;
-            int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getStoryPartTwo(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
-            storyPartTwoView.setImageResource(id);
+            storyPartTwoView.setImageResource(item.getStoryPartTwo());
         } else {
             storyPartTwoView.setVisibility(View.INVISIBLE);
             storyPartTwoView.getLayoutParams().height = 50;
@@ -167,11 +193,10 @@ public class Activity_read_story extends Fragment {
             storyPartThreeButton.setHeight(0);
             storyPartThreeButton.setVisibility(View.INVISIBLE);
         }
-        if (!item.getStoryPartFour().isEmpty()) {
+        if (item.getStoryPartFour() != 0) {
             storyPartFourView.getLayoutParams().height = 850;
             storyPartFourView.getLayoutParams().width = 850;
-            int id = DataSingleton.getInstance().getMainContext().getResources().getIdentifier(item.getStoryPartFour(), "drawable", DataSingleton.getInstance().getMainContext().getPackageName());
-            storyPartFourView.setImageResource(id);
+            storyPartFourView.setImageResource(item.getStoryPartFour());
         } else {
             storyPartFourView.setVisibility(View.INVISIBLE);
             storyPartFourView.getLayoutParams().height = 50;
@@ -190,149 +215,101 @@ public class Activity_read_story extends Fragment {
         nextStoryPiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                marker++;
-                if (marker<subjectStory.getPieces().size()) {
-                    if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                        Fragment readstoryFragment = new Activity_read_story();
-                        Bundle bundle = new Bundle();
+                stopAudio();
+                if (!item.canGainPoints()) {
+                    DataSingleton.getInstance().getUser().addPoints(200);
+                    DataSingleton.getInstance().getUser().addToTotal(200);
 
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        readstoryFragment.setArguments(bundle);
+                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+                    float progressPercent = (200.0f / subjectStory.getStoryMaxPoints()) * 100;
 
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
-                    }
-                    else if (subjectStory.getPieces().get(marker) instanceof GameItem){
-                        Fragment riddlePage = new RiddlePage();
-                        Bundle bundle = new Bundle();
+                    progress += progressPercent;
 
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        riddlePage.setArguments(bundle);
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
-                    }
-                    else if(subjectStory.getPieces().get(marker)instanceof ActionItem){
-                        Fragment actionWindow = new Action_window();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        actionWindow.setArguments(bundle);
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, actionWindow).commit();
-                    }
+                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
+                    editor.putFloat(PROGRESS + storyIndex, progress);
+                    editor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+                    editor.apply();
+                    item.setGainPoints(true);
                 }
-                else {
-                    Fragment storylistFragment = new StoryPage();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
-                }
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
+            }
+        });
+
+        Button backStoryPiece = RootView.findViewById(R.id.BackButton);
+        backStoryPiece.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopAudio();
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
 
         ScrollView scrollview = RootView.findViewById(R.id.storyScrollView);
 
-
-        scrollview.setOnTouchListener(new OnSwipeTouchListener(container.getContext()){
+        scrollview.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
 
             @Override
             public void onSwipeRight() {
-                if (marker == 0){
-
-                }else {
-                    marker--;
-                    if (marker < subjectStory.getPieces().size()) {
-                        if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                            Fragment readstoryFragment = new Activity_read_story();
-                            Bundle bundle = new Bundle();
-
-                            bundle.putInt("storyMarker", marker);
-                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                            readstoryFragment.setArguments(bundle);
-
-                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
-                        } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
-                            Fragment riddlePage = new RiddlePage();
-                            Bundle bundle = new Bundle();
-
-                            bundle.putInt("storyMarker", marker);
-                            bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                            riddlePage.setArguments(bundle);
-                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
-                        }
-                    } else {
-                        Fragment storylistFragment = new StoryPage();
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
-                    }
-                }
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
+                stopAudio();
             }
 
             @Override
             public void onSwipeLeft() {
-                marker++;
-                if (marker < subjectStory.getPieces().size()) {
-                    if (subjectStory.getPieces().get(marker) instanceof ReadingItem) {
-                        Fragment readstoryFragment = new Activity_read_story();
-                        Bundle bundle = new Bundle();
+                if (!item.canGainPoints()) {
+                    DataSingleton.getInstance().getUser().addPoints(200);
+                    DataSingleton.getInstance().getUser().addToTotal(200);
 
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        readstoryFragment.setArguments(bundle);
+                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+                    float progressPercent = (200.0f / subjectStory.getStoryMaxPoints()) * 100;
 
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
-                    } else if (subjectStory.getPieces().get(marker) instanceof GameItem) {
-                        Fragment riddlePage = new RiddlePage();
-                        Bundle bundle = new Bundle();
+                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
+                    progress += progressPercent;
 
-                        bundle.putInt("storyMarker", marker);
-                        bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                        riddlePage.setArguments(bundle);
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, riddlePage).commit();
-                    }
-                } else {
-                    Fragment storylistFragment = new StoryPage();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, storylistFragment).commit();
+                    editor.putFloat(PROGRESS + storyIndex, progress);
+                    editor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+                    editor.apply();
+                    item.setGainPoints(true);
                 }
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
+                stopAudio();
             }
         });
 
-        RootView.setOnTouchListener(new OnSwipeTouchListener(container.getContext()){
-
+        RootView.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
             @Override
             public void onSwipeRight() {
-                marker--;
-                if (marker<subjectStory.getPieces().size()){
-                    Fragment readstoryFragment = new Activity_read_story();
-                    Bundle bundle = new Bundle();
-
-                    bundle.putInt("storyMarker", marker);
-                    bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                    readstoryFragment.setArguments(bundle);
-
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();}
-                else {
-                    Fragment storylistFragment = new StoryPage();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
-                }
+                FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
+                stopAudio();
             }
 
             @Override
             public void onSwipeLeft() {
-                marker++;
-                if (marker<subjectStory.getPieces().size()){
-                    Fragment readstoryFragment = new Activity_read_story();
-                    Bundle bundle = new Bundle();
-
-                    bundle.putInt("storyMarker", marker);
-                    bundle.putParcelable("storyInfo", subjectStory);  // Key, value
-                    readstoryFragment.setArguments(bundle);
-
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();}
-                else {
-                    Fragment storylistFragment = new StoryPage();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container,storylistFragment).commit();
-                }
+                FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
+                stopAudio();
             }
         });
-
         return RootView;
+    }
+
+    public void playAudio(int id) {
+        if (mediaPlayer == null)
+            mediaPlayer = MediaPlayer.create(this.getContext(), id);
+        mediaPlayer.start();
+        System.out.println(mediaPlayer.isPlaying());
+    }
+
+    public void stopAudio() {
+        if (mediaPlayer != null)
+            mediaPlayer.release();
+        mediaPlayer = null;
+    }
+
+    public int getMarker() {
+        return marker;
+    }
+
+    public Story getSubjectStory() {
+        return subjectStory;
     }
 }

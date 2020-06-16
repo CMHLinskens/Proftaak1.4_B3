@@ -1,14 +1,11 @@
 package com.example.esstelingapp.games;
 
-import android.util.JsonReader;
-import org.json.JSONObject;
-
 public class Question {
     private StoryTypes storyType;
     private String question;
     private String[] answers;
 
-    //A is always the correct answer
+    //The first answers in the array is the correct one
     public Question(StoryTypes storyType, String question, String[] answers) {
         this.storyType = storyType;
         this.question = question;

@@ -57,12 +57,59 @@
 		}
 	},
 	{
-		"name" : "HANS_EN_GRIETJE",
+		"name" : "TUTORIAL",
 		"q0": {
-			"question": "How smelly is Bart?",
+			"question": "How can you change the color of you'r book?",
 			"answers": [
-				"very very smelly",
-				"very very smelly","very very smelly","very very smelly"
+				"With a settings spell",
+				"that happens on its own",
+				"you can't",
+				"by asking a troll"
+			]
+		},
+		"q1": {
+			"question": "How busy is the village?",
+			"answers": [
+				"almost empty",
+				"very busy",
+				"what village?",
+				"as normal, not busy not empty"
+			]
+		},
+		"q2": {
+			"question": "Who stole the stories?",
+			"answers": [
+				"The evil spirit of the forest",
+				"The king",
+				"Pardipsus",
+				"Zorna"
+			]
+		},
+		"q3": {
+			"question": "Where can you see how well of a seeker you are?",
+			"answers": [
+				"in the achievements section of your book",
+				"in the story section of the book",
+				"in the settings area",
+				"You should ask Zorna that"
+			]
+		},
+		"q4": {
+			"question": "In which kingdom are you?",
+			"answers": [
+				"the Essteling",
+				"Great Britain",
+				"Avalon",
+				"nowhere"
+			]
+		},
+		"q5": {
+			"question": "Who is not a seeker?",
+			"answers": [
+				"Scribe",
+				"Zorna",
+				"Pardipsus",
+				"You"
 			]
 		}
 	}

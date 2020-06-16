@@ -1,20 +1,23 @@
 [
-    {
-      "name" : "Piglet home builder"
-    },
-    {
-      "name" : "Red riding hood"
-    },
-    {
-      "name" : "Follow the breadcrumbs"
-    },
-    {
-      "name" : "Sneaky dragon treasure thief"
-    },
-    {
-      "name" : "Junior story seeker"
-    },
-    {
-      "name" : "Master story seeker"
-    }
+  {
+    "name": "The adventure begins"
+  },
+  {
+    "name": "Piglet home builder"
+  },
+  {
+    "name": "Follow the breadcrumbs"
+  },
+  {
+    "name": "Red riding hood"
+  },
+  {
+    "name": "Sneaky dragon treasure thief"
+  },
+  {
+    "name": "Junior story seeker"
+  },
+  {
+    "name": "Master story seeker"
+  }
 ]

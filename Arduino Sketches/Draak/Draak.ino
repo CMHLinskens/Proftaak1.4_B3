@@ -35,8 +35,8 @@ unsigned long lastButtonTime;
 const int buttonTimer = 1000; // in ms
 
 // WIFI details
-const char* WLAN_SSID = "Ziggo98D7C";
-const char* WLAN_ACCESS_KEY = "vrUc2qy43wnf";
+const char* WLAN_SSID = "Ziggo136B821";
+const char* WLAN_ACCESS_KEY = "uXp4pueftJjw";
 
 // MQTT variables
 const char* MQTT_CLIENT_ID = "MQTTExampleTryout_dkosafjnfjkasndkjbadksafb";

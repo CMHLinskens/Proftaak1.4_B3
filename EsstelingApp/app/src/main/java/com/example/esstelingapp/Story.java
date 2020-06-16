@@ -3,76 +3,63 @@ package com.example.esstelingapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.esstelingapp.games.StoryTypes;
+
 import java.util.ArrayList;
 
 public class Story implements Parcelable {
-        private String StoryName;
-        private int StoryProgress;
-        private ArrayList<StoryPiecesInterface> StoryPieces;
-        private int StoryImageURL;
-        private boolean StoryStatus;
-        private int StoryCompleted;
-        private int StoryMaxPoints;
-        private int StoryCompletionReward;
+    private String StoryName;
+    private ArrayList<StoryPiecesInterface> StoryPieces;
+    private int StoryImageURL;
+    private boolean isUnlocked;
+    private int StoryMaxPoints;
+    private int StoryCompletionReward;
+    private StoryTypes storyType;
+    private String mqttTopic;
 
-        public Story(String storyName, int storyImageURL, boolean storyStatus, ArrayList<StoryPiecesInterface> pieces, int storyProgress, int pointsOfStory, int storyMaxPoints, int storyCompletionReward) {
-            StoryName = storyName;
-            StoryImageURL = storyImageURL;
-            StoryStatus = storyStatus;
-            StoryProgress = storyProgress;
-            StoryPieces = pieces;
-            StoryMaxPoints = storyMaxPoints;
-            StoryCompleted = pointsOfStory;
-            StoryCompletionReward = storyCompletionReward;
-        }
+    public Story(String storyName, int storyImageURL, boolean isUnlocked, ArrayList<StoryPiecesInterface> pieces, int storyMaxPoints, int storyCompletionReward, StoryTypes storyType, String mqttTopic) {
+        StoryName = storyName;
+        StoryImageURL = storyImageURL;
+        this.isUnlocked = isUnlocked;
+        StoryPieces = pieces;
+        StoryMaxPoints = storyMaxPoints;
+        StoryCompletionReward = storyCompletionReward;
+        this.storyType = storyType;
+        this.mqttTopic = mqttTopic;
+    }
 
-        public String getStoryName() {
-            return StoryName;
-        }
+    public String getStoryName() {
+        return StoryName;
+    }
 
-        public void setStoryName(String storyName) {
-            StoryName = storyName;
-        }
+    public int getStoryImageResource() {
+        return StoryImageURL;
+    }
 
-        public int getStoryImageResource() {
-            return StoryImageURL;
-        }
+    public int getStoryMaxPoints() {
+        return StoryMaxPoints;
+    }
 
-        public void setStoryImageResource(int StoryImageURL) {
-            this.StoryImageURL = StoryImageURL;
-        }
+    public int getStoryCompletionReward() {
+        return StoryCompletionReward;
+    }
 
-        public int getStoryProgress() {
-            return StoryProgress;
-        }
+    public ArrayList<StoryPiecesInterface> getPieces() {
+        return StoryPieces;
+    }
 
-        public int getStoryMaxPoints() {
-            return StoryMaxPoints;
-        }
+    public boolean isUnlocked() {
+        return isUnlocked;
+    }
 
-        public int getStoryCompletionReward() {
-            return StoryCompletionReward;
-        }
+    public void setUnlocked(boolean unlocked) {
+        isUnlocked = unlocked;
+    }
 
-        public ArrayList<StoryPiecesInterface> getPieces() {
-            return StoryPieces;
-        }
+    public String getMqttTopic() { return mqttTopic; }
 
-        public boolean getStoryStatus(){
-            return StoryStatus;
-        }
-
-        public void addPointsToStory(int points){
-            if (StoryProgress!=StoryMaxPoints){
-                StoryProgress+=points;
-            }
-            if (StoryProgress==StoryCompleted){
-                addPointsToStory(StoryCompletionReward);
-            }
-        }
-
-    public void setStoryStatus(boolean storyStatus) {
-        StoryStatus = storyStatus;
+    public StoryTypes getStoryType() {
+        return storyType;
     }
 
     @Override
@@ -81,9 +68,7 @@ public class Story implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
+    public void writeToParcel(Parcel dest, int flags) { }
 }
 
 

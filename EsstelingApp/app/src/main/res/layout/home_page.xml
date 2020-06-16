@@ -98,5 +98,4 @@
         app:layout_constraintTop_toBottomOf="@+id/achievement_progression_text"
         app:layout_constraintVertical_bias="0.0" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

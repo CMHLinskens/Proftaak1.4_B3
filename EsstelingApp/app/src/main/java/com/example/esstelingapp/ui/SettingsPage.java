@@ -1,5 +1,6 @@
 package com.example.esstelingapp.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -21,7 +22,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.data.ThemeState;
 import com.example.esstelingapp.json.JSonLoader;
 
 import java.util.Locale;
@@ -39,7 +39,6 @@ public class SettingsPage extends Fragment {
     private RadioButton buttonEnglish;
     private Button apply;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +48,14 @@ public class SettingsPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        Boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
+        if (isColorBlind){
+            getView().setBackgroundResource(R.drawable.old_paper_cb);
+        }else {
+            getView().setBackgroundResource(R.drawable.old_paper);
+        }
 
         this.toggleButton = getView().findViewById(R.id.settings_colour_blind_button);
         this.group = getView().findViewById(R.id.settings_radio_buttons);
@@ -87,30 +94,41 @@ public class SettingsPage extends Fragment {
         this.toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(toggleButton.isChecked()){
+                if (toggleButton.isChecked()) {
                     SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putBoolean("switchKey", true);
-                    editor.apply();
+                    editor.putBoolean(PREF_COLOUR_BLIND_THEME, true);
                     toggleColourBlindMode(true);
-                    DataSingleton.getInstance().setState(ThemeState.COLOURBLIND);
+                    editor.apply();
+                    JSonLoader.readAllJsonFiles();
                 } else {
                     SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putBoolean("switchKey", false);
-                    editor.apply();
-                    DataSingleton.getInstance().setState(ThemeState.NORMALISE);
+                    editor.putBoolean(PREF_COLOUR_BLIND_THEME, false);
                     toggleColourBlindMode(false);
+                    editor.apply();
+                    JSonLoader.readAllJsonFiles();
+
                 }
             }
         });
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean isChecked = preferences.getBoolean("switchKey", false);
+        boolean toggleSelected = preferences.getBoolean("isDutch", false);
+        if (toggleSelected) {
+            this.buttonEnglish.setChecked(false);
+            this.buttonDutch.setChecked(true);
+        } else {
+            this.buttonDutch.setChecked(false);
+            this.buttonEnglish.setChecked(true);
+        }
         this.toggleButton.setChecked(isChecked);
     }
 
     public static void setAppLocale(String localeCode, Resources resources) {
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         Configuration config = resources.getConfiguration();
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             config.setLocale(new Locale(localeCode.toLowerCase()));
         } else {
             config.locale = new Locale(localeCode.toLowerCase());
@@ -122,6 +140,10 @@ public class SettingsPage extends Fragment {
         SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putBoolean(PREF_COLOUR_BLIND_THEME, colourBlindTheme);
         editor.apply();
+
+        Objects.requireNonNull(getActivity()).finish();
+        Intent intent = getActivity().getIntent();
+        startActivity(intent);
     }
 }
 
