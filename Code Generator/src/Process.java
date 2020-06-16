@@ -42,7 +42,7 @@ public class Process extends Thread {
                         DC.saveCodes();
                     }
                     try {
-                        Thread.sleep(20 * 1000);
+                        Thread.sleep(90 * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
