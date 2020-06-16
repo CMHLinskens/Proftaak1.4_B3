@@ -20,4 +20,5 @@
     <string name="apply">Apply</string>
     <string name="storyMenu">Story Menu</string>
     <string name="prestatieMenu">Achievement Menu</string>
+    <string name="toastWaitText">You can perform the action again at: </string>
 </resources>

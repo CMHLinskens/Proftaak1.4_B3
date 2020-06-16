@@ -1,5 +1,6 @@
 package com.example.esstelingapp;
 
+import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
@@ -18,12 +20,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.mqtt.MQTTController;
 import com.example.esstelingapp.ui.OnSwipeTouchListener;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Action_window extends Fragment {
@@ -89,8 +93,11 @@ public class Action_window extends Fragment {
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (subjectStory.getStoryName().equals("Draak blaaskaak")||subjectStory.getStoryName().equals("Dragon argonat")){
-                    MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic()+"In");
+                SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
+                LocalTime lastActionTime = LocalTime.parse(preferences.getString("lastAction" + subjectStory.getStoryName(), LocalTime.now().minusHours(1).toString()));
+                if (lastActionTime.plusHours(1).isBefore(LocalTime.now())) {
+                    if (subjectStory.getStoryName().equals("Draak blaaskaak") || subjectStory.getStoryName().equals("Dragon argonat")) {
+                        MQTTController.getInstance().sendRawMessage("B3/" + item.getMQTTTopic() + "In");
                     Handler dragonHandler = new Handler();
                     dragonHandler.post(new Thread(){
                         @Override
@@ -105,6 +112,12 @@ public class Action_window extends Fragment {
                             updateActionImage(actionText, imageView, item);
                         }
                     });
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("lastAction" + subjectStory.getStoryName(), LocalTime.now().toString());
+                    editor.apply();
+                } else {
+                    Toast toast = Toast.makeText(getContext(), getString(R.string.toastWaitText) + lastActionTime.plusHours(1).getHour() + ":" + lastActionTime.plusHours(1).getMinute(), Toast.LENGTH_SHORT);
+                    toast.show();
                 }
                 else{
                     MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic());

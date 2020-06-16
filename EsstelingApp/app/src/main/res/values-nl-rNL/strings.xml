@@ -27,4 +27,6 @@
     <string name="previous">Vorige</string>
     <string name="storyMenu">Fabel Menu</string>
     <string name="prestatieMenu">Prestatie Menu</string>
+
+    <string name="toastWaitText">U kunt de actie weer uitvoeren om: </string>
 </resources>
