@@ -7,26 +7,22 @@ import com.example.esstelingapp.games.StoryTypes;
 
 import java.util.ArrayList;
 
-import javax.security.auth.Subject;
-
 public class Story implements Parcelable {
     private String StoryName;
     private ArrayList<StoryPiecesInterface> StoryPieces;
     private int StoryImageURL;
     private boolean isUnlocked;
-    private int StoryCompleted;
     private int StoryMaxPoints;
     private int StoryCompletionReward;
     private StoryTypes storyType;
     private String mqttTopic;
 
-    public Story(String storyName, int storyImageURL, boolean isUnlocked, ArrayList<StoryPiecesInterface> pieces, int pointsOfStory, int storyMaxPoints, int storyCompletionReward, StoryTypes storyType, String mqttTopic) {
+    public Story(String storyName, int storyImageURL, boolean isUnlocked, ArrayList<StoryPiecesInterface> pieces, int storyMaxPoints, int storyCompletionReward, StoryTypes storyType, String mqttTopic) {
         StoryName = storyName;
         StoryImageURL = storyImageURL;
         this.isUnlocked = isUnlocked;
         StoryPieces = pieces;
         StoryMaxPoints = storyMaxPoints;
-        StoryCompleted = pointsOfStory;
         StoryCompletionReward = storyCompletionReward;
         this.storyType = storyType;
         this.mqttTopic = mqttTopic;
@@ -36,16 +32,8 @@ public class Story implements Parcelable {
         return StoryName;
     }
 
-    public void setStoryName(String storyName) {
-        StoryName = storyName;
-    }
-
     public int getStoryImageResource() {
         return StoryImageURL;
-    }
-
-    public void setStoryImageResource(int StoryImageURL) {
-        this.StoryImageURL = StoryImageURL;
     }
 
     public int getStoryMaxPoints() {
@@ -80,9 +68,7 @@ public class Story implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
+    public void writeToParcel(Parcel dest, int flags) { }
 }
 
 

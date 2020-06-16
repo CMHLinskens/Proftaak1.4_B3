@@ -1,8 +1,5 @@
 package com.example.esstelingapp.games;
 
-import android.util.JsonReader;
-import org.json.JSONObject;
-
 public class Question {
     private StoryTypes storyType;
     private String question;

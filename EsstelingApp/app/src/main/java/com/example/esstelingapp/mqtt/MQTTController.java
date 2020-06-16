@@ -1,7 +1,6 @@
 package com.example.esstelingapp.mqtt;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.example.esstelingapp.Story;

@@ -3,8 +3,6 @@ package com.example.esstelingapp.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
-import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +29,10 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
     private static final String ACHIEVEMENT_COMPLETED = "achievementCompleted";
 
 
-    class AchievementViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class AchievementViewHolder extends RecyclerView.ViewHolder {
         public final TextView achievementNameItemView;
         public final ImageView achievementStatusItemView;
         public final ProgressBar achievementProgressItemView;
-//        public final ImageView achievementImageItemView;
         private final Context context;
         final AchievementAdapter mAdapter;
 
@@ -53,31 +50,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
             achievementNameItemView = itemView.findViewById(R.id.AchievementNameView);
             achievementStatusItemView = itemView.findViewById(R.id.achievmentStatusView);
             achievementProgressItemView = itemView.findViewById(R.id.AchievementProgressBar);
-//            achievementImageItemView = itemView.findViewById(R.id.StoryImageView);
             this.mAdapter = adapter;
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            final Intent intent;
-            int mPosition = getLayoutPosition();
-            Achievement element = mAchievementList.get(mPosition);
-            if (element!=null){
-                if(!element.getAchievementStatus()) {
-                    // TODO open pop-up
-                }
-//                intent =  new Intent(context, Detail.class);
-//                intent.putExtra("Project_Name_Key", element.getProjectName());
-//                intent.putExtra("Project_Year_Key", element.getProjectYear());
-//                intent.putExtra("Project_Desc_Key", element.getProjectFullDescription());
-//                intent.putExtra("Project_Addition_Key", element.getAdditionToProject());
-//                intent.putExtra("Project_Image_Key", element.getProjectImageURL());
-            }
-            else{
-//                intent =  new Intent(context, Detail.class);
-            }
-//            context.startActivity(intent);
         }
     }
 
@@ -87,7 +60,6 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         this.isColourBlind = preferences.getBoolean("colour_blind_theme", false);
     }
-
 
     /**
      * Called when RecyclerView needs a new ViewHolder of the given type to
@@ -109,8 +81,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
      *                 that holds a View of the given view type.
      */
     @Override
-    public AchievementAdapter.AchievementViewHolder onCreateViewHolder(ViewGroup parent,
-                                                           int viewType) {
+    public AchievementAdapter.AchievementViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Inflate an item view.
         View mItemView = mInflater.inflate(
                 R.layout.achievement_item, parent, false);
@@ -154,9 +125,6 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         else {
             holder.achievementStatusItemView.setImageResource(R.drawable.lock);
         }
-//        int iCurrent = current.getAchievementImageURL();
-//
-//        holder.achievementImageItemView.setImageResource(iCurrent);
     }
 
     /**

@@ -46,8 +46,6 @@ public class RiddlePage extends Fragment {
     private StoryTypes storyType;
 
     private static final String USER_DATA = "userData";
-    private static final String USER_POINTS = "points";
-    private static final String USER_TOTAL_POINTS = "totalPoints";
     private static final String STORY_COMPLETE = "storyComplete";
     private static final String PROGRESS = "progress";
 
@@ -88,7 +86,7 @@ public class RiddlePage extends Fragment {
         TextView title = getView().findViewById(R.id.storyTitle);
         title.setText(subjectStory.getStoryName());
         TextView partOfStory = getView().findViewById(R.id.partOfStory);
-        String text = "part " + (marker + 1) + " of " + subjectStory.getPieces().size();
+        String text = getString(R.string.partText) + " " + (marker + 1) + " " + getString(R.string.partText2) + " " + subjectStory.getPieces().size();
         partOfStory.setText(text);
         TextView tieInText = getView().findViewById(R.id.tieInText);
         tieInText.setText(this.gameItem.getTieInText());

@@ -3,7 +3,6 @@ package com.example.esstelingapp.ui;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +24,7 @@ import java.util.Random;
 public class HomePage extends Fragment {
 
     private static final String USER_DATA = "userData";
-    private static final String USER_POINTS = "points";
-    private static final String USER_TOTAL_POINTS = "totalPoints";
     private static final String STORY_COMPLETE = "storyComplete";
-    private static final String PROGRESS = "progress";
-    private static final String ACHIEVEMENT_PROGRESS = "achievementProgress";
     private static final String ACHIEVEMENT_COMPLETED = "achievementCompleted";
 
     @Nullable
@@ -75,7 +70,6 @@ public class HomePage extends Fragment {
             i++;
         }
         int storyProgress = (int) (((double) j/i) * 100);
-        // TODO connect it to the user data and calculate progress
         storyProgressBar.setProgress(storyProgress);
         int x = 0;
         int y = 0;

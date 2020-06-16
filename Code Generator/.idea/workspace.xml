@@ -4,9 +4,40 @@
     <list default="true" id="ecc6b308-8a38-404c-9564-41ad32024ee3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/Codes.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Codes.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Process.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Process.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/assets/storiesEN.json" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/assets/storiesEN.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/assets/storiesNL.json" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/assets/storiesNL.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/Achievement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/Achievement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/Action_window.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/Action_window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/FragmentTravel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/FragmentTravel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/GameItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/GameItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ReadingItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ReadingItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/Story.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/Story.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/data/DataSingleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/data/DataSingleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/data/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/data/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/games/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/games/Question.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/games/RiddleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/games/RiddleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/games/RiddlePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/games/RiddlePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/json/JSonLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/json/JSonLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/mqtt/MQTTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/mqtt/MQTTController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/AchievementAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/AchievementAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/AchievementPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/AchievementPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/Activity_read_story.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/Activity_read_story.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/HomePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/OnSwipeTouchListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/OnSwipeTouchListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/SettingsPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/SettingsPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/StoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/StoryAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/StoryPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/java/com/example/esstelingapp/ui/StoryPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/activity_achievement_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/activity_achievement_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/activity_read_story.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/activity_read_story.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/activity_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/activity_story_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/activity_story_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/home_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/home_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/story_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/layout/story_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/values-en/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/values-en/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/values-nl-rNL/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/values-nl-rNL/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EsstelingApp/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,8 +79,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Process.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="40" column="53" lean-forward="true" selection-start-line="40" selection-start-column="53" selection-end-line="40" selection-end-column="53" />
+            <state relative-caret-position="289">
+              <caret line="31" column="46" lean-forward="true" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
               <folding>
                 <element signature="e#688#689#0" expanded="true" />
                 <element signature="e#711#712#0" expanded="true" />
@@ -110,8 +141,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="769" />
-    <option name="y" value="-9" />
+    <option name="x" value="439" />
+    <option name="y" value="-8" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -159,7 +190,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1592332635523" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1592337261767" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -215,10 +246,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18067000" />
+    <option name="totallyTimeSpent" value="19287000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.104477614" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -339,8 +371,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Process.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="40" column="53" lean-forward="true" selection-start-line="40" selection-start-column="53" selection-end-line="40" selection-end-column="53" />
+        <state relative-caret-position="289">
+          <caret line="31" column="46" lean-forward="true" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
           <folding>
             <element signature="e#688#689#0" expanded="true" />
             <element signature="e#711#712#0" expanded="true" />

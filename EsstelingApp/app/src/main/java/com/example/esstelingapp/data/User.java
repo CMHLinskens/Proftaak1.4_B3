@@ -21,7 +21,6 @@ public class User {
         this.points += points;
     }
 
-
     public int getTotalPoints() {
         return totalPoints;
     }

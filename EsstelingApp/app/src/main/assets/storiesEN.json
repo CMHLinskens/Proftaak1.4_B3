@@ -3,6 +3,7 @@
     "storyName": "Tutorial",
     "imageUrl": "tutorial",
     "storyType": "TUTORIAL",
+    "topic": "",
     "maxPoints": 0,
     "storyPieces": [
       {
@@ -202,7 +203,7 @@
     ]
   },
   {
-    "storyName": "Dragon argonat",
+    "storyName": "Dragon Argonant",
     "imageUrl": "blaaskaak",
     "storyType": "DRAAK",
     "maxPoints": 600,

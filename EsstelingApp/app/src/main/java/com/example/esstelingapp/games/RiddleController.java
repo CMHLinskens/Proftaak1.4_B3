@@ -10,11 +10,9 @@ public class RiddleController {
     private StoryTypes storyType;
     private List<Question> questions;
 
-
     public RiddleController(StoryTypes storyType) {
         this.storyType = storyType;
         getData(storyType);
-
     }
 
     private void getData(StoryTypes storyType) {
@@ -22,8 +20,6 @@ public class RiddleController {
         HashMap<String, HashMap<Integer, Question>> questionData = DataSingleton.getInstance().getQuizQuestions();
 
         final String nameStoryBiggetjes = storyType.toString();
-
-//        System.out.println(questionData.get(nameStoryBiggetjes));
 
         for (int i = 0; i < questionData.get(nameStoryBiggetjes).size(); i++) { //amount of stories is still hardcoded
             Question question = questionData.get(nameStoryBiggetjes).get(i);

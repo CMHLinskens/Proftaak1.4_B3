@@ -1,8 +1,6 @@
 package com.example.esstelingapp;
 
 public class GameItem implements StoryPiecesInterface {
-
-    private int ID = 2;
     private String tieInText;
     private int points;
     private boolean pointsReceived;

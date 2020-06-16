@@ -1,6 +1,5 @@
 package com.example.esstelingapp;
 
-import android.app.admin.DelegatedAdminReceiver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,8 +16,6 @@ import com.example.esstelingapp.ui.Activity_read_story;
 import com.example.esstelingapp.ui.HomePage;
 import com.example.esstelingapp.ui.StoryPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.io.DataInputStream;
 
 public class FragmentTravel {
 

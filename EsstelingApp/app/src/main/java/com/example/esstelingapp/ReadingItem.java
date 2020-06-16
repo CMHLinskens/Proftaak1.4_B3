@@ -1,9 +1,6 @@
 package com.example.esstelingapp;
 
-import com.example.esstelingapp.StoryPiecesInterface;
-
 public class ReadingItem implements StoryPiecesInterface {
-
     private String StoryPartOne;
     private String StoryPartThree;
     private String StoryPartFive;

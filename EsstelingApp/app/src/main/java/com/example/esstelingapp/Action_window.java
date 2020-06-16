@@ -3,16 +3,12 @@ package com.example.esstelingapp;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.mqtt.MQTTController;
 import com.example.esstelingapp.ui.OnSwipeTouchListener;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 
 public class Action_window extends Fragment {
     private static final String PREFS_NAME = "prefs";
@@ -39,9 +33,6 @@ public class Action_window extends Fragment {
     private int storyIndex;
     private View RootView;
 
-    private static final String USER_DATA = "userData";
-    private static final String USER_POINTS = "points";
-    private static final String USER_TOTAL_POINTS = "totalPoints";
     private static final String STORY_COMPLETE = "storyComplete";
     private static final String PROGRESS = "progress";
 
@@ -65,7 +56,7 @@ public class Action_window extends Fragment {
         }
 
         SharedPreferences sharedPreferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        Boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
+        boolean isColorBlind = sharedPreferences.getBoolean(PREF_COLOUR_BLIND_THEME, false);
         if (isColorBlind){
             RootView.setBackgroundResource(R.drawable.old_paper_cb);
         }else {
@@ -124,8 +115,6 @@ public class Action_window extends Fragment {
                         float progressPercent = (400.0f / subjectStory.getStoryMaxPoints()) * 100;
                         progress += progressPercent;
 
-                        Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
-
                         preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
                         preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
                         preferenceEditor.apply();
@@ -134,7 +123,6 @@ public class Action_window extends Fragment {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("lastAction" + subjectStory.getStoryName(), LocalTime.now().toString());
                     editor.apply();
-//                    MQTTController.getInstance().sendRawMessage("B3/OVEN");
                 } else {
                     Toast toast = Toast.makeText(getContext(), getString(R.string.toastWaitText) + lastActionTime.plusHours(1).getHour() + ":" + lastActionTime.plusHours(1).getMinute(), Toast.LENGTH_LONG);
                     toast.show();
@@ -154,21 +142,6 @@ public class Action_window extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!item.canGainPoints()) {
-//                    DataSingleton.getInstance().getUser().addPoints(400);
-//                    DataSingleton.getInstance().getUser().addToTotal(400);
-//
-//                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
-//                    float progressPercent = (400.0f / subjectStory.getStoryMaxPoints()) * 100;
-//                    progress += progressPercent;
-//
-//                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
-//
-//                    preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
-//                    preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
-//                    preferenceEditor.apply();
-//                    item.setGainPoints(true);
-                }
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
@@ -188,7 +161,6 @@ public class Action_window extends Fragment {
         ScrollView scrollview = RootView.findViewById(R.id.actionScrollView);
 
         scrollview.setOnTouchListener(new OnSwipeTouchListener(container.getContext()) {
-
             @Override
             public void onSwipeRight() {
                 FragmentTravel.fragmentTravel(-1, marker, subjectStory, getFragmentManager(), storyIndex);
@@ -199,7 +171,6 @@ public class Action_window extends Fragment {
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
-
         return RootView;
     }
 
@@ -225,7 +196,7 @@ public class Action_window extends Fragment {
         TextView title = RootView.findViewById(R.id.titleTextView);
         title.setText(subjectStory.getStoryName());
         TextView partOfStory = RootView.findViewById(R.id.pageTextView);
-        String text = "part " + (marker + 1) + " of " + subjectStory.getPieces().size();
+        String text = getString(R.string.partText) + " " + (marker + 1) + " " + getString(R.string.partText2) + " " + subjectStory.getPieces().size();
         partOfStory.setText(text);
 
         super.onViewCreated(view, savedInstanceState);

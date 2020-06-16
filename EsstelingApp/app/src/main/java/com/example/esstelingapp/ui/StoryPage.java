@@ -1,11 +1,8 @@
 package com.example.esstelingapp.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +27,6 @@ public class StoryPage extends Fragment {
     private final LinkedList<Story> mStoryList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private StoryAdapter mAdapter;
-    private static final String USER_DATA = "userData";
-    private static final String USER_TOTAL_POINTS = "totalPoints";
-    private static final String USER_POINTS = "points";
-    private static final String PROGRESS = "progress";
-    private static final String STORY_COMPLETE = "storyComplete";
-
 
     @Nullable
     @Override
@@ -56,7 +47,6 @@ public class StoryPage extends Fragment {
         }else {
             getView().setBackgroundResource(R.drawable.old_paper);
         }
-
 
         // Create recycler view.
         mRecyclerView = getView().findViewById(R.id.StoryRecycler);

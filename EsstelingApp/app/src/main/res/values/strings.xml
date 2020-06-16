@@ -35,4 +35,7 @@
 
     <string name="toastWaitText">U kunt de actie weer uitvoeren om: </string>
 
+    <string name="partText">"Deel "</string>
+    <string name="partText2">" van "</string>
+
 </resources>

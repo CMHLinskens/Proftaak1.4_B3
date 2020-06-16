@@ -3,8 +3,6 @@ package com.example.esstelingapp.ui;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.esstelingapp.Achievement;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.mqtt.MQTTController;
 
 import java.util.LinkedList;
 

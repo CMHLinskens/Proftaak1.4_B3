@@ -1,12 +1,6 @@
 package com.example.esstelingapp.data;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.service.autofill.AutofillService;
-import android.view.Display;
-import android.view.DragAndDropPermissions;
-import android.util.Log;
-
 import androidx.fragment.app.FragmentManager;
 
 import com.example.esstelingapp.Achievement;
@@ -16,13 +10,10 @@ import com.example.esstelingapp.games.Question;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static android.content.ContentValues.TAG;
-
 public final class DataSingleton {
 
     private static DataSingleton INSTANCE;
     private boolean mainLoaded;
-    private String info = "Initial info class";
     private FragmentManager storyFragmentManager;
     private Context mainContext;
     private User user;
@@ -38,13 +29,13 @@ public final class DataSingleton {
         this.unlockCodes = new HashMap<>();
     }
 
-
     public static DataSingleton getInstance() {
         if(INSTANCE == null) {
             INSTANCE = new DataSingleton();
         }
         return INSTANCE;
     }
+
     // getters and setters
     public Context getMainContext() { return mainContext; }
     public void setMainContext(Context mainContext) { this.mainContext = mainContext; }

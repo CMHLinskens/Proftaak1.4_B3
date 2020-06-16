@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.data.DataSingleton;
-import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 
 public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHolder> {
-
     private final LinkedList<Story> mStoryList;
     private final LayoutInflater mInflater;
     private Fragment storyMenuFragment;
@@ -36,8 +33,6 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
     private static final String USER_TOTAL_POINTS = "totalPoints";
     private static final String STORY_COMPLETE = "storyComplete";
     private static final String PROGRESS = "progress";
-
-
 
     class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView storyNameItemView;
@@ -83,10 +78,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
                     readstoryFragment.setArguments(bundle);
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, readstoryFragment).commit();
                 }
-            } else {
-//                intent =  new Intent(context, Detail.class);
             }
-//            context.startActivity(intent);
         }
 
         private void openUnlockPopUp(Story element, int storyPosition){
@@ -143,7 +135,6 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
      *                 data set.
      * @param position The position of the item within the adapter's data set.
      */
-    //TODO probeer in de readStory de textviews colourblind mode vriendelijk te maken
     @Override
     public void onBindViewHolder(StoryAdapter.StoryViewHolder holder, int position) {
         SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
@@ -166,8 +157,6 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
         }
         int iCurrent = mStoryList.get(position).getStoryImageResource();
         holder.storyImageItemView.setImageResource(iCurrent);
-
-
     }
 
     /**

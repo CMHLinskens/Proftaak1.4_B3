@@ -16,18 +16,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.esstelingapp.ActionItem;
-import com.example.esstelingapp.Action_window;
 import com.example.esstelingapp.FragmentTravel;
-import com.example.esstelingapp.GameItem;
 import com.example.esstelingapp.R;
 import com.example.esstelingapp.ReadingItem;
 import com.example.esstelingapp.Story;
 import com.example.esstelingapp.StoryPiecesInterface;
 import com.example.esstelingapp.data.DataSingleton;
-import com.example.esstelingapp.games.RiddlePage;
 
 import java.util.ArrayList;
 
@@ -82,7 +77,7 @@ public class Activity_read_story extends Fragment {
         TextView StoryTitel = (TextView) RootView.findViewById(R.id.ReadStoryTitel);
         StoryTitel.setText(subjectStory.getStoryName());
         TextView partOfStory = (TextView) RootView.findViewById(R.id.PartialStoryProgress);
-        String text = "part " + (marker + 1) + " of " + subjectStory.getPieces().size();
+        String text = getString(R.string.partText) + " " + (marker + 1) + " " + getString(R.string.partText2) + " " + subjectStory.getPieces().size();
         partOfStory.setText(text);
 
         TextView storyPartOneView = (TextView) RootView.findViewById(R.id.StoryPartOneView);

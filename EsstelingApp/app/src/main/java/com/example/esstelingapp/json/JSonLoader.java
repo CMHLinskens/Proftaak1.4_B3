@@ -130,8 +130,9 @@ public class JSonLoader {
             for (int i = 0; i < achievementsFile.length(); i++) {
                 JSONObject achievementInFile = achievementsFile.getJSONObject(i);
                 achievements.add(new Achievement(achievementInFile.getString("name"),
-                        preferences.getBoolean(ACHIEVEMENT_COMPLETED + i, false),
-                        preferences.getFloat(ACHIEVEMENT_PROGRESS + i, 0), 3000, 5000));
+                preferences.getBoolean(ACHIEVEMENT_COMPLETED + i, false),
+                        2000,
+                        4000));
             }
             DataSingleton.getInstance().setAchievements(achievements);
         } catch (IOException e) {
@@ -201,7 +202,7 @@ public class JSonLoader {
                             piecesList.add(piece);
                         }
                 }
-                storyList.add(new Story(storyName, resId, isUnlocked, piecesList, 0, maxPoints, 200, storyType, mqttTopic));
+                storyList.add(new Story(storyName, resId, isUnlocked, piecesList, maxPoints, 200, storyType, mqttTopic));
             }
             DataSingleton.getInstance().setStories(storyList);
         } catch (Error | IOException | JSONException e) {

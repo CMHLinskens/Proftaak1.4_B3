@@ -39,7 +39,6 @@ public class SettingsPage extends Fragment {
     private RadioButton buttonEnglish;
     private Button apply;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

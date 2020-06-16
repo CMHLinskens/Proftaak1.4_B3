@@ -1,11 +1,8 @@
 package com.example.esstelingapp;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.DragAndDropPermissions;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -26,15 +23,10 @@ import com.example.esstelingapp.ui.StoryPage;
 import com.example.esstelingapp.ui.StoryUnlockPopup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.prefs.Preferences;
-
 public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.ExampleDialogListener {
     private static final String PREFS_NAME = "prefs";
     private static final String USER_DATA = "userData";
-    private static final String PROGRESS = "progress";
     private static final String USER_TOTAL_POINTS = "totalPoints";
-    private static final String USER_POINTS = "points";
-    private static final String STORY_COMPLETE = "storyComplete";
     private static final String UNLOCK = "storyUnlock";
     private static final String PREF_COLOUR_BLIND_THEME = "colour_blind_theme";
     private SharedPreferences userPref;
@@ -53,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
             setTheme(R.style.EsstelingTheme);
         }
         // FOR TESTING
-        clearPrefs();
+//        clearPrefs();
         // ---
         // Put the app in the preferred language
         if (preferences.getBoolean("isDutch", true)) {
@@ -185,10 +177,6 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         } else
             System.out.println("Incorrect " + code + " != " + DataSingleton.getInstance().getUnlockCodes().get(story.getMqttTopic()));
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoryPage()).commit();
-    }
-
-    private void runRiddle() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RiddlePage()).commit();
     }
 
     @Override
