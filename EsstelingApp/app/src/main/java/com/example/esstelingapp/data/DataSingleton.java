@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.service.autofill.AutofillService;
 import android.view.Display;
 import android.view.DragAndDropPermissions;
+import android.util.Log;
 
 import androidx.fragment.app.FragmentManager;
 
@@ -14,6 +15,8 @@ import com.example.esstelingapp.games.Question;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static android.content.ContentValues.TAG;
 
 public final class DataSingleton {
 
@@ -27,10 +30,12 @@ public final class DataSingleton {
     private ArrayList<String> randomFacts;
     private ArrayList<Achievement> achievements;
     private ArrayList<Story> stories;
+    private HashMap<String, String> unlockCodes;
 
     private DataSingleton() {
         this.mainLoaded = false;
         this.stories = new ArrayList<>();
+        this.unlockCodes = new HashMap<>();
     }
 
 
@@ -65,12 +70,8 @@ public final class DataSingleton {
     public void setMainLoaded(boolean mainLoaded) {
         this.mainLoaded = mainLoaded;
     }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public User getUser() { return user; }
+    public void setUser(User user){ this.user = user; }
+    public HashMap<String, String> getUnlockCodes() { return unlockCodes; }
+    public void putUnlockCodes(String story, String code) { this.unlockCodes.put(story, code); }
 }

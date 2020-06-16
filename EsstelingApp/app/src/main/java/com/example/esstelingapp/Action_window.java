@@ -1,5 +1,6 @@
 package com.example.esstelingapp;
 
+import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
@@ -18,12 +20,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.esstelingapp.data.DataSingleton;
 import com.example.esstelingapp.games.RiddlePage;
 import com.example.esstelingapp.mqtt.MQTTController;
 import com.example.esstelingapp.ui.OnSwipeTouchListener;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Action_window extends Fragment {
@@ -89,43 +93,52 @@ public class Action_window extends Fragment {
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (subjectStory.getStoryName().equals("Draak blaaskaak")||subjectStory.getStoryName().equals("Dragon argonat")){
-                    MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic()+"In");
-                    Handler dragonHandler = new Handler();
-                    dragonHandler.post(new Thread(){
-                        @Override
-                        public void run() {
-                            boolean isDragonDone = false;
-                            MQTTController.getInstance().readRawMessage("B3/"+item.getMQTTTopic()+"Out");
-                            while (!isDragonDone){
-                                if(!MQTTController.getInstance().waitForMessage("B3/"+item.getMQTTTopic()+"Out").isEmpty()) {
-                                    isDragonDone = true;
+                SharedPreferences preferences = DataSingleton.getInstance().getMainContext().getSharedPreferences("userData", Context.MODE_PRIVATE);
+                LocalTime lastActionTime = LocalTime.parse(preferences.getString("lastAction" + subjectStory.getStoryName(), LocalTime.now().minusHours(1).toString()));
+                if (lastActionTime.plusHours(1).isBefore(LocalTime.now())) {
+                    if (subjectStory.getStoryName().equals("Draak blaaskaak") || subjectStory.getStoryName().equals("Dragon argonat")) {
+                        MQTTController.getInstance().sendRawMessage("B3/" + item.getMQTTTopic() + "In");
+                        Handler dragonHandler = new Handler();
+                        dragonHandler.post(new Thread() {
+                            @Override
+                            public void run() {
+                                boolean isDragonDone = false;
+                                MQTTController.getInstance().readRawMessage("B3/" + item.getMQTTTopic() + "Out");
+                                while (!isDragonDone) {
+                                    if (!MQTTController.getInstance().waitForMessage("B3/" + item.getMQTTTopic() + "Out").isEmpty()) {
+                                        isDragonDone = true;
+                                    }
                                 }
+                                updateActionImage(actionText, imageView, item);
                             }
-                            updateActionImage(actionText, imageView, item);
-                        }
-                    });
-                }
-                else{
-                    MQTTController.getInstance().sendRawMessage("B3/"+item.getMQTTTopic());
-                    updateActionImage(actionText, imageView, item);
-                }
-                if (!item.canGainPoints()) {
-                    DataSingleton.getInstance().getUser().addPoints(400);
-                    DataSingleton.getInstance().getUser().addToTotal(400);
+                        });
+                    } else {
+                        MQTTController.getInstance().sendRawMessage("B3/" + item.getMQTTTopic());
+                        updateActionImage(actionText, imageView, item);
+                    }
+                    if (!item.canGainPoints()) {
+                        DataSingleton.getInstance().getUser().addPoints(400);
+                        DataSingleton.getInstance().getUser().addToTotal(400);
 
-                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
-                    float progressPercent = (400.0f / subjectStory.getStoryMaxPoints()) * 100;
-                    progress += progressPercent;
+                        float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+                        float progressPercent = (400.0f / subjectStory.getStoryMaxPoints()) * 100;
+                        progress += progressPercent;
 
-                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
+                        Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
 
-                    preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
-                    preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
-                    preferenceEditor.apply();
-                    item.setGainPoints(true);
+                        preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
+                        preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+                        preferenceEditor.apply();
+                        item.setGainPoints(true);
+                    }
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("lastAction" + subjectStory.getStoryName(), LocalTime.now().toString());
+                    editor.apply();
+//                    MQTTController.getInstance().sendRawMessage("B3/OVEN");
+                } else {
+                    Toast toast = Toast.makeText(getContext(), getString(R.string.toastWaitText) + lastActionTime.plusHours(1).getHour() + ":" + lastActionTime.plusHours(1).getMinute(), Toast.LENGTH_LONG);
+                    toast.show();
                 }
-                MQTTController.getInstance().sendRawMessage("B3/OVEN");
             }
         });
 
@@ -142,19 +155,19 @@ public class Action_window extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!item.canGainPoints()) {
-                    DataSingleton.getInstance().getUser().addPoints(400);
-                    DataSingleton.getInstance().getUser().addToTotal(400);
-
-                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
-                    float progressPercent = (400.0f / subjectStory.getStoryMaxPoints()) * 100;
-                    progress += progressPercent;
-
-                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
-
-                    preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
-                    preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
-                    preferenceEditor.apply();
-                    item.setGainPoints(true);
+//                    DataSingleton.getInstance().getUser().addPoints(400);
+//                    DataSingleton.getInstance().getUser().addToTotal(400);
+//
+//                    float progress = preferences.getFloat(PROGRESS + storyIndex, 0);
+//                    float progressPercent = (400.0f / subjectStory.getStoryMaxPoints()) * 100;
+//                    progress += progressPercent;
+//
+//                    Log.d("USER POINTS", String.valueOf(DataSingleton.getInstance().getUser().getPoints()));
+//
+//                    preferenceEditor.putFloat(PROGRESS + storyIndex, progress);
+//                    preferenceEditor.putBoolean(STORY_COMPLETE + storyIndex + "." + marker, true);
+//                    preferenceEditor.apply();
+//                    item.setGainPoints(true);
                 }
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
@@ -186,7 +199,6 @@ public class Action_window extends Fragment {
                 FragmentTravel.fragmentTravel(1, marker, subjectStory, getFragmentManager(), storyIndex);
             }
         });
-
 
         return RootView;
     }

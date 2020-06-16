@@ -23,4 +23,5 @@
     <string name="story_status">Story status</string>
     <string name="story_image">Story image</string>
     <string name="submit">Submit</string>
+    <string name="toastWaitText">You can perform the action again at: </string>
 </resources>

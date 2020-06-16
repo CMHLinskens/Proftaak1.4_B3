@@ -84,7 +84,20 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
         }
 
         currentTab = 0;
-        MQTTController.getInstance().connectToServer(this);
+        Thread mqttThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                MQTTController.getInstance().connectToServer(DataSingleton.getInstance().getMainContext());
+                while(true) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        mqttThread.start();
     }
 
     private void loadData() {
@@ -164,13 +177,14 @@ public class MainActivity extends AppCompatActivity implements StoryUnlockPopup.
     @Override
     public void applyCode(String code, Story story, int position) {
         SharedPreferences.Editor editor = DataSingleton.getInstance().getMainContext().getSharedPreferences(USER_DATA, MODE_PRIVATE).edit();
-        if (code.equals("wachtwoord")) {
+        if (code.equals(DataSingleton.getInstance().getUnlockCodes().get(story.getMqttTopic()))) {
             System.out.println("Correct");
             editor.putBoolean(UNLOCK + position, true);
             editor.apply();
             story.setUnlocked(true);
         } else
-            System.out.println("Incorrect");
+            System.out.println("Incorrect " + code + " != " + DataSingleton.getInstance().getUnlockCodes().get(story.getMqttTopic()));
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoryPage()).commit();
     }
 
     private void runRiddle() {

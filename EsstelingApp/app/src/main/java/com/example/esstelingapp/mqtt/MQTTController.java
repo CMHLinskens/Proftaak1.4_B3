@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.esstelingapp.Story;
+import com.example.esstelingapp.data.DataSingleton;
+
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
@@ -40,12 +43,13 @@ public class MQTTController {
             MqttConnectOptions options = new MqttConnectOptions();
             options.setUserName("androidTI");
             options.setPassword("&FN+g$$Qhm7j".toCharArray());
-            IMqttToken token = client.connect(options);
+            final IMqttToken token = client.connect(options);
 
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Log.d(TAG,"Succesfully connected");
+                    subscribeToCodes();
                 }
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
@@ -65,6 +69,24 @@ public class MQTTController {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void subscribeToCodes(){
+        for(Story story : DataSingleton.getInstance().getStories()){
+            if(story.getMqttTopic().isEmpty())
+                continue;
+            try {
+                client.subscribe("B3/Codes/" + story.getMqttTopic(), 2, new IMqttMessageListener() {
+                    @Override
+                    public void messageArrived(String topic, MqttMessage message) throws Exception {
+                        String storyString = topic.substring(topic.lastIndexOf('/') + 1);
+                        DataSingleton.getInstance().putUnlockCodes(storyString, message + "");
+                    }
+                });
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
         }
     }
 

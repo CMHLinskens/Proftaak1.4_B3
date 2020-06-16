@@ -30,4 +30,6 @@
     <string name="story_status">Fabel status</string>
     <string name="story_image">Fabel plaatje</string>
     <string name="submit">Antwoorden</string>
+
+    <string name="toastWaitText">U kunt de actie weer uitvoeren om: </string>
 </resources>

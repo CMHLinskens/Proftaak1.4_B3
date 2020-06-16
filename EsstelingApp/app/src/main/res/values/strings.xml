@@ -33,4 +33,6 @@
     <string name="submit">Antwoorden</string>
     <string name="achievements">Prestaties</string>
 
+    <string name="toastWaitText">U kunt de actie weer uitvoeren om: </string>
+
 </resources>
