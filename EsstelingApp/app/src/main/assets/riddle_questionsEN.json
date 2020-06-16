@@ -59,57 +59,57 @@
 	{
 		"name" : "TUTORIAL",
 		"q0": {
-			"question": "Hoe kan je de kleuren van je boek veranderen?",
+			"question": "How can you change the color of you'r book?",
 			"answers": [
-				"door een opties spreuk",
-				"dat gebeurt vanzelf",
-				"dat kan niet",
-				"door een trol te vragen"
+				"With a settings spell",
+				"that happens on its own",
+				"you can't",
+				"by asking a troll"
 			]
 		},
 		"q1": {
-			"question": "hoe druk is het dorp?",
+			"question": "How busy is the village?",
 			"answers": [
-				"bijna leeg",
-				"heel druk",
-				"welk dorp?",
-				"zoals iedere dag, normale drukte"
+				"almost empty",
+				"very busy",
+				"what village?",
+				"as normal, not busy not empty"
 			]
 		},
 		"q2": {
-			"question": "wie heeft de fabels weggenomen?",
+			"question": "Who stole the stories?",
 			"answers": [
-				"de boze geest van het woud",
-				"de koning",
+				"The evil spirit of the forest",
+				"The king",
 				"Pardipsus",
 				"Zorna"
 			]
 		},
 		"q3": {
-			"question": "waar vind je hoe goed je bent als een speurder?",
+			"question": "Where can you see how well of a seeker you are?",
 			"answers": [
-				"in het prestaties gedeelte van het boek",
-				"in het fabel gedeelte van het boek",
-				"bij de optie spreuken",
-				"dat moet je vooral aan Zorna vragen"
+				"in the achievements section of your book",
+				"in the story section of the book",
+				"in the settings area",
+				"You should ask Zorna that"
 			]
 		},
 		"q4": {
-			"question": "In welk koninkrijk ben je?",
+			"question": "In which kingdom are you?",
 			"answers": [
-				"de Essteling",
-				"Groot Britanie",
+				"the Essteling",
+				"Great Britain",
 				"Avalon",
-				"nergens"
+				"nowhere"
 			]
 		},
 		"q5": {
-			"question": "wie is geen speurder?",
+			"question": "Who is not a seeker?",
 			"answers": [
 				"Scribe",
 				"Zorna",
 				"Pardipsus",
-				"Jij"
+				"You"
 			]
 		}
 	}
