@@ -30,13 +30,11 @@ public final class DataSingleton {
     private ArrayList<String> randomFacts;
     private ArrayList<Achievement> achievements;
     private ArrayList<Story> stories;
-    private ThemeState state;
     private HashMap<String, String> unlockCodes;
 
     private DataSingleton() {
         this.mainLoaded = false;
         this.stories = new ArrayList<>();
-        this.state = ThemeState.NORMALISE;
         this.unlockCodes = new HashMap<>();
     }
 
@@ -72,16 +70,8 @@ public final class DataSingleton {
     public void setMainLoaded(boolean mainLoaded) {
         this.mainLoaded = mainLoaded;
     }
-    public User getUser() {
-        return user;
-    public ThemeState getState() {
-        return state;
-    }
-    public void setUser(User user) {
-        this.user = user;
-    public void setState(ThemeState state) {
-        this.state = state;
-    }
+    public User getUser() { return user; }
+    public void setUser(User user){ this.user = user; }
     public HashMap<String, String> getUnlockCodes() { return unlockCodes; }
     public void putUnlockCodes(String story, String code) { this.unlockCodes.put(story, code); }
 }

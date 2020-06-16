@@ -74,6 +74,8 @@ public class MQTTController {
 
     public void subscribeToCodes(){
         for(Story story : DataSingleton.getInstance().getStories()){
+            if(story.getMqttTopic().isEmpty())
+                continue;
             try {
                 client.subscribe("B3/Codes/" + story.getMqttTopic(), 2, new IMqttMessageListener() {
                     @Override
