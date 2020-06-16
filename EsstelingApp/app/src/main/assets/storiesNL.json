@@ -3,7 +3,7 @@
     "storyName": "Tutorial",
     "imageUrl": "tutorial",
     "storyType": "TUTORIAL",
-    "maxPoints": 0,
+    "maxPoints": 1200,
     "topic": "",
     "storyPieces": [
       {

@@ -4,7 +4,7 @@
     "imageUrl": "tutorial",
     "storyType": "TUTORIAL",
     "topic": "",
-    "maxPoints": 0,
+    "maxPoints": 1200,
     "storyPieces": [
       {
         "pieceID" : 1,
